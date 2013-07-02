@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+<!--    <mapping>
+        <class-a>br.com.dcoracoes.server.model.Email</class-a>
+        <class-b>br.com.dcoracoes.servico.beans.Email</class-b>           
+    </mapping>
+    <mapping>
+        <class-a>br.com.dcoracoes.server.model.Endereco</class-a>
+        <class-b>br.com.dcoracoes.servico.beans.Endereco</class-b>            
+    </mapping>    
+    <mapping>
+        <class-a>br.com.dcoracoes.server.model.Pessoa</class-a>
+        <class-b>br.com.dcoracoes.servico.beans.Pessoa</class-b>            
+    </mapping>
+    
+    <mapping>
+        <class-a>br.com.dcoracoes.server.model.PessoaFisica</class-a>
+        <class-b>br.com.dcoracoes.servico.beans.PessoaFisica</class-b>            
+    </mapping>
+    
+    <mapping>
+        <class-a>br.com.dcoracoes.server.model.PessoaJuridica</class-a>
+        <class-b>br.com.dcoracoes.servico.beans.PessoaJuridica</class-b>            
+    </mapping>
+    
+    <mapping>
+        <class-a>br.com.dcoracoes.server.model.Telefone</class-a>
+        <class-b>br.com.dcoracoes.servico.beans.Telefone</class-b>            
+    </mapping>
+    
+    <mapping>
+        <class-a>br.com.dcoracoes.server.model.Revendedor</class-a>
+        <class-b>br.com.dcoracoes.servico.beans.Revendedor</class-b>            
+    </mapping>-->
+</mappings>

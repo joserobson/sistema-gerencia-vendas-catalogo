@@ -1,0 +1,117 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.dcoracoes.client.classes.serverimpl;
+
+import br.com.dcoracoes.server.excecao.ServerException;
+import br.com.dcoracoes.server.model.cadastro.Pessoa;
+import br.com.dcoracoes.server.model.cadastro.PessoaFisica;
+import br.com.dcoracoes.server.model.cadastro.Revendedor;
+import br.com.dcoracoes.transacao.classes.TnRevendedor;
+import br.com.dcoracoes.transacao.classes.view.ViewRevendedor;
+import br.com.dcoracoes.transacao.constantes.ConstanteTnRevendedor;
+import br.com.dcoracoes.transacao.excecao.TransException;
+import java.util.List;
+
+/**
+ *
+ * @author Robson
+ */
+public class RevendedorServerImpl {
+
+    /**
+     * METODO PARA CHAMAR CLASSE DO SERVER PARA SALVAR REVENDEDOR
+     * @param viewRevendedor
+     * @throws Exception
+     */
+    public ViewRevendedor salvarRevendedor(ViewRevendedor viewRevendedor) throws TransException {
+        try {
+            TnRevendedor tn = new TnRevendedor();
+            tn.setViewRevendedor(viewRevendedor);
+            tn.salvar(ConstanteTnRevendedor.NOME_EVENTO_SALVAR_REVENDEDOR);
+            return tn.getViewRevendedor();
+        } catch (TransException ex) {
+            throw ex;
+        }
+    }
+
+    /**
+     * RECUPERA ULTIMO REVENDEDOR CADASTRADO NO SISTEMA
+     * @return
+     * @throws TransacaoException
+     */
+    public ViewRevendedor recUltimoRevendedorCadastro() throws TransException {
+        try {
+            TnRevendedor tn = new TnRevendedor();
+            tn.recUltimoRevendedorCadastrado();
+            return tn.getViewRevendedor();
+        } catch (TransException ex) {
+            throw ex;
+        }
+    }
+
+    /**
+     * RECUPERA CODIGO SEQUENCIAL PARA REVENDEDOR
+     * @return
+     * @throws Exception
+     */
+    public int recCodigoSequencia() throws TransException {
+        try {
+            TnRevendedor tn = new TnRevendedor();
+            return tn.recCodigoSequencial();
+        } catch (TransException ex) {
+            throw ex;
+        }
+    }
+
+    /**
+     * RECUPERA LISTA DE VIEW REVENDEDOR DE ACORDO COM O PARAMETRO
+     * METODO MONTA CONSULTA DINAMICAMENTE
+     * @return
+     * @throws Exception 
+     */
+    public List<ViewRevendedor> recListaViewRevendedor(Revendedor pRevendedor) throws TransException {
+        List<ViewRevendedor> retListaViewRevendedor = null;
+        try {
+            TnRevendedor tn = new TnRevendedor();
+            retListaViewRevendedor = tn.recListaViewRevendedor(pRevendedor);
+        } catch (TransException ex) {
+            throw ex;
+        }
+
+        return retListaViewRevendedor;
+    }
+
+    /**
+     * Verifica se CPF Já cadastrado no banco
+     * @param pessoa
+     * @return
+     * @throws TransException 
+     */
+    public String validaCPF(Pessoa pessoa) throws TransException {
+        String retorno = null;
+        try {
+            TnRevendedor tn = new TnRevendedor();
+            retorno = tn.validaCPF(pessoa);
+        } catch (TransException ex) {
+            throw ex;
+        }
+        return retorno;
+    }
+
+    /**
+     * Metodo para recuperar pessoa pelo cpf
+     * @param cpf
+     * @return
+     * @throws TransException
+     */
+    public PessoaFisica recPessoaPorCPF(String cpf) throws TransException {
+        try {
+            TnRevendedor tn = new TnRevendedor();
+            return tn.recPessoaPorCPF(cpf);
+        } catch (TransException ex) {
+            throw ex;
+        }
+    }
+}

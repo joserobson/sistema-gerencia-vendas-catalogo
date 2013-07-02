@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bd_dcoracoes</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">123</property>
+    <!-- JDBC connection pool (use the built-in) -->
+    <property name="connection.pool_size">1</property>
+    <!-- SQL dialect -->
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">true</property>
+    <mapping class="br.com.dcoracoes.server.model.cadastro.Pessoa"/>
+    <mapping class="br.com.dcoracoes.server.model.cadastro.Telefone"/>
+    <mapping class="br.com.dcoracoes.server.model.cadastro.Email"/>
+    <mapping class="br.com.dcoracoes.server.model.cadastro.Endereco"/>
+    <mapping class="br.com.dcoracoes.server.model.cadastro.PessoaFisica"/>
+    <mapping class="br.com.dcoracoes.server.model.cadastro.AssociaPessoa"/>
+    <mapping class="br.com.dcoracoes.server.model.cadastro.AssociaPessoaFK"/>
+    <mapping class="br.com.dcoracoes.server.model.cadastro.Revendedor"/>
+    <mapping class="br.com.dcoracoes.server.model.movimento.AssociaPessoaConta"/>
+    <mapping class="br.com.dcoracoes.server.model.movimento.AssociaPessoaContaFK"/>
+    <mapping class="br.com.dcoracoes.server.model.movimento.ContaCorrente"/>
+    <mapping class="br.com.dcoracoes.server.model.movimento.ContaPoupanca"/>
+    <mapping class="br.com.dcoracoes.server.model.movimento.MovimentoConta"/>
+    <mapping class="br.com.dcoracoes.server.model.movimento.MovimentoFinanceiro"/>
+    <mapping class="br.com.dcoracoes.server.model.canalacesso.Usuario"/>
+    <mapping class="br.com.dcoracoes.server.model.canalacesso.AssociaPerfilPermissao"/>
+    <mapping class="br.com.dcoracoes.server.model.canalacesso.AssociaPerfilPermissaoFK"/>
+    <mapping class="br.com.dcoracoes.server.model.canalacesso.Perfil"/>
+    <mapping class="br.com.dcoracoes.server.model.canalacesso.Permissao"/>
+    <mapping class="br.com.dcoracoes.server.model.prospeccao.Alerta"/>
+    <mapping class="br.com.dcoracoes.server.model.produto.Cor"/>
+    <mapping class="br.com.dcoracoes.server.model.produto.ItemProduto"/>
+    <mapping class="br.com.dcoracoes.server.model.produto.Fornecedor"/>
+    <mapping class="br.com.dcoracoes.server.model.produto.Produto"/>
+    <mapping class="br.com.dcoracoes.server.model.pedido.Parcela"/>
+    <mapping class="br.com.dcoracoes.server.model.pedido.Pedido"/>
+    <mapping class="br.com.dcoracoes.server.model.pedido.PedidoCompra"/>
+    <mapping class="br.com.dcoracoes.server.model.pedido.PedidoVenda"/>
+    <mapping class="br.com.dcoracoes.server.model.pedido.ItemPedido"/>
+    <mapping class="br.com.dcoracoes.server.model.pedido.Pagamento"/>
+    <mapping class="br.com.dcoracoes.server.model.pedido.CodigoItem"/>
+  </session-factory>
+</hibernate-configuration>

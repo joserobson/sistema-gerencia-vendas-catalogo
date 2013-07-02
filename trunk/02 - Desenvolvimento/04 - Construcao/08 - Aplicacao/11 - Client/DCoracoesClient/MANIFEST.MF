@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: Robson
+Main-Class: br.com.dcoracoes.client.App
+Build-Jdk: 1.7.0_03
+
