@@ -1,0 +1,31 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.dcoracoes.client.util.message;
+
+/**
+ *
+ * @author Cléberson
+ */
+public class MessageCompra {
+    
+    public static String COLUNA_REF_CATALOGO_OBRIGATORIO = "A coluna REF. CATÁLOGO é obrigatório.";
+    public static String COLUNA_COR_OBRIGATORIO = "A coluna COR é obrigatório.";
+    public static String COLUNA_QUANTIDADE_OBRIGATORIO = "A coluna QUANTIDADE é obrigatório.";
+    public static String ERRO_REMOVER_ITEM = "Erro ao REMOVER item. Entre em contato com o suporte técnico.";
+    public static String ERRO_CONSULTAR_PRODUTO = "Erro ao CONSULTAR produto. Entre em contato com o suporte técnico.";
+    public static String SUCESSO_REMOVER_ITEM = "Item removido com sucesso.";
+    public static String CODIGO_CATALOGO_INVALIDO = "Código REF. CATÁLOGO não existe.";
+    public static String CODIGO_INVALIDO = "Código informado não existe.";
+    
+    public static String CAMPO_CODIGO_REVENDEDOR_OBRIGATORIO = "O campo CÓDIGO REVENDEDOR(A) é obrigatório.";
+    public static String CAMPO_VALOR_PEDIDO_ESCRITO_OBRIGATORIO = "O campo VALOR DO PEDIDO ESCRITO é obrigatório.";
+    public static String CAMPO_ITEMS_PEDIDO_OBRIGATORIO = "É obrigatório o cadastro de pelo menos um ITEM.";
+    public static String CAMPO_REVENDEDOR_OBRIGATORIO = "Revendedor é obrigatório.";
+    public static String ERRO_SALVAR_PEDIDO = "Erro ao SALVAR Pedido. Entre em contato com o suporte técnico.";
+    public static String ERRO_CONSULTAR_VENDA = "Erro ao CONSULTAR Venda. Entre em contato com o suporte técnico";
+    public static String ERRO_ESTOQUE_INDISPONIVEL = "Estoque indisponível.";
+    public static String ERRO_COR_NAO_EXISTE = "Está cor não existe para o Produto informado.";
+    
+}
