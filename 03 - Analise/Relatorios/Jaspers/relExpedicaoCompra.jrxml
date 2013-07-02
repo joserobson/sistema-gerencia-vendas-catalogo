@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relExpedicao" language="groovy" pageWidth="595" pageHeight="840" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc5bca86-bc68-4f1a-b112-59ce00feeb12">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Robson\\projeto_dcoracoes\\02 - Desenvolvimento\\04 - Construcao\\08 - Aplicacao\\11 - Client\\DCoracoesClient\\src\\main\\resources\\jaspers\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="totalItensPedido" class="java.lang.String"/>
+	<field name="fornecedor" class="java.lang.String"/>
+	<field name="data" class="java.lang.String"/>
+	<field name="listaItens" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="119" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="17ceceb7-365d-42a0-9a0a-36ecc25abae8" x="196" y="69" width="166" height="44"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="6d05dc22-8675-41fb-aff1-20dcb5ee0a76" x="389" y="10" width="166" height="44"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="3fbebf3b-c462-4a34-a6da-8568e42890b0" x="389" y="69" width="166" height="44"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="6da8dc70-5317-4d82-987d-716246f4d745" x="0" y="10" width="166" height="44"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="90431b32-a8f6-44d6-9953-e14ed1a16ac4" x="196" y="10" width="166" height="44"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="350a56ff-0e9c-4784-a90d-bf4275e352a5" x="0" y="69" width="166" height="44"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="edf0ab20-0739-406e-979b-0d954aa26ea6" x="0" y="10" width="166" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[DIGITADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="467016b6-6a92-4dba-8f3b-b0535a65fb5b" x="0" y="69" width="166" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[EMBALADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6ec8f37c-2064-4502-a6e9-5e8d69cbe4f4" x="196" y="10" width="166" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[SEPARADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d490bbf-6187-46a0-b7f6-6173533141cf" x="196" y="69" width="166" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[NOTA FISCAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ee689a8b-7228-4770-9b2f-3fd6f9d661c5" x="389" y="10" width="166" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[CONFERENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e27352d5-bb38-4154-82dd-bf1d1d856883" x="389" y="69" width="166" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[ETIQUETADOR DE EMBALAGEM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="3ede31e5-6a9b-4da9-ae12-670a9f38291e" x="0" y="0" width="555" height="36"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaItens})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="165">
+			<staticText>
+				<reportElement uuid="e66068c3-4704-4f33-a4b8-ea266f9775fc" x="26" y="48" width="378" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORNECEDOR]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ad8e5e1c-5c17-4ef9-b144-2a0fb805f587" x="26" y="74" width="378" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fornecedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a60d5c15-7814-4975-bfc2-ba5a840f9c86" x="453" y="74" width="75" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2d47d8d4-10e2-4547-9b8c-f92593992bdf" x="453" y="48" width="75" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA DA DIGITAÇÃO]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b9f838f4-061e-4fdc-bd55-5928833f3a25" mode="Transparent" x="181" y="14" width="48" height="20"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalItensPedido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="44f1af7b-6f14-4086-b3c9-40f93c6cdd56" x="241" y="14" width="121" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE ITENS NO PEDIDO]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement uuid="0470b112-cd2c-4b2d-875b-d4df1ce56c38" x="227" y="9" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

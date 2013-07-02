@@ -1,0 +1,19 @@
+Passos para agendar backup automático do banco de dados DCoracoes.
+Após configurar o arquivo "backupDCoracoes.bat" com os dados do servidor, faça os seguintes passos para agendar a tarefa de backup no windows:
+
+1º - Ir em Painel de Controle > Ferramentas Administrativas > Agendador de Tarefas.
+2º - Clique em Criar Tarefa Básica.
+3º - Na tarefa básica, dê um nome para sua tarefa, e clique em avançar.
+4º - Em Disparador, marque diariamente e avançar.
+5º - Defina a data e hora para executar a tarefa no campo "Iniciar". Mantenha o “Repetir a Cada” em 1 dia. E clique em avançar.
+6º - Em Ação, marque iniciar um programa e avançar.
+7º - Clique em procurar e selecione o arquivo "backupDCoracoes.bat".
+8º - Então avançar e concluir.
+9º - Depois clique duas vezes na sua tarefa na lista de tarefas.
+10º- Nas propriedades, entre na aba configurações.
+11º- Marque a opção: “Permitir que a tarefa seja executada por demanda”
+12º- Marque a opção: “Executar a tarefa o mais cedo possível após uma inicialização agendada tiver sido perdida”.
+Está pronto.
+
+
+Referência: http://blog.repeatdomiau.com.br/miadas/backup-agendado-do-mysql
