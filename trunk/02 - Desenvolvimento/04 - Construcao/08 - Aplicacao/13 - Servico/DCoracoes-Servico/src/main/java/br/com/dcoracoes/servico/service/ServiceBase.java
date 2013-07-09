@@ -85,4 +85,11 @@ public class ServiceBase<T extends Object> implements InterfaceBase {
     public List recTodos(Object param, boolean useLike) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public Object salvarComRetorno(Object param) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
 }

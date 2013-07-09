@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface InterfaceBase<T extends Object> {
 
+    T salvarComRetorno(T param) throws Exception;
+    
     void salvar(T param) throws Exception;
 
     List<T> recTodos() throws Exception;
