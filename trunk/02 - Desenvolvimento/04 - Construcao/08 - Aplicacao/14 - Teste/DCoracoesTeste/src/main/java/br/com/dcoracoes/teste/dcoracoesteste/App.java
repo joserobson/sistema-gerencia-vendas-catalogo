@@ -1,6 +1,7 @@
 package br.com.dcoracoes.teste.dcoracoesteste;
 
 import br.com.dcoracoes.server.model.canalacesso.AssociaPerfilPermissao;
+import br.com.dcoracoes.teste.dcoracoes.usuario.UsuarioTesteCrud;
 import br.com.dcoracoes.teste.dcoracoesteste.dozer.*;
 
 /**
@@ -12,10 +13,12 @@ public class App {
     public static void main(String[] args) {
         //convertAlerta();
         //convertPedido();
-        convertPerfil();
+        //convertPerfil();
         //convertPermissao()
         //convertProduto();
         //convertAssociaPerfilPermissao();
+        
+        MantemUsuario();
     }
 
     private static void convertAlerta() {
@@ -46,5 +49,9 @@ public class App {
         PerfilDozer dozer = new PerfilDozer();
         dozer.convertBeanParaModel();
         dozer.convertModelParaBean();
+    }
+
+    private static void MantemUsuario() {
+        new UsuarioTesteCrud().mantemUsuario();
     }
 }

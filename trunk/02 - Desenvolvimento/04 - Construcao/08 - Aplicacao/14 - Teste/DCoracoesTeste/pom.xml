@@ -56,5 +56,11 @@
             <artifactId>DCoracoesServer</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>br.com.dcoracoes</groupId>
+            <artifactId>DCoracoesTransacao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>
