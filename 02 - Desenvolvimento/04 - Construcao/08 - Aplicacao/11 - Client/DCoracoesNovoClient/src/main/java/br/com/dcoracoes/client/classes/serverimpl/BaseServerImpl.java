@@ -22,6 +22,11 @@ public class BaseServerImpl<T extends Object> implements InterfaceServiceImpl {
         this.port = service.getWsServiceDCoracoesPort();
     }
 
+    @Override
+    public Object salvarComRetorno(Object param) throws ClientDCoracoesException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     public void salvar(Object param) throws ClientDCoracoesException {
         throw new UnsupportedOperationException("Not supported yet.");
     }

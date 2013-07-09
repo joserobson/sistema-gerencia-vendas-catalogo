@@ -107,14 +107,14 @@ public class SwingWorkerUsuario<T extends Usuario> extends BaseSwingWorker {
             }
         }
     };
-    public SwingWorker<Boolean, Object> workSalvaUsuario = new SwingWorker<Boolean, Object>() {
+    public SwingWorker<T, Object> workSalvaUsuario = new SwingWorker<T, Object>() {
 
         @Override
-        protected Boolean doInBackground() throws Exception {
+        protected T doInBackground() throws Exception {
             try {
                 habilitaTelaAguarde(formUsuario);
-                new UsuarioServerImpl<T>().salvar(usuario);
-                return true;
+                UsuarioServerImpl server = new UsuarioServerImpl();
+                return (T)server.salvarComRetorno(usuario);                
             } catch (Exception ex) {
                 desabilitaTelaAguarde(formUsuario);
                 throw ex;
@@ -125,8 +125,9 @@ public class SwingWorkerUsuario<T extends Usuario> extends BaseSwingWorker {
         protected void done() {
             try {
                 desabilitaTelaAguarde(formUsuario);
-                if (get()) {
+                if (get() != null) {
                     formUsuario.salvarComSucesso();
+                    formUsuario.setUsuario(get());
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formUsuario.getClass(), ex);

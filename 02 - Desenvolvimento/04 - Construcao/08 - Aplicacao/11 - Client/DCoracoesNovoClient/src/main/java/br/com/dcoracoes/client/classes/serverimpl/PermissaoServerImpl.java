@@ -4,40 +4,34 @@
  */
 package br.com.dcoracoes.client.classes.serverimpl;
 
+import br.com.dcoracoes.client.Excecao.ClientDCoracoesException;
+import br.com.dcoracoes.servico.service.Permissao;
+import java.util.List;
+
 /**
  *
  * @author Robson
  */
-public class PermissaoServerImpl {
+public class PermissaoServerImpl <T extends Permissao> extends BaseServerImpl<T> implements IPermissaoImpl{
 
-//    /**
-//     * METODO PARA SALVAR PERMISSAO
-//     * @param perfil
-//     * @return
-//     * @throws TransException 
-//     */
-//    public Permissao salvarPermissao(Permissao permissao) throws TransException {
-//        try {
-//            TnPermissao tn = new TnPermissao(permissao);
-//            tn.salvar(ConstanteTnPermissao.NOME_EVENTO_SALVAR_PERMISSAO);
-//            return tn.getPermissao();
-//        } catch (TransException ex) {
-//            throw ex;
-//        }
-//    }
-//    
-//    /**
-//     * METODO PARA RECUPERAR TODAS AS PERMISSAO
-//     * @param perfil
-//     * @return
-//     * @throws TransException 
-//     */
-//    public List<Permissao> recTodasPemissoes() throws TransException {
-//        try {
-//            TnPermissao tn = new TnPermissao(null);
-//            return tn.recTodasPemissoes();
-//        } catch (TransException ex) {
-//            throw ex;
-//        }
-//    }
+    @Override
+    public void salvar(Object param) throws ClientDCoracoesException {
+        try {
+            this.port.salvarPermissao((Permissao) param);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+    }
+    
+    @Override
+    public List<Permissao> recTodasPemissoes() throws ClientDCoracoesException {
+        List<Permissao> permissoes = null;
+
+        try {
+            permissoes = this.port.recTodasPemissoes();
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+        return permissoes;
+    }
 }

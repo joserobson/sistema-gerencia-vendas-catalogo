@@ -13,15 +13,15 @@ package br.com.dcoracoes.client.telas.principal;
 import br.com.dcoracoes.client.App;
 import br.com.dcoracoes.client.ControleAcesso;
 import br.com.dcoracoes.client.classes.serverimpl.PerfilServerImpl;
+import br.com.dcoracoes.client.classes.serverimpl.PermissaoServerImpl;
 import br.com.dcoracoes.client.swingworker.BaseSwingWorker;
-import br.com.dcoracoes.client.telas.dialog.JDialogProcessando;
 import br.com.dcoracoes.client.telas.login.FormLogin;
+import br.com.dcoracoes.client.telas.perfil.FormPerfil;
 import br.com.dcoracoes.client.telas.usuario.FormUsuario;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
-import br.com.dcoracoes.client.util.message.MessagePerfil;
-import br.com.dcoracoes.client.util.message.MessageUsuario;
 import br.com.dcoracoes.servico.service.Perfil;
+import br.com.dcoracoes.servico.service.Permissao;
 import br.com.dcoracoes.servico.service.Usuario;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -42,7 +42,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     //Formularios
     // private FormRevendedor formRevendedor = null;
     // private FormProduto formProduto = null;
-    //  private FormPerfil formPerfil = null;
+      private FormPerfil formPerfil = null;
     private FormUsuario formUsuario = null;
     //  private FormVenda formVenda = null;
     //  private FormCompra formCompra = null;
@@ -383,15 +383,40 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProdutoActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        // TODO add your handling code here:
-//        try{
-//            if(formPerfil == null){
-//                formPerfil = new FormPerfil();
-//            }
-//            formPerfil.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+        
+        SwingWorker<Object, Void> worker = new SwingWorker<Object, Void>() {
+
+            @Override
+            protected Object doInBackground() throws Exception {
+                try {
+                    workTelaAguarde.habilitaTelaAguarde(getFramePrincipal());
+                    return new PermissaoServerImpl<Permissao>().recTodasPemissoes();
+                } catch (Exception ex) {
+                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
+                    throw ex;
+                }
+            }
+
+            @Override
+            protected void done() {
+                workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
+                try {
+                    List<Permissao> permissoes = (List<Permissao>)get();
+                    if (formPerfil == null) {
+                        formPerfil = new FormPerfil();
+                        formPerfil.setTodasPermissoes(permissoes);
+                    }
+                    
+                    formPerfil.showFrame();
+                    
+                } catch (Exception ex) {
+                    LogUtil.logDescricaoErro(this.getClass(), ex);
+                    JOptionPane.showMessageDialog(formPerfil, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+                }
+            }
+        };
+        
+        worker.execute();
     }//GEN-LAST:event_btnPerfilActionPerformed
 
     private JFrame getFramePrincipal(){

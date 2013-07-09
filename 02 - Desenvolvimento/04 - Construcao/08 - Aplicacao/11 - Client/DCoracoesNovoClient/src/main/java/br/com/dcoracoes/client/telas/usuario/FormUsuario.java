@@ -1112,9 +1112,9 @@ public class FormUsuario extends javax.swing.JFrame implements InterfaceCadastro
         List<Telefone> telefones = returnListTelefones(usuario.getPessoa());           
         usuario.getPessoa().getTelefones().clear();
         usuario.getPessoa().getTelefones().addAll(telefones);
-        
-        usuario.getPessoa().getEmails().clear();
+                
         List<Email> emails = returnListEmails(usuario.getPessoa());
+        usuario.getPessoa().getEmails().clear();
         usuario.getPessoa().getEmails().addAll(emails);
     }
 
@@ -1229,7 +1229,8 @@ public class FormUsuario extends javax.swing.JFrame implements InterfaceCadastro
      */
     private void popularDadosPrincipais() {
         txtNome.setText(usuario.getPessoa().getNome());
-        popularEndereco(usuario.getPessoa().getEndereco());
+        if (usuario.getPessoa().getEndereco() != null)
+            popularEndereco(usuario.getPessoa().getEndereco());
     }
 
     /**
