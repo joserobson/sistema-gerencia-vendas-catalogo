@@ -30,7 +30,7 @@ public class PessoaDaoImpl extends ModelGenericoDaoImpl implements PessoaDao {
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSession();
-            sessao.saveOrUpdate(pPessoa);
+            sessao.saveOrUpdate(pPessoa);            
 
             LogUtil.logSucesso(pPessoa.getClass(), "mantemPessoa", pPessoa.getId());
 

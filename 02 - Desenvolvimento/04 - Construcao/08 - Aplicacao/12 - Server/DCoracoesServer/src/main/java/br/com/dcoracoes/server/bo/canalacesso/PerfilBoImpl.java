@@ -41,7 +41,7 @@ public class PerfilBoImpl implements PerfilBo {
             this.perfilDao.mantemPerfil(perfil);
 
             //SALVAR LISTA DE ASSOCIA PERFIL PERMISSAO
-            this.salvarAssociaPerfilPermissao(lstAssociaPerfilPermissao);
+            this.salvarAssociaPerfilPermissao(lstAssociaPerfilPermissao, perfil);
 
             //COMMIT TRANSACAO
             HibernateUtil.getTransacao().commit();
@@ -118,13 +118,14 @@ public class PerfilBoImpl implements PerfilBo {
      * 
      * @param lstAssocia 
      */
-    public void salvarAssociaPerfilPermissao(List<AssociaPerfilPermissao> lstAssocia) throws ServerException {
+    public void salvarAssociaPerfilPermissao(List<AssociaPerfilPermissao> lstAssocia, Perfil perfil) throws ServerException {
         try {
             AssociaPerfilPermissaoBoImpl associaBo = new AssociaPerfilPermissaoBoImpl();
             AssociaPerfilPermissaoDaoImpl associaDao = new AssociaPerfilPermissaoDaoImpl();
             associaBo.setDao(associaDao);
 
             for (AssociaPerfilPermissao associaPerfilPermissao : lstAssocia) {
+                associaPerfilPermissao.getChaveComposta().setPerfil(perfil);
                 associaBo.mantemAssociaPerfilPermissao(associaPerfilPermissao);
             }
 

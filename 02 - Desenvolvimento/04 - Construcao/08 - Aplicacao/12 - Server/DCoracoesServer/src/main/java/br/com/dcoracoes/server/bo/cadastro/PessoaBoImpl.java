@@ -14,7 +14,6 @@ import br.com.dcoracoes.server.model.cadastro.PessoaFisica;
 import br.com.dcoracoes.server.model.cadastro.Telefone;
 import br.com.dcoracoes.server.util.HibernateUtil;
 import br.com.dcoracoes.server.util.LogUtil;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,13 +32,17 @@ public class PessoaBoImpl implements PessoaBo<Pessoa> {
     @Override
     public void mantemPessoa(Pessoa pessoa) throws ServerException {
         associaPessoaEndereco(pessoa);
+        
+        //verifica se precisa remover emails
+        //quando edita os emails eles são removidos e depois inseridos
+        //removerEmails(pessoa);        
         associaPessoaEmail(pessoa);
+        
+        //verifica se precisa remover telefones
+        //quando edita os telefones são removidos e depois inseridos
+        //removerTelefones(pessoa);
         associaPessoaTelefone(pessoa);
-        
-        //verificar se existe emails para remover
-        removerEmails(pessoa);
-        //verificar se existe telefones para remover
-        
+                        
         pessoaDao.mantemPessoa(pessoa);
     }
 
@@ -139,7 +142,8 @@ public class PessoaBoImpl implements PessoaBo<Pessoa> {
     }
 
     private void associaPessoaEndereco(Pessoa pessoa) {
-        if (pessoa.getEndereco() != null){
+        if (pessoa.getEndereco() != null)
+        {
             pessoa.getEndereco().setPessoa(pessoa);
         }
     }
@@ -147,7 +151,7 @@ public class PessoaBoImpl implements PessoaBo<Pessoa> {
     private void associaPessoaEmail(Pessoa pessoa) {
         if (pessoa.getEmails()!= null &&
                 pessoa.getEmails().size() > 0){
-            for (Email itemEmail : pessoa.getEmails()) {
+            for (Email itemEmail : pessoa.getEmails()) {                
                 itemEmail.setPessoa(pessoa);
             }
         }
@@ -156,7 +160,7 @@ public class PessoaBoImpl implements PessoaBo<Pessoa> {
     private void associaPessoaTelefone(Pessoa pessoa) {
         if (pessoa.getTelefones()!= null &&
                 pessoa.getTelefones().size() > 0){
-            for (Telefone itemTel : pessoa.getTelefones()) {
+            for (Telefone itemTel : pessoa.getTelefones()) {                
                 itemTel.setPessoa(pessoa);
             }
         }
@@ -165,28 +169,28 @@ public class PessoaBoImpl implements PessoaBo<Pessoa> {
     private void removerEmails(Pessoa pessoa) throws ServerException {
      
         List<Email> emailsEmBanco = this.pessoaDao.getListaEmailPorPessoa(pessoa.getId());
-        List<Email> emailsRemover = null;
-        
+                
         if (emailsEmBanco != null &&
-                emailsEmBanco.size() > 0)
+                !emailsEmBanco.isEmpty())
         {
-            if (pessoa.getEmails() == null || pessoa.getEmails().isEmpty())
-                emailsRemover = emailsEmBanco;
-            else{
-                emailsRemover = new ArrayList<Email>();
-                for (Email email : emailsEmBanco) {
-                    if (!pessoa.getEmails().contains(email))
-                    {
-                        emailsRemover.add(email);
-                    }
-                }
-            }            
-        }
-        
-        ModelGenericoDao dao = new ModelGenericoDaoImpl();
-        for (Email email : emailsRemover) {
-            dao.deleteObject(email);
-        }
-        
+            ModelGenericoDao dao = new ModelGenericoDaoImpl();
+            for (Email email : emailsEmBanco) {
+                dao.deleteObject(email);
+            }
+        }        
+    }
+    
+    private void removerTelefones(Pessoa pessoa) throws ServerException {
+     
+        List<Telefone> telefonesEmBanco = this.pessoaDao.getListaTelefonesPorPessoa(pessoa.getId());
+                
+        if (telefonesEmBanco != null &&
+                !telefonesEmBanco.isEmpty())
+        {
+            ModelGenericoDao dao = new ModelGenericoDaoImpl();
+            for (Telefone tel : telefonesEmBanco) {
+                dao.deleteObject(tel);
+            }
+        }        
     }
 }
