@@ -41,8 +41,7 @@ public class FormConsultaUsuario extends javax.swing.JDialog implements Interfac
      * Creates new form FormConsultaUsuario
      */
     public FormConsultaUsuario(boolean modal, FormUsuario formUsuario) {
-        initComponents();
-        recPerfis();  
+        initComponents();          
         setModal(modal);
         this.formUsuario = formUsuario;        
     }
