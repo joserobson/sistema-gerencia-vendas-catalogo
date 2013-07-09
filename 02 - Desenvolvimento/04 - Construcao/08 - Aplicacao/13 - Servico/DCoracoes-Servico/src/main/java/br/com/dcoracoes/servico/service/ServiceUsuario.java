@@ -25,10 +25,23 @@ public class ServiceUsuario<T extends Usuario> extends ServiceBase<T> implements
     }
 
     @Override
+    public Object salvarComRetorno(Object param) throws Exception {
+        try {
+            tnUsuario.setUsuario((br.com.dcoracoes.server.model.canalacesso.Usuario) converteToModel(param));
+            tnUsuario.salvar(ConstanteTnUsuario.NOME_EVENTO_SALVAR_USUARIO);
+            return converteToBean(tnUsuario.getUsuario());
+
+        } catch (MappingException ex) {
+            throw ex;
+        }
+    }
+
+    @Override
     public void salvar(Object param) throws Exception {
         try {
             tnUsuario.setUsuario((br.com.dcoracoes.server.model.canalacesso.Usuario) converteToModel(param));
             tnUsuario.salvar(ConstanteTnUsuario.NOME_EVENTO_SALVAR_USUARIO);
+
         } catch (MappingException ex) {
             throw ex;
         }

@@ -42,7 +42,7 @@ public class ServicePermissao<T extends Permissao> extends ServiceBase<T> implem
             List<br.com.dcoracoes.server.model.canalacesso.Permissao> lstPermissoesModel =
                     tnPermissao.recTodasPemissoes();
 
-            lstPermissoesModel = getListToBeans(lstPermissoesModel);
+            lstPemissoesBeans = getListToBeans(lstPermissoesModel);
         } catch (MappingException ex) {
             throw ex;
         }

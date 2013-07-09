@@ -25,10 +25,11 @@ public class ServicePerfil<T extends Perfil> extends ServiceBase<T> implements I
         this.tnPerfil = new TnPerfil();
     }
 
-    @Override
-    public void salvar(Object param) throws Exception {
+    
+    public void salvar(Object param, List<AssociaPerfilPermissao> listAssociaPerfilPermissao) throws Exception {
         try {
             tnPerfil.setPerfil((br.com.dcoracoes.server.model.canalacesso.Perfil) converteToModel(param));
+            tnPerfil.setLstAssociaPerfilPermissao(converteListAssociaPerfilToModel(listAssociaPerfilPermissao));
             tnPerfil.salvar(ConstanteTnPerfil.NOME_EVENTO_SALVAR_PERFIL);
         } catch (MappingException ex) {
             throw ex;
@@ -106,5 +107,28 @@ public class ServicePerfil<T extends Perfil> extends ServiceBase<T> implements I
 
         return lstAssociaBeans;
 
+    }    
+    
+    private List<br.com.dcoracoes.server.model.canalacesso.AssociaPerfilPermissao> 
+            converteListAssociaPerfilToModel(List<AssociaPerfilPermissao> lstAssociaBean){
+        
+        List<br.com.dcoracoes.server.model.canalacesso.AssociaPerfilPermissao> lstAssociaModel = null;
+
+        try {
+            if (lstAssociaBean != null
+                    && !lstAssociaBean.isEmpty()) {
+                lstAssociaModel = new ArrayList<br.com.dcoracoes.server.model.canalacesso.AssociaPerfilPermissao>();
+                Iterator<AssociaPerfilPermissao> iterator = lstAssociaBean.iterator();
+                while (iterator.hasNext()) {
+                    lstAssociaModel.add(this.mapper.map(iterator.next(), br.com.dcoracoes.server.model.canalacesso.AssociaPerfilPermissao.class));
+                }
+            }
+
+        } catch (MappingException ex) {
+            throw ex;
+        }
+
+        return lstAssociaModel;
     }
+    
 }

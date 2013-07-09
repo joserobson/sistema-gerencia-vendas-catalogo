@@ -103,8 +103,9 @@ public class wsServiceDCoracoes {
      * INICIO METODOS SERVICE PERFIL
      */
     @WebMethod(operationName = "salvarPerfil")
-    public void salvarPerfil(@WebParam(name = "pPerfil") Perfil pPerfil) throws Exception {
-        new ServicePerfil<Perfil>().salvar(pPerfil);
+    public void salvarPerfil(@WebParam(name = "pPerfil") Perfil pPerfil, 
+            @WebParam(name = "listAssociaPerfilPermissao") List<AssociaPerfilPermissao> listAssociaPerfilPermissao) throws Exception {
+        new ServicePerfil<Perfil>().salvar(pPerfil, listAssociaPerfilPermissao);
     }
 
     @WebMethod(operationName = "recListaPerfis")
@@ -195,7 +196,13 @@ public class wsServiceDCoracoes {
     public void salvarUsuario(@WebParam(name = "pUsuario") Usuario pUsuario) throws Exception {
         new ServiceUsuario<Usuario>().salvar(pUsuario);
     }
-
+    
+    @WebMethod(operationName = "salvarUsuarioComRetorno")
+    public Usuario salvarUsuarioComRetorno(@WebParam(name = "pUsuario") Usuario pUsuario) throws Exception {       
+        ServiceUsuario service = new ServiceUsuario<Usuario>();
+        return (Usuario)service.salvarComRetorno(pUsuario);
+    }
+    
     @WebMethod(operationName = "recListaUsuario")
     public List<Usuario> recListaUsuario(@WebParam(name = "pUsuario") Usuario pUsuario) throws Exception {
         return new ServiceUsuario<Usuario>().recTodos(pUsuario);
