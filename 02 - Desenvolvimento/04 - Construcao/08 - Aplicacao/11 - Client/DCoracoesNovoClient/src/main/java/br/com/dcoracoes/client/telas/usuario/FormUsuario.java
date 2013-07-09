@@ -11,6 +11,7 @@
 package br.com.dcoracoes.client.telas.usuario;
 
 import br.com.dcoracoes.client.ControleAcesso;
+import br.com.dcoracoes.client.classes.serverimpl.PerfilServerImpl;
 import br.com.dcoracoes.client.enuns.Enum_TipoTelefone;
 import br.com.dcoracoes.client.enuns.Enum_UF;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
@@ -19,6 +20,7 @@ import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.componentes.ComboBoxEstado;
+import br.com.dcoracoes.client.util.message.MessagePerfil;
 import br.com.dcoracoes.client.util.message.MessageUsuario;
 import br.com.dcoracoes.client.util.message.OperadorasTelefonicas;
 import br.com.dcoracoes.servico.service.*;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -811,10 +814,12 @@ public class FormUsuario extends javax.swing.JFrame implements InterfaceCadastro
     }
 
     @Override
-    public void search() {        
-        FormConsultaUsuario form = new FormConsultaUsuario(true, this);
-        form.setVisible(true);
-    }
+    public void search() {            
+       FormConsultaUsuario form = new FormConsultaUsuario(true, this);
+       SwingWorkerUsuario work = new SwingWorkerUsuario();
+       work.setFormConsultaUsuario(form);
+       work.workOpenTelaConsultaUsuario.execute();
+     }
 
     @Override
     public void print() {

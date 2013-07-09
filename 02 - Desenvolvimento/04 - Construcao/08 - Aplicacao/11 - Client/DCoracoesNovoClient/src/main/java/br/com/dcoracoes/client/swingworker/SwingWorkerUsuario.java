@@ -4,12 +4,15 @@
  */
 package br.com.dcoracoes.client.swingworker;
 
+import br.com.dcoracoes.client.classes.serverimpl.PerfilServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.UsuarioServerImpl;
 import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.usuario.FormConsultaUsuario;
 import br.com.dcoracoes.client.telas.usuario.FormUsuario;
 import br.com.dcoracoes.client.util.LogUtil;
+import br.com.dcoracoes.client.util.message.MessagePerfil;
 import br.com.dcoracoes.client.util.message.MessageUsuario;
+import br.com.dcoracoes.servico.service.Perfil;
 import br.com.dcoracoes.servico.service.Usuario;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -132,6 +135,37 @@ public class SwingWorkerUsuario<T extends Usuario> extends BaseSwingWorker {
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formUsuario.getClass(), ex);
                 JOptionPane.showMessageDialog(formLogin, MessageUsuario.ERRO_SALVAR_USUARIO, "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
+    
+    /**
+     * 
+     */
+    public SwingWorker<List<Perfil>, Object> workOpenTelaConsultaUsuario = new SwingWorker<List<Perfil>, Object>() {
+
+        @Override
+        protected List<Perfil> doInBackground() throws Exception {
+            try {
+                habilitaTelaAguarde(formConsultaUsuario);
+                return new PerfilServerImpl<Perfil>().recTodos(new Perfil());
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formConsultaUsuario);
+                if (get() != null) {
+                    List<Perfil> list = (List<Perfil>) get();
+                    formConsultaUsuario.setListPerfil(list);
+                    formConsultaUsuario.showFrame();
+                }
+            } catch (Exception ex) {
+                LogUtil.logDescricaoErro(formConsultaUsuario.getClass(), ex);
+                JOptionPane.showMessageDialog(formConsultaUsuario, MessagePerfil.ERRO_CONSULTA_PERFIL, "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     };
