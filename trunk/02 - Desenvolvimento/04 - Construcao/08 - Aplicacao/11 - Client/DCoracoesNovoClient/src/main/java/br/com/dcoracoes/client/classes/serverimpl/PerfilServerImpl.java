@@ -40,23 +40,19 @@ public class PerfilServerImpl<T extends Perfil> extends BaseServerImpl<T> implem
         }
         return perfis;
     }
-//    /**
-//     * METODO PARA SALVAR PERFIL
-//     * @param perfil
-//     * @return
-//     * @throws TransException 
-//     */
-//    public Perfil salvarPerfil(Perfil perfil, List<AssociaPerfilPermissao> listAssociaPerfilPermissao) throws TransException {
-//        try {
-//            TnPerfil tn = new TnPerfil();
-//            tn.setPerfil(perfil);
-//            tn.setLstAssociaPerfilPermissao(listAssociaPerfilPermissao);
-//            tn.salvar(ConstanteTnPerfil.NOME_EVENTO_SALVAR_PERFIL);
-//            return tn.getPerfil();
-//        } catch (TransException ex) {
-//            throw ex;
-//        }
-//    }
+    /**
+     * METODO PARA SALVAR PERFIL
+     * @param perfil
+     * @return
+     * @throws TransException 
+     */
+    public void salvarPerfil(Perfil perfil, List<AssociaPerfilPermissao> listAssociaPerfilPermissao) throws ClientDCoracoesException {
+        try {
+            this.port.salvarPerfil(perfil, listAssociaPerfilPermissao);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+    }
 //
 //    /**
 //     * RECUPERAR LISTA DE PERIS MONTANDO CONSULTA DINAMICAMENTE

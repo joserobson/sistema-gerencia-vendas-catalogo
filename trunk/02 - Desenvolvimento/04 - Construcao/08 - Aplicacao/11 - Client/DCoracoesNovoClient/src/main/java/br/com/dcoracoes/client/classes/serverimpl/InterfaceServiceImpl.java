@@ -14,6 +14,8 @@ import java.util.List;
  */
 interface InterfaceServiceImpl<T extends Object> {
 
+    T salvarComRetorno (T param) throws ClientDCoracoesException;
+    
     void salvar(T param) throws ClientDCoracoesException;
 
     List<T> recTodos() throws ClientDCoracoesException;

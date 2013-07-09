@@ -120,6 +120,10 @@
 
 <xs:element name="salvarUsuario" type="tns:salvarUsuario" />
 
+<xs:element name="salvarUsuarioComRetorno" type="tns:salvarUsuarioComRetorno" />
+
+<xs:element name="salvarUsuarioComRetornoResponse" type="tns:salvarUsuarioComRetornoResponse" />
+
 <xs:element name="salvarUsuarioResponse" type="tns:salvarUsuarioResponse" />
 
 <xs:element name="validaCPF" type="tns:validaCPF" />
@@ -207,6 +211,28 @@
 <xs:complexType name="salvarPerfil">
 <xs:sequence>
 <xs:element name="pPerfil" type="tns:perfil" minOccurs="0" />
+<xs:element name="listAssociaPerfilPermissao" type="tns:associaPerfilPermissao" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="associaPerfilPermissao">
+<xs:sequence>
+<xs:element name="chaveComposta" type="tns:associaPerfilPermissaoFK" minOccurs="0" />
+<xs:element name="status" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="associaPerfilPermissaoFK">
+<xs:sequence>
+<xs:element name="perfil" type="tns:perfil" minOccurs="0" />
+<xs:element name="permissao" type="tns:permissao" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="permissao">
+<xs:sequence>
+<xs:element name="descricao" type="xs:string" minOccurs="0" />
+<xs:element name="id" type="xs:long" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
@@ -549,27 +575,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="associaPerfilPermissao">
-<xs:sequence>
-<xs:element name="chaveComposta" type="tns:associaPerfilPermissaoFK" minOccurs="0" />
-<xs:element name="status" type="xs:boolean" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="associaPerfilPermissaoFK">
-<xs:sequence>
-<xs:element name="perfil" type="tns:perfil" minOccurs="0" />
-<xs:element name="permissao" type="tns:permissao" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="permissao">
-<xs:sequence>
-<xs:element name="descricao" type="xs:string" minOccurs="0" />
-<xs:element name="id" type="xs:long" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="salvarPermissao">
 <xs:sequence>
 <xs:element name="pPermissao" type="tns:permissao" minOccurs="0" />
@@ -670,18 +675,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="recUsuarioPorId">
-<xs:sequence>
-<xs:element name="id" type="xs:long" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="recUsuarioPorIdResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:usuario" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="recRelatorioPedidosPorRevendedor">
 <xs:sequence>
 <xs:element name="param" type="tns:hashMap" minOccurs="0" />
@@ -706,6 +699,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="recUsuarioPorId">
+<xs:sequence>
+<xs:element name="id" type="xs:long" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="recUsuarioPorIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuario" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="recCodigoOrcamento">
 <xs:sequence />
 </xs:complexType>
@@ -725,6 +730,18 @@
 <xs:complexType name="recRevendedorEtiquetaResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:pessoa" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="salvarUsuarioComRetorno">
+<xs:sequence>
+<xs:element name="pUsuario" type="tns:usuario" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="salvarUsuarioComRetornoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuario" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 

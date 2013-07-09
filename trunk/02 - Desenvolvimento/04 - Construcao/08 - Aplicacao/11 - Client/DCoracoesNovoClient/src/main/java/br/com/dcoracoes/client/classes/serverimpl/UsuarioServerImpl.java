@@ -15,9 +15,18 @@ import java.util.List;
 public class UsuarioServerImpl<T extends Usuario> extends BaseServerImpl<T> implements IUsuarioServerImpl<T> {
 
     @Override
+    public Object salvarComRetorno(Object param) throws ClientDCoracoesException {
+        try {
+            return this.port.salvarUsuarioComRetorno((Usuario) param);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+    }
+
+    @Override
     public void salvar(Object param) throws ClientDCoracoesException {
         try {
-            this.port.salvarUsuario((Usuario) param);
+            this.port.salvarUsuarioComRetorno((Usuario) param);
         } catch (Exception ex) {
             throw new ClientDCoracoesException(ex);
         }
