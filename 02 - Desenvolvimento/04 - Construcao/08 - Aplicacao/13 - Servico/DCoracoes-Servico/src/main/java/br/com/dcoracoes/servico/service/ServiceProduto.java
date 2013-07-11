@@ -36,6 +36,19 @@ public class ServiceProduto<T extends Produto> extends ServiceBase<T> implements
     }
 
     @Override
+    public Object salvarComRetorno(Object param) throws Exception {
+        try {
+            tnProduto.setProduto((br.com.dcoracoes.server.model.produto.Produto) converteToModel(param));
+            tnProduto.salvar(ConstanteTnProduto.NOME_EVENTO_SALVAR_PRODUTO);
+            return converteToBean(tnProduto.getProduto());
+        } catch (MappingException ex) {
+            throw ex;
+        }
+    }
+    
+    
+
+    @Override
     public List recTodos(Object param, boolean useLike) throws Exception {
         List<T> lstProdutosBeans = null;
         try {

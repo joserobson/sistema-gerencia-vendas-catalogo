@@ -130,6 +130,12 @@ public class wsServiceDCoracoes {
     public void salvarProduto(@WebParam(name = "pProduto") Produto pProduto) throws Exception {
         new ServiceProduto<Produto>().salvar(pProduto);
     }
+    
+    @WebMethod(operationName = "salvarProdutoComRetorno")
+    public Produto salvarProdutoComRetorno(@WebParam(name = "pProduto") Produto pProduto) throws Exception {       
+        ServiceProduto service = new ServiceProduto<Produto>();
+        return (Produto)service.salvarComRetorno(pProduto);
+    }
 
     @WebMethod(operationName = "recProdutos")
     public List<Produto> recProdutos(@WebParam(name = "pProduto") Produto pProduto, @WebParam(name = "useLike") boolean useLike) throws Exception {

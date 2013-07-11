@@ -35,12 +35,12 @@ public class PessoaBoImpl implements PessoaBo<Pessoa> {
         
         //verifica se precisa remover emails
         //quando edita os emails eles são removidos e depois inseridos
-        //removerEmails(pessoa);        
+        removerEmails(pessoa);        
         associaPessoaEmail(pessoa);
         
         //verifica se precisa remover telefones
         //quando edita os telefones são removidos e depois inseridos
-        //removerTelefones(pessoa);
+        removerTelefones(pessoa);
         associaPessoaTelefone(pessoa);
                         
         pessoaDao.mantemPessoa(pessoa);
