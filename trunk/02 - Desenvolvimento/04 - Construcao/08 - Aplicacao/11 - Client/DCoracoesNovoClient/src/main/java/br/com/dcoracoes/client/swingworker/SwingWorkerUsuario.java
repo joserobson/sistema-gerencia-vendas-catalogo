@@ -134,7 +134,7 @@ public class SwingWorkerUsuario<T extends Usuario> extends BaseSwingWorker {
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formUsuario.getClass(), ex);
-                JOptionPane.showMessageDialog(formLogin, MessageUsuario.ERRO_SALVAR_USUARIO, "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(formUsuario, MessageUsuario.ERRO_SALVAR_USUARIO, "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     };

@@ -29,10 +29,19 @@ public class PessoaDaoImpl extends ModelGenericoDaoImpl implements PessoaDao {
 
         Session sessao = null;
         try {
-            sessao = HibernateUtil.getSession();
-            sessao.saveOrUpdate(pPessoa);            
+            sessao = HibernateUtil.getSession();  
+            
+            if (pPessoa.getId() == null)
+                sessao.saveOrUpdate(pPessoa); 
+            else{
+                /**
+                * Merge foi usado pq resolver o problema de deletar os emails e telefones
+                * do pessoa quando está é editada
+                */
+                sessao.merge(pPessoa);
+            }
 
-            LogUtil.logSucesso(pPessoa.getClass(), "mantemPessoa", pPessoa.getId());
+            LogUtil.logSucesso(pPessoa.getClass(), "mantemPessoa", (pPessoa.getId() != null ? pPessoa.getId() : 0));
 
         } catch (HibernateException ex) {
             LogUtil.logDescricaoErro(pPessoa.getClass(), "ERRO AO SALVAR PESSOA: " + pPessoa.getId(), ex);

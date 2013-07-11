@@ -17,6 +17,7 @@ import br.com.dcoracoes.client.classes.serverimpl.PermissaoServerImpl;
 import br.com.dcoracoes.client.swingworker.BaseSwingWorker;
 import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.perfil.FormPerfil;
+import br.com.dcoracoes.client.telas.produto.FormProduto;
 import br.com.dcoracoes.client.telas.usuario.FormUsuario;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
@@ -41,8 +42,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     
     //Formularios
     // private FormRevendedor formRevendedor = null;
-    // private FormProduto formProduto = null;
-      private FormPerfil formPerfil = null;
+    private FormProduto formProduto = null;
+    private FormPerfil formPerfil = null;
     private FormUsuario formUsuario = null;
     //  private FormVenda formVenda = null;
     //  private FormCompra formCompra = null;
@@ -75,13 +76,13 @@ public class FormPrincipal extends javax.swing.JFrame {
 //        this.formPerfil = formPerfil;
 //    }
 //
-//    public FormProduto getFormProduto() {
-//        return formProduto;
-//    }
-//
-//    public void setFormProduto(FormProduto formProduto) {
-//        this.formProduto = formProduto;
-//    }
+    public FormProduto getFormProduto() {
+        return formProduto;
+    }
+
+    public void setFormProduto(FormProduto formProduto) {
+        this.formProduto = formProduto;
+    }
     public FormUsuario getFormUsuario() {
         return formUsuario;
     }
@@ -372,14 +373,15 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         // TODO add your handling code here:
-//        try{
-//            if(formProduto == null){
-//                formProduto = new FormProduto();
-//            }
-//            formProduto.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+        try{
+            if(formProduto == null){
+                formProduto = new FormProduto();
+            }
+            formProduto.showFrame();
+        }catch(Exception ex){
+            LogUtil.logDescricaoErro(this.getClass(), ex);
+            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_btnProdutoActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
