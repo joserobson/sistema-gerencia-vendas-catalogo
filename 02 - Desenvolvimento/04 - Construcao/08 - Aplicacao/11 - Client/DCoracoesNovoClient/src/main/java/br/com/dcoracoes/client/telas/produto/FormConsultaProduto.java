@@ -14,15 +14,12 @@ import br.com.dcoracoes.client.interfaces.InterfaceConsultaSimples;
 import br.com.dcoracoes.client.swingworker.SwingWorkerProduto;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
-import br.com.dcoracoes.client.util.message.MessageProduto;
 import br.com.dcoracoes.servico.service.Fornecedor;
 import br.com.dcoracoes.servico.service.Pessoa;
 import br.com.dcoracoes.servico.service.Produto;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -39,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormConsultaProduto extends javax.swing.JDialog implements InterfaceConsultaSimples {
 
     private Produto produto;
-    private List<Produto> list;
+    private List<Produto> listaProdutos;
     private FormProduto formProduto;
 
     /** Creates new form FormConsultaProduto */
@@ -457,6 +454,8 @@ public class FormConsultaProduto extends javax.swing.JDialog implements Interfac
      * @param list 
      */
     public void popularTela(List<Produto> list) {
+        
+        this.listaProdutos = list;
         if (list.size() > 0) {
             for (Produto produto : list) {
                 preencherGridProduto(produto);
@@ -539,7 +538,7 @@ public class FormConsultaProduto extends javax.swing.JDialog implements Interfac
                 if(formProduto != null){
                     int row = table.getSelectedRow();
 
-                    formProduto.setProduto(list.get(row));
+                    formProduto.setProduto(listaProdutos.get(row));
                     formProduto.setVisible(true);
                     close();
                 }

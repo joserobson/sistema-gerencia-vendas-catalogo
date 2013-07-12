@@ -37,7 +37,15 @@ public class ProdutoDaoImpl extends ModelGenericoDaoImpl implements ProdutoDao<P
             listaRetorno = query.list();
 
             for (Produto item : listaRetorno) {
+                //carrega lista itensProduto
                 Hibernate.initialize(item.getListaItensProduto());
+                
+                //carrega dados do fornecedor
+                if (item.getFornecedor() != null && item.getFornecedor().getPessoa() != null)
+                {
+                    Hibernate.initialize(item.getFornecedor().getPessoa().getEmails());
+                    Hibernate.initialize(item.getFornecedor().getPessoa().getTelefones());
+                }
             }
         } catch (HibernateException ex) {
             throw new ServerException(ex);

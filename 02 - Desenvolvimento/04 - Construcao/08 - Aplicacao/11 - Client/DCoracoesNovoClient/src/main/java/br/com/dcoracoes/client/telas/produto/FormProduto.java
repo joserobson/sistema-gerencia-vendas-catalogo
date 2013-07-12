@@ -11,7 +11,6 @@
 package br.com.dcoracoes.client.telas.produto;
 
 import br.com.dcoracoes.client.ControleAcesso;
-import br.com.dcoracoes.client.classes.serverimpl.ProdutoServerImpl;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
 import br.com.dcoracoes.client.swingworker.SwingWorkerProduto;
 import br.com.dcoracoes.client.util.LogUtil;
@@ -23,10 +22,7 @@ import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.Exception;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
