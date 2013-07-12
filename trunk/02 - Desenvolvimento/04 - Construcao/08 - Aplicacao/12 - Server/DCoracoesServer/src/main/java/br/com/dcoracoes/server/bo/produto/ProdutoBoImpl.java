@@ -15,6 +15,7 @@ import br.com.dcoracoes.server.model.produto.Produto;
 import br.com.dcoracoes.server.util.HibernateUtil;
 import br.com.dcoracoes.server.util.LogUtil;
 import java.util.List;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -103,6 +104,8 @@ public class ProdutoBoImpl implements ProdutoBo<Produto> {
             //chamada do metodo server
             listaRetorno = this.produtoDao.recProdutos(produto, useLike);
             
+            //carregar
+            
             //Log
             LogUtil.logSucesso(Produto.class, "recProdutos");
             
@@ -176,7 +179,11 @@ public class ProdutoBoImpl implements ProdutoBo<Produto> {
                     fornecedor.getCodigo(), fornecedor.getPessoa().getNome());
             
             if(lstFornecedor.size() > 0)
-                ret = lstFornecedor.get(0);
+            {
+                ret = lstFornecedor.get(0);            
+                Hibernate.initialize(ret.getPessoa().getEmails());
+                Hibernate.initialize(ret.getPessoa().getTelefones());
+            }
             
         } catch (ServerException ex) {
             throw ex;

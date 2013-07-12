@@ -14,8 +14,7 @@ public class ItemProduto implements Serializable {
 
     private Long id;
     private int estoqueMinimo;
-    private int EstoqueAtual;
-    private Produto produto;
+    private int EstoqueAtual;    
     private Cor Cor;
 
     public Cor getCor() {
@@ -48,13 +47,5 @@ public class ItemProduto implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
+    }   
 }
