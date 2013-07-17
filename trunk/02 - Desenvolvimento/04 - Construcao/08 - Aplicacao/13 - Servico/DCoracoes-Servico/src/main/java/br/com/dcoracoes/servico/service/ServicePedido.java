@@ -36,6 +36,17 @@ public class ServicePedido<T extends Pedido> extends ServiceBase implements ISer
     }
 
     @Override
+    public Object salvarComRetorno(Object param) throws Exception {
+        try {
+            tnPedido.setPedido((br.com.dcoracoes.server.model.pedido.Pedido) converteToModel(param));
+            tnPedido.salvar(ConstanteTnPedido.NOME_EVENTO_SALVAR_PEDIDO);
+            return converteToBean(tnPedido.getPedido());
+        } catch (MappingException ex) {
+            throw ex;
+        }
+    }
+
+    @Override
     public List<T> recTodos(Object param) throws Exception {
         List<T> listPedidosBeans = null;
 

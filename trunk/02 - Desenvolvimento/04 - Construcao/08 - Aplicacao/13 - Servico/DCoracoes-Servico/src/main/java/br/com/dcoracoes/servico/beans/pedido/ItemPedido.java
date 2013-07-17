@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * @author Robson
  * @version 1.0 @created 16-mai-2012 22:42:14
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ItemPedido implements Serializable {
 
@@ -16,14 +15,13 @@ public class ItemPedido implements Serializable {
     private String cor;
     private String descricao;
     private int quantidade;
-    private float valorUnitario;    
+    private float valorUnitario;
     private long idItemProduto;
     private CodigoItem codigo;
     private float valorTotal;
     private String CorPorExtenso;
     private String codigoFiscal;
-    public Pedido pedido;
-        
+
     public ItemPedido() {
     }
 
@@ -57,7 +55,7 @@ public class ItemPedido implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }    
+    }
 
     public int getQuantidade() {
         return quantidade;
@@ -105,13 +103,5 @@ public class ItemPedido implements Serializable {
 
     public void setValorTotal(float valorTotal) {
         this.valorTotal = valorTotal;
-    }
-        
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
     }
 }
