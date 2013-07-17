@@ -13,6 +13,7 @@ import br.com.dcoracoes.servico.beans.canalacesso.Perfil;
 import br.com.dcoracoes.servico.beans.canalacesso.Permissao;
 import br.com.dcoracoes.servico.beans.canalacesso.Usuario;
 import br.com.dcoracoes.servico.beans.pedido.Pedido;
+import br.com.dcoracoes.servico.beans.pedido.PedidoCompra;
 import br.com.dcoracoes.servico.beans.pedido.PedidoVenda;
 import br.com.dcoracoes.servico.beans.produto.ItemProduto;
 import br.com.dcoracoes.servico.beans.produto.Produto;
@@ -73,9 +74,21 @@ public class wsServiceDCoracoes {
     public void salvarPedido(@WebParam(name = "pPedido") Pedido pPedido) throws Exception {
         new ServicePedido<Pedido>().salvar(pPedido);
     }
+    
+    @WebMethod(operationName = "salvarPedidoCompraComRetorno")
+    public PedidoCompra salvarPedidoCompraComRetorno(@WebParam(name = "pPedidoCompra") PedidoCompra pPedidoCompra) throws Exception {
+       ServicePedido<Pedido> service = new ServicePedido<Pedido>();
+       return (PedidoCompra)service.salvarComRetorno(pPedidoCompra);
+    }
+    
+    @WebMethod(operationName = "salvarPedidoVendaComRetorno")
+    public PedidoVenda salvarPedidoVendaComRetorno(@WebParam(name = "pPedidoVenda") PedidoVenda pPedidoVenda) throws Exception {
+        ServicePedido<Pedido> service = new ServicePedido<Pedido>();
+       return (PedidoVenda)service.salvarComRetorno(pPedidoVenda);
+    }
 
     @WebMethod(operationName = "recListaPedidos")
-    public List<Pedido> nome(@WebParam(name = "pPedido") Pedido pPedido) throws Exception {
+    public List<Pedido> recListaPedidos(@WebParam(name = "pPedido") Pedido pPedido) throws Exception {
         return new ServicePedido<Pedido>().recTodos(pPedido);
     }
 

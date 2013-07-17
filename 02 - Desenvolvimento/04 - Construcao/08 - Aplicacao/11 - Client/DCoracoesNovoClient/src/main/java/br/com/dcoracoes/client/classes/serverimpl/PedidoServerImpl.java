@@ -4,12 +4,102 @@
  */
 package br.com.dcoracoes.client.classes.serverimpl;
 
+import br.com.dcoracoes.client.Excecao.ClientDCoracoesException;
+import br.com.dcoracoes.servico.service.HashMap;
+import br.com.dcoracoes.servico.service.Pedido;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Robson
  */
-public class PedidoServerImpl {
+public class PedidoServerImpl<T extends Pedido> extends BaseServerImpl<T> implements IPedidoServerImpl<T> {
 
+    /**
+     *
+     * @param param
+     * @return
+     * @throws ClientDCoracoesException
+     */
+    @Override
+    public List recTodos(Object param) throws ClientDCoracoesException {
+
+        List<Pedido> pedidos = new ArrayList<Pedido>();
+        try {
+            pedidos = this.port.recListaPedidos((Pedido) param);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+
+        return pedidos;
+    }
+
+    /**
+     * RECUPERAR CODIGO SEGUENCIAL PARA ORCAMENTO
+     *
+     * @return
+     * @throws TransException
+     */
+    public String recCodigoOrcamento() throws ClientDCoracoesException {
+        String codigoRetorno = null;
+        try {
+            codigoRetorno = this.port.recCodigoOrcamento();
+
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+        return codigoRetorno;
+    }
+
+    /**
+     * REMOVE PEDIDO PASSADO NO PARAMETRO
+     *
+     * @param pedido
+     * @return
+     * @throws TransException
+     */
+    public Pedido removePedido(Pedido pedido) throws ClientDCoracoesException {
+        try {
+            return this.port.removePedido(pedido);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+    }
+
+    /**
+     * Metodo para aprovar o pedido Atributos necessários:
+     * Pagamento.getFormaPagamento Revendedor pedido.valorpedidoEscrito
+     *
+     * @param pedido
+     * @return
+     * @throws TransException
+     */
+    public boolean aprovarPedido(Pedido pedido) throws ClientDCoracoesException {
+        try {
+            return this.port.aprovarPedido(pedido);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+    }
+
+    /**
+     * RECUPERA LISTA DE VENDA POR REVENDEDOR PARA OS PARAMETROS PASSADOS
+     *
+     * @param HashMap
+     * @return
+     * @throws TransException
+     */
+    public List recRelatorioPedidosPorRevendedor(HashMap param) throws ClientDCoracoesException {
+        List listaRetorno = null;
+        try {
+            listaRetorno = this.port.recRelatorioPedidosPorRevendedor(param);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+
+        return listaRetorno;
+    }
 //    /**
 //     * METODO PARA SALVAR PEDIDO VENDA
 //     * @param Pedido

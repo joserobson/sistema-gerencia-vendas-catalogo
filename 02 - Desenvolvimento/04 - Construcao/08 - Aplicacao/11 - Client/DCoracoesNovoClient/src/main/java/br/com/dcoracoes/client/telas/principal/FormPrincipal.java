@@ -15,6 +15,8 @@ import br.com.dcoracoes.client.ControleAcesso;
 import br.com.dcoracoes.client.classes.serverimpl.PerfilServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PermissaoServerImpl;
 import br.com.dcoracoes.client.swingworker.BaseSwingWorker;
+import br.com.dcoracoes.client.telas.compra.FormCompra;
+
 import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.perfil.FormPerfil;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
@@ -46,7 +48,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private FormPerfil formPerfil = null;
     private FormUsuario formUsuario = null;
     //  private FormVenda formVenda = null;
-    //  private FormCompra formCompra = null;
+    private FormCompra formCompra = null;
     //  private FormProspeccoes formProspeccoes = null;
     //  private FormFiltroGerarEtiquetas formEtiqueta = null;
     //  private FormRelatorioVendaPorRevendedor formRelatorioVenda = null;
@@ -99,13 +101,13 @@ public class FormPrincipal extends javax.swing.JFrame {
 //        this.formVenda = formVenda;
 //    }
 //
-//    public FormCompra getFormCompra() {
-//        return formCompra;
-//    }
-//
-//    public void setFormCompra(FormCompra formCompra) {
-//        this.formCompra = formCompra;
-//    }
+    public FormCompra getFormCompra() {
+        return formCompra;
+    }
+
+    public void setFormCompra(FormCompra formCompra) {
+        this.formCompra = formCompra;
+    }
     /**
      * Creates new form FormPrincipal
      */
@@ -488,15 +490,15 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProspeccoesActionPerformed
 
     private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
-        // TODO add your handling code here:
-//        try{
-//            if(formCompra == null){
-//                formCompra = new FormCompra(this);
-//            }
-//            formCompra.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+        try{
+            if(formCompra == null){
+                formCompra = new FormCompra(this);
+            }
+            formCompra.showFrame();
+        }catch(Exception ex){
+            LogUtil.logDescricaoErro(this.getClass(), ex);
+            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_btnCompraActionPerformed
 
     /**
