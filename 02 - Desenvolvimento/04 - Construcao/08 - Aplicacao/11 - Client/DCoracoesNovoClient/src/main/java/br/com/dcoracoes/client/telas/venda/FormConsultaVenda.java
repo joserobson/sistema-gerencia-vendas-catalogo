@@ -8,43 +8,55 @@
  *
  * Created on 17/04/2012, 21:44:03
  */
-package br.com.dcoracoes.client.telas.compra;
+package br.com.dcoracoes.client.telas.venda;
 
+import br.com.dcoracoes.client.Excecao.ClientDCoracoesException;
+import br.com.dcoracoes.client.classes.serverimpl.PedidoServerImpl;
 import br.com.dcoracoes.client.interfaces.InterfaceConsultaSimples;
-import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoCompra;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
-import br.com.dcoracoes.servico.service.Fornecedor;
-import br.com.dcoracoes.servico.service.PedidoCompra;
-import br.com.dcoracoes.servico.service.Pessoa;
-import br.com.wedesenv.common.date.DateUtil;
+import br.com.dcoracoes.client.util.message.MessageVenda;
+import br.com.dcoracoes.servico.service.PedidoVenda;
+import br.com.dcoracoes.servico.service.PessoaFisica;
+import br.com.dcoracoes.servico.service.Revendedor;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Cleberson
  */
-public class FormConsultaCompra extends javax.swing.JDialog implements InterfaceConsultaSimples {
+public class FormConsultaVenda extends javax.swing.JDialog implements InterfaceConsultaSimples {
 
-    private PedidoCompra pedido;
-    private List<PedidoCompra> listPedidosCompra;
-    private FormCompra formCompra;
+    private PedidoVenda pedido;
+    private List<PedidoVenda> list;
+    private FormVenda formVenda;
 
-    /** Creates new form FormConsultaCompra */
-    public FormConsultaCompra(boolean modal, FormCompra formCompra) {
+    /** Creates new form FormConsultaVenda */
+    public FormConsultaVenda(boolean modal, FormVenda formVenda) {
         initComponents();
-        this.formCompra = formCompra;
+        this.formVenda = formVenda;
         setLocationRelativeTo(null);
         setModal(modal);
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage("src/main/resources/imagens/outras/icon_SGC.gif"));
+
         tableResult.addMouseListener(new DoubleClickMouseAdapter(tableResult));
-        initialize();
+
+        lblCodigoRevendedor.setVisible(false);
+        jtxtCodigoRevendedor.setVisible(false);
+        this.initialize();
     }
 
     /** This method is called from within the constructor to
@@ -57,34 +69,36 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
     private void initComponents() {
 
         panelSuperButton = new javax.swing.JPanel();
-        btnEditar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lblConsultor = new javax.swing.JLabel();
-        txtFornecedor = new javax.swing.JTextField();
-        lblData = new javax.swing.JLabel();
-        jtxtData = new javax.swing.JFormattedTextField();
+        txtRevendedor = new javax.swing.JTextField();
+        lblCodigoRevendedor = new javax.swing.JLabel();
+        jtxtCodigoRevendedor = new javax.swing.JFormattedTextField();
+        lblNOrcamento = new javax.swing.JLabel();
+        jtxtNumeroOrcamento = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResult = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consulta Compra");
+        setTitle("Consulta Venda");
 
         panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
 
-        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/system-search.png"))); // NOI18N
-        btnEditar.setText("BUSCAR");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/system-search.png"))); // NOI18N
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14));
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/sair32x32.png"))); // NOI18N
         btnSair.setText("SAIR");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +143,7 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 41, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelSuperButtonLayout = new javax.swing.GroupLayout(panelSuperButton);
@@ -140,7 +154,7 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -154,7 +168,7 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
             .addGroup(panelSuperButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSuperButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSuperButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelSuperButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
@@ -165,24 +179,33 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(43, 115, 186)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(43, 115, 186))); // NOI18N
 
-        lblConsultor.setText("NOME FORNECEDOR:");
+        lblConsultor.setText("NOME REVENDEDOR(A):");
 
-        txtFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtRevendedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtFornecedorKeyReleased(evt);
+                txtRevendedorKeyReleased(evt);
             }
         });
 
-        lblData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblData.setText("DATA PEDIDO:");
+        lblCodigoRevendedor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCodigoRevendedor.setText("CÓDIGO REVENDEDOR(A):");
 
-        try {
-            jtxtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jtxtCodigoRevendedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtCodigoRevendedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtCodigoRevendedorKeyReleased(evt);
+            }
+        });
+
+        lblNOrcamento.setText("Nº ORÇAMENTO:");
+
+        jtxtNumeroOrcamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroOrcamentoKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,25 +217,32 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblConsultor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblData)
+                        .addComponent(txtRevendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNOrcamento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtData, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jtxtNumeroOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(lblCodigoRevendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtxtCodigoRevendedor, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                        .addGap(153, 153, 153))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblData)
-                    .addComponent(jtxtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtNumeroOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNOrcamento)
+                    .addComponent(lblCodigoRevendedor)
+                    .addComponent(jtxtCodigoRevendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblConsultor))
-                    .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRevendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -221,14 +251,14 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
 
             },
             new String [] {
-                "Fornecedor", "Data", "Valor"
+                "Nº Orçamento", "Data", "Código Revendedor", "Nome Revendedor", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -240,10 +270,18 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
             }
         });
         jScrollPane1.setViewportView(tableResult);
-        tableResult.getColumnModel().getColumn(1).setResizable(false);
+        tableResult.getColumnModel().getColumn(0).setMinWidth(100);
+        tableResult.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tableResult.getColumnModel().getColumn(0).setMaxWidth(100);
+        tableResult.getColumnModel().getColumn(1).setMinWidth(100);
         tableResult.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tableResult.getColumnModel().getColumn(2).setResizable(false);
+        tableResult.getColumnModel().getColumn(1).setMaxWidth(100);
+        tableResult.getColumnModel().getColumn(2).setMinWidth(150);
         tableResult.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tableResult.getColumnModel().getColumn(2).setMaxWidth(150);
+        tableResult.getColumnModel().getColumn(4).setMinWidth(100);
+        tableResult.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tableResult.getColumnModel().getColumn(4).setMaxWidth(100);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,34 +310,46 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        limparGrid();
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         search();
-}//GEN-LAST:event_btnEditarActionPerformed
+}//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
         close();
 }//GEN-LAST:event_btnSairActionPerformed
 
-    private void txtFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFornecedorKeyReleased
+    private void jtxtCodigoRevendedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCodigoRevendedorKeyReleased
+        MetodosUtil.validNumeric(jtxtCodigoRevendedor);
+        MetodosUtil.defineSizeMax(6, jtxtCodigoRevendedor);
+}//GEN-LAST:event_jtxtCodigoRevendedorKeyReleased
+
+    private void txtRevendedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRevendedorKeyReleased
         // TODO add your handling code here:
-        MetodosUtil.defineSizeMax(150, txtFornecedor);
-    }//GEN-LAST:event_txtFornecedorKeyReleased
+        MetodosUtil.defineSizeMax(150, txtRevendedor);
+    }//GEN-LAST:event_txtRevendedorKeyReleased
+
+    private void jtxtNumeroOrcamentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroOrcamentoKeyReleased
+        // TODO add your handling code here:
+        MetodosUtil.defineSizeMax(6, jtxtNumeroOrcamento);
+        MetodosUtil.validNumeric(jtxtNumeroOrcamento);
+    }//GEN-LAST:event_jtxtNumeroOrcamentoKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnSair;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JFormattedTextField jtxtData;
+    private javax.swing.JFormattedTextField jtxtCodigoRevendedor;
+    private javax.swing.JFormattedTextField jtxtNumeroOrcamento;
+    private javax.swing.JLabel lblCodigoRevendedor;
     private javax.swing.JLabel lblConsultor;
-    private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblNOrcamento;
     private javax.swing.JPanel panelSuperButton;
     private javax.swing.JTable tableResult;
-    private javax.swing.JTextField txtFornecedor;
+    private javax.swing.JTextField txtRevendedor;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -313,6 +363,8 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
         MetodosUtil.enterPularCampos(this);
         //define letras maiusculas
         MetodosUtil.letrasMaiusculas(this.getContentPane()); 
+        
+        createAtalhos();
     }
 
     @Override
@@ -322,51 +374,71 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
 
     @Override
     public void search() {
-      pushToModel();
-      
-      SwingWorkerPedidoCompra worker = new SwingWorkerPedidoCompra();
-      worker.setFormConsultaCompra(this);
-      worker.setPedido(pedido);
-      worker.workSearchPedidos.execute();                  
-        
+//ROBSON
+//        try {
+//            limparGrid();
+//            pushToModel();
+//            list = bucarPedido(pedido);
+//
+//            if (list.size() > 0) {
+//                popularTela(list);
+//            } else {
+//                JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_NENHUM_REGISTRO, MensagensUtil.ATENCAO, 1);
+//            }
+//
+//        } catch (TransException ex) {
+//            Logger.getLogger(FormConsultaVenda.class.getName()).log(Level.SEVERE, null, ex);
+//            JOptionPane.showMessageDialog(this, MessageVenda.ERRO_CONSULTAR_VENDA, MensagensUtil.ERRO, 0);
+//        }
     }
 
     /**
      * recupera os filtros dá tela
      */
     private void pushToModel() {
-        pedido = new PedidoCompra();
+        pedido = new PedidoVenda();
 
-        //Data pedido
-        if (!jtxtData.getText().replace("/", "").trim().isEmpty()) {
-            String[] dateAux = jtxtData.getText().split("/");
-            GregorianCalendar c = new GregorianCalendar();
-            c.set(Integer.parseInt(dateAux[2]), Integer.parseInt(dateAux[1]) - 1, Integer.parseInt(dateAux[0]));
-            pedido.setDataPedido(DateUtil.dateAsXMLGregorianCalendar(c.getTime()));
-            
+        pedido.setRevendedor(new Revendedor());
+        //Codigo
+        if (!jtxtCodigoRevendedor.getText().isEmpty()) {
+            pedido.getRevendedor().setCodigo(Integer.parseInt(jtxtCodigoRevendedor.getText()));
         }
 
-        if (!txtFornecedor.getText().isEmpty()) {
-            pedido.setFornecedor(new Fornecedor());
-            pedido.getFornecedor().setPessoa(new Pessoa());
-            pedido.getFornecedor().getPessoa().setNome(txtFornecedor.getText().trim());
+        pedido.getRevendedor().setPessoa(new PessoaFisica());
+        //Nome
+        if (!txtRevendedor.getText().isEmpty()) {
+            ((PessoaFisica) pedido.getRevendedor().getPessoa()).setNome(txtRevendedor.getText());
         }
 
+        //Numero orçamento
+        if (!jtxtNumeroOrcamento.getText().isEmpty()) {
+            pedido.setCodigo(jtxtNumeroOrcamento.getText());
+        }
 
-    }    
+    }
+
+    /**
+     * faz a busca de pedidos no server
+     * @return 
+     */
+    private List<PedidoVenda> bucarPedido(PedidoVenda pedido) throws ClientDCoracoesException {
+//ROBSON
+//        PedidoServerImpl serverImpl = new PedidoServerImpl();
+//        try {
+//            return serverImpl.recPedidosVenda(pedido);
+//        } catch (TransException ex) {
+//            throw ex;
+//        }
+        return null;
+    }
 
     /**
      * popula a lista na tela
      * @param list 
      */
-    public void popularTela(List<PedidoCompra> list) {
-        this.listPedidosCompra = list;
-        if (list.size() > 0) {
-            for (PedidoCompra pedido : list) {
-                popularTela(pedido);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_NENHUM_REGISTRO, MensagensUtil.ATENCAO, 1);
+    private void popularTela(List<PedidoVenda> list) {
+        for (PedidoVenda pedido : list) {
+            popularTela(pedido);
         }
     }
 
@@ -374,16 +446,15 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
      * Popula o objeto Pedido na tela
      * @param pedido 
      */
-    private void popularTela(PedidoCompra pedido) {
-        DefaultTableModel dtm = (DefaultTableModel) tableResult.getModel();                                
-        String nomeFornecedor = "";
-        
-        if(pedido.getFornecedor() != null)
-            nomeFornecedor = pedido.getFornecedor().getPessoa().getNome();
-        
+    private void popularTela(PedidoVenda pedido) {
+        DefaultTableModel dtm = (DefaultTableModel) tableResult.getModel();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
         dtm.addRow(new Object[]{
-                    nomeFornecedor,
-                    DateUtil.asStringDateTime(pedido.getDataPedido()),
+                    pedido.getCodigo(),
+                    format.format(pedido.getDataPedido()),
+                    MetodosUtil.gerarCodigoFormatoPadrao(pedido.getRevendedor().getCodigo()),
+                    ((PessoaFisica) pedido.getRevendedor().getPessoa()).getNome(),
                     pedido.getTotal()
                 });
 
@@ -420,10 +491,32 @@ public class FormConsultaCompra extends javax.swing.JDialog implements Interface
             if (e.getClickCount() == 2) {
 
                 int row = table.getSelectedRow();
-                formCompra.setPedidoCompra(listPedidosCompra.get(row));
-                formCompra.editarPedidoCompra();
+                formVenda.setPedido(list.get(row));
+
                 close();
             }
+        }
+    }
+    
+    /********************************************************************************
+     * monta os atalhos da tela
+     */
+    private void createAtalhos(){
+        InputMap imap = rootPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);  
+        imap.put(KeyStroke.getKeyStroke("ENTER"), "buttonEnterPress");   
+        ActionMap amap = rootPane.getActionMap();  
+        amap.put("buttonEnterPress", new EnterKey());        
+        
+    }    
+    
+    /**
+     * tratamento do atalho para tecla ENTER
+     */
+    private class EnterKey extends AbstractAction{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            search();
         }
     }
 }

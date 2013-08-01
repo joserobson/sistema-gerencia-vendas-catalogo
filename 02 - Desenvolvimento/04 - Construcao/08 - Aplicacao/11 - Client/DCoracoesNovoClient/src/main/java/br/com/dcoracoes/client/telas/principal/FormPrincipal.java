@@ -21,6 +21,7 @@ import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.perfil.FormPerfil;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
 import br.com.dcoracoes.client.telas.usuario.FormUsuario;
+import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.servico.service.Perfil;
@@ -39,15 +40,13 @@ import javax.swing.SwingWorker;
  */
 public class FormPrincipal extends javax.swing.JFrame {
 
-    
     private BaseSwingWorker workTelaAguarde;
-    
     //Formularios
     // private FormRevendedor formRevendedor = null;
     private FormProduto formProduto = null;
     private FormPerfil formPerfil = null;
     private FormUsuario formUsuario = null;
-    //  private FormVenda formVenda = null;
+    private FormVenda formVenda = null;
     private FormCompra formCompra = null;
     //  private FormProspeccoes formProspeccoes = null;
     //  private FormFiltroGerarEtiquetas formEtiqueta = null;
@@ -85,6 +84,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     public void setFormProduto(FormProduto formProduto) {
         this.formProduto = formProduto;
     }
+
     public FormUsuario getFormUsuario() {
         return formUsuario;
     }
@@ -93,14 +93,14 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.formUsuario = formUsuario;
     }
 
-//    public FormVenda getFormVenda() {
-//        return formVenda;
-//    }
-//
-//    public void setFormVenda(FormVenda formVenda) {
-//        this.formVenda = formVenda;
-//    }
-//
+    public FormVenda getFormVenda() {
+        return formVenda;
+    }
+
+    public void setFormVenda(FormVenda formVenda) {
+        this.formVenda = formVenda;
+    }
+
     public FormCompra getFormCompra() {
         return formCompra;
     }
@@ -108,6 +108,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     public void setFormCompra(FormCompra formCompra) {
         this.formCompra = formCompra;
     }
+
     /**
      * Creates new form FormPrincipal
      */
@@ -375,19 +376,19 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         // TODO add your handling code here:
-        try{
-            if(formProduto == null){
+        try {
+            if (formProduto == null) {
                 formProduto = new FormProduto();
             }
             formProduto.showFrame();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             LogUtil.logDescricaoErro(this.getClass(), ex);
             JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
         }
     }//GEN-LAST:event_btnProdutoActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        
+
         SwingWorker<Object, Void> worker = new SwingWorker<Object, Void>() {
 
             @Override
@@ -405,31 +406,30 @@ public class FormPrincipal extends javax.swing.JFrame {
             protected void done() {
                 workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
                 try {
-                    List<Permissao> permissoes = (List<Permissao>)get();
+                    List<Permissao> permissoes = (List<Permissao>) get();
                     if (formPerfil == null) {
                         formPerfil = new FormPerfil();
                         formPerfil.setTodasPermissoes(permissoes);
                     }
-                    
+
                     formPerfil.showFrame();
-                    
+
                 } catch (Exception ex) {
                     LogUtil.logDescricaoErro(this.getClass(), ex);
                     JOptionPane.showMessageDialog(formPerfil, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
                 }
             }
         };
-        
+
         worker.execute();
     }//GEN-LAST:event_btnPerfilActionPerformed
 
-    private JFrame getFramePrincipal(){
+    private JFrame getFramePrincipal() {
         return this;
     }
-    
-    
+
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
-        
+
         SwingWorker<Object, Void> worker = new SwingWorker<Object, Void>() {
 
             @Override
@@ -447,14 +447,14 @@ public class FormPrincipal extends javax.swing.JFrame {
             protected void done() {
                 workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
                 try {
-                    List<Perfil> perfis = (List<Perfil>)get();
+                    List<Perfil> perfis = (List<Perfil>) get();
                     if (formUsuario == null) {
                         formUsuario = new FormUsuario();
                     }
-                    
+
                     formUsuario.setListPerfil(perfis);
                     formUsuario.showFrame();
-                    
+
                 } catch (Exception ex) {
                     LogUtil.logDescricaoErro(this.getClass(), ex);
                     JOptionPane.showMessageDialog(formUsuario, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -466,15 +466,15 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
     private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
-        // TODO add your handling code here:
-//        try{
-//            if(formVenda == null){
-//                formVenda = new FormVenda(this);
-//            }
-//            formVenda.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+         try{
+            if(formVenda == null){
+                formVenda = new FormVenda(this);
+            }
+            formVenda.showFrame();
+        }catch(Exception ex){
+            LogUtil.logDescricaoErro(this.getClass(), ex);
+            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_btnVendaActionPerformed
 
     private void btnProspeccoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProspeccoesActionPerformed
@@ -490,12 +490,12 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProspeccoesActionPerformed
 
     private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
-        try{
-            if(formCompra == null){
+        try {
+            if (formCompra == null) {
                 formCompra = new FormCompra(this);
             }
             formCompra.showFrame();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             LogUtil.logDescricaoErro(this.getClass(), ex);
             JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
         }

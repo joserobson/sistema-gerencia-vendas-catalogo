@@ -11,11 +11,9 @@
 package br.com.dcoracoes.client.telas.compra;
 
 import br.com.dcoracoes.client.ControleAcesso;
-import br.com.dcoracoes.client.classes.serverimpl.ProdutoServerImpl;
 import br.com.dcoracoes.client.enuns.Enum_Tipo_Codigo;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
 import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoCompra;
-import br.com.dcoracoes.client.swingworker.SwingWorkerProduto;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.telas.produto.FormConsultaProduto;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
@@ -28,7 +26,6 @@ import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.Exception;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,7 +66,7 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
 
     /** Creates new form FormCompra */
     public FormCompra(FormPrincipal form) {
-		this.form = form;
+        this.form = form;
         initComponents();        
     }
 
@@ -447,7 +444,7 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
 
         jLabel24.setText("ALTERAR CABEÇALHO:");
 
-        jLabel25.setText("PROCUTA PRODUTO:");
+        jLabel25.setText("PROCURA PRODUTO:");
 
         jLabel28.setText("F4");
 
@@ -647,7 +644,8 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
 //            gerar.gerarRelatorioCompletoCompra(pedido);
 //            
 //        } catch (JRException ex) {
-//            Logger.getLogger(FormCompra.class.getName()).log(Level.SEVERE, null, ex);
+//            LogUtil.logDescricaoErro(this.getClass(), ex);
+//            JOptionPane.showMessageDialog(this, ex.getMessage(), MensagensUtil.ERRO, 0);
 //        }
     }//GEN-LAST:event_btnImprimirCompletoActionPerformed
 
@@ -812,7 +810,7 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
         
         if(pedido.getFornecedor() != null)
             txtFornecedor.setText(pedido.getFornecedor().getPessoa().getNome());
-        jtxtData.setValue(DateUtil.asString(pedido.getDataPedido()));
+        jtxtData.setValue(DateUtil.asDate(pedido.getDataPedido()));
         
         atualizaTotais();
         
@@ -830,7 +828,7 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
                 pushToModel();
                 mantemPedido(pedido);
             }
-        } catch (Exception ex) {
+        } catch (java.lang.Exception ex) {
             LogUtil.logDescricaoErro(this.getClass(), ex);
             JOptionPane.showMessageDialog(this, MessageCompra.ERRO_SALVAR_PEDIDO, MensagensUtil.ERRO, 0);
         }
@@ -1252,7 +1250,7 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
             DefaultTableModel dtm = (DefaultTableModel) table.getModel();
             dtm.removeRow(row);
                 
-        } catch (Exception ex) {
+        } catch (java.lang.Exception ex) {
             Logger.getLogger(FormCompra.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, MessageCompra.ERRO_REMOVER_ITEM, MensagensUtil.ERRO, 0);
         }
@@ -1470,11 +1468,22 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
         
     }
 
-    @Override
+@Override
     public void showFrame() {
         setLocationRelativeTo(null);
         initialize();
         this.setVisible(true);
+    }
+    
+    /**
+     * Logica para exibir pedido na hora da edição
+     */
+    public void editarPedidoCompra()
+    {
+       popularTela();
+       disableTela(false);
+       btnImprimirCompleto.setEnabled(true);
+       btnImprimirExpedicao.setEnabled(true);
     }
     
     /**
