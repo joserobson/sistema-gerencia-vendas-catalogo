@@ -32,5 +32,8 @@ public class MessageVenda {
     
     public static String CAMPO_PERIODO_DE_VENDA_INCOMPLETO = "Filtro por Período de Venda incompleto.";
     public static String CAMPO_PERIODO_DE_VENDA_OBRIGATORIO = "Período de Venda obrigatório.";
+    public static String ERRO_GERAR_CODIGO_ORCAMENTO = "Erro ao gerar numero orcamento";
+    
+    public static String ERRO_REMOVER_PEDIDO_VENDA = "Erro ao remover pedido venda";
     
 }

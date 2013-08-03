@@ -4,6 +4,7 @@
  */
 package br.com.dcoracoes.client.swingworker;
 
+import br.com.dcoracoes.client.classes.serverimpl.AlertaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoCompraServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoVendaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.ProdutoServerImpl;
@@ -12,9 +13,11 @@ import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.message.MessageCompra;
-import br.com.dcoracoes.servico.service.Pedido;
-import br.com.dcoracoes.servico.service.PedidoVenda;
-import br.com.dcoracoes.servico.service.Produto;
+import br.com.dcoracoes.client.util.message.MessageProspeccao;
+import br.com.dcoracoes.client.util.message.MessageRevendedor;
+import br.com.dcoracoes.client.util.message.MessageVenda;
+import br.com.dcoracoes.servico.service.*;
+import java.lang.Exception;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -32,6 +35,16 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
     private int rowProduto;
     private String corProduto;
     private int quantidadeProduto;
+    private Revendedor revendedor;
+    private Alerta alerta;
+
+    public Revendedor getRevendedor() {
+        return revendedor;
+    }
+
+    public void setRevendedor(Revendedor revendedor) {
+        this.revendedor = revendedor;
+    }
 
     public FormConsultaVenda getFormConsultaVenda() {
         return formConsultaVenda;
@@ -88,6 +101,14 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
     public void setQuantidadeProduto(int quantidadeProduto) {
         this.quantidadeProduto = quantidadeProduto;
     }
+
+    public Alerta getAlerta() {
+        return alerta;
+    }
+
+    public void setAlerta(Alerta alerta) {
+        this.alerta = alerta;
+    }
     /**
      * Salvar Pedido Compra
      */
@@ -115,10 +136,13 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
-                JOptionPane.showMessageDialog(formVenda, MessageCompra.ERRO_SALVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_SALVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     };
+    /**
+     *
+     */
     public SwingWorker<List<Produto>, Object> workSearchProdutos = new SwingWorker<List<Produto>, Object>() {
 
         @Override
@@ -141,10 +165,13 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
-                JOptionPane.showMessageDialog(formVenda, MessageCompra.ERRO_CONSULTAR_PRODUTO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_CONSULTAR_PRODUTO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
         }
     };
+    /**
+     *
+     */
     public SwingWorker<List<Produto>, Object> workSearchProdutosAtualizaCor = new SwingWorker<List<Produto>, Object>() {
 
         @Override
@@ -163,11 +190,146 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                 desabilitaTelaAguarde(formVenda);
                 if (get() != null) {
                     List<Produto> listProduto = (List<Produto>) get();
-                    formVenda.returnSearchProdutosAtualizaCor(listProduto.get(0), rowProduto, corProduto, quantidadeProduto);
+                    formVenda.refreshGridCorProduto(listProduto.get(0), rowProduto, corProduto, quantidadeProduto);
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
-                JOptionPane.showMessageDialog(formVenda, MessageCompra.ERRO_CONSULTAR_PRODUTO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_CONSULTAR_PRODUTO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
+    /**
+     *
+     */
+    public SwingWorker<String, Object> workGerarNumeroOrcamento = new SwingWorker<String, Object>() {
+
+        @Override
+        protected String doInBackground() throws Exception {
+            try {
+                habilitaTelaAguarde(formVenda);
+                return new PedidoVendaServerImpl().recCodigoOrcamento();
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formVenda);
+                if (get() != null) {
+                    formVenda.setCodigoOrcamento(get());
+                }
+            } catch (Exception ex) {
+                LogUtil.logDescricaoErro(formVenda.getClass(), ex);
+                JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_GERAR_CODIGO_ORCAMENTO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
+    /**
+     *
+     */
+    public SwingWorker<List<ViewRevendedor>, Object> workBuscaRevendedor = new SwingWorker<List<ViewRevendedor>, Object>() {
+
+        @Override
+        protected List<ViewRevendedor> doInBackground() throws Exception {
+            try {
+                habilitaTelaAguarde(formVenda);
+                //return new RevendedorServerImpl().
+                return null;
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formVenda);
+                if (get() != null) {
+                    formVenda.setRevendedor(get());
+                }
+            } catch (Exception ex) {
+                LogUtil.logDescricaoErro(formVenda.getClass(), ex);
+                JOptionPane.showMessageDialog(formVenda, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
+    public SwingWorker<Pedido, Object> workRemoverPedido = new SwingWorker<Pedido, Object>() {
+
+        @Override
+        protected Pedido doInBackground() throws Exception {
+            try {
+                habilitaTelaAguarde(formVenda);
+                PedidoVendaServerImpl server = new PedidoVendaServerImpl<T>();
+                return (Pedido) server.deletar(pedido);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formVenda);
+                if (get() != null) {
+                    formVenda.afterDelete();
+                }
+            } catch (Exception ex) {
+                LogUtil.logDescricaoErro(formVenda.getClass(), ex);
+                JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_REMOVER_PEDIDO_VENDA, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
+    public SwingWorker<List<Alerta>, Object> workSearchAlertas = new SwingWorker<List<Alerta>, Object>() {
+
+        @Override
+        protected List<Alerta> doInBackground() throws Exception {
+            try {
+                habilitaTelaAguarde(formVenda);
+                AlertaServerImpl serverImpl = new AlertaServerImpl();
+                return serverImpl.recTodos(alerta);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formVenda);
+                formVenda.afterConsultaProspeccoes(get());
+            } catch (Exception ex) {
+                LogUtil.logDescricaoErro(formVenda.getClass(), ex);
+                JOptionPane.showMessageDialog(formVenda, MessageProspeccao.ERRO_CONSULTAR_PROSPECCAO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
+    
+    
+    public SwingWorker<List<T>, Object> workSearchPedidos = new SwingWorker<List<T>, Object>() {
+
+        @Override
+        protected List<T> doInBackground() throws Exception {
+            try {
+                habilitaTelaAguarde(formConsultaVenda);
+                return new PedidoVendaServerImpl<T>().recTodos(pedido);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formConsultaVenda);
+                if (get() != null) {
+                    List<PedidoVenda> listPedido = (List<PedidoVenda>) get();
+                    formConsultaVenda.popularTela(listPedido);
+                }
+            } catch (Exception ex) {
+                LogUtil.logDescricaoErro(formConsultaVenda.getClass(), ex);
+                JOptionPane.showMessageDialog(formConsultaVenda, MessageVenda.ERRO_CONSULTAR_VENDA, "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     };
