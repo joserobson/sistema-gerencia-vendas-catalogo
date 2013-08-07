@@ -13,6 +13,7 @@ package br.com.dcoracoes.client.telas.compra;
 import br.com.dcoracoes.client.ControleAcesso;
 import br.com.dcoracoes.client.enuns.Enum_Tipo_Codigo;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
+import br.com.dcoracoes.client.relatorios.GerarRelatorio;
 import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoCompra;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.telas.produto.FormConsultaProduto;
@@ -21,6 +22,7 @@ import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.message.MessageCompra;
+import br.com.dcoracoes.client.util.message.MessageRelatorio;
 import br.com.dcoracoes.servico.service.*;
 import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.ActionEvent;
@@ -43,6 +45,7 @@ import javax.swing.KeyStroke;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -639,24 +642,25 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
     }//GEN-LAST:event_jtxtValorDescontoDinheiroFocusLost
 
     private void btnImprimirCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirCompletoActionPerformed
-//        try {
-//            GerarRelatorio gerar = new GerarRelatorio();
-//            gerar.gerarRelatorioCompletoCompra(pedido);
-//            
-//        } catch (JRException ex) {
-//            LogUtil.logDescricaoErro(this.getClass(), ex);
-//            JOptionPane.showMessageDialog(this, ex.getMessage(), MensagensUtil.ERRO, 0);
-//        }
+        try {
+            GerarRelatorio gerar = new GerarRelatorio();
+            gerar.gerarRelatorioCompletoCompra(pedido);
+            
+        } catch (JRException ex) {
+            LogUtil.logDescricaoErro(this.getClass(), ex);
+            JOptionPane.showMessageDialog(this, MessageRelatorio.MENSAGEM_ERRO_RELATORIO_COMPLETO_COMPRA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_btnImprimirCompletoActionPerformed
 
     private void btnImprimirExpedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirExpedicaoActionPerformed
-//        try {
-//            GerarRelatorio gerar = new GerarRelatorio();
-//            gerar.gerarRelatorioExpedicaoCompra(pedido);
-//            
-//        } catch (JRException ex) {
-//            Logger.getLogger(FormCompra.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            GerarRelatorio gerar = new GerarRelatorio();
+            gerar.gerarRelatorioExpedicaoCompra(pedido);
+            
+        } catch (JRException ex) {
+            LogUtil.logDescricaoErro(this.getClass(), ex);
+            JOptionPane.showMessageDialog(this, MessageRelatorio.MENSAGEM_ERRO_RELATORIO_EXPEDICAO_COMPRA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_btnImprimirExpedicaoActionPerformed
 
     private void cbTipoCodigoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoCodigoItemStateChanged

@@ -1,5 +1,6 @@
 package br.com.dcoracoes.client;
 
+import br.com.dcoracoes.client.relatorios.testeRelatorio;
 import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.util.LogUtil;
@@ -29,13 +30,24 @@ public class App {
     }
 
     public static void main(String[] av) {
-        try {            
-            LogUtil.logInformacao("INICIANDO APLICACAO");            
+        try {
+            LogUtil.logInformacao("INICIANDO APLICACAO");
             ss = new ServerSocket(RUN_PORT);
             FormLogin form = new FormLogin();
             form.setVisible(true);
         } catch (java.io.IOException ex) {
             System.out.println("Programa está rodando!");
+        }
+
+
+    }
+
+    public static void testarRelatorio() {
+        try {
+            testeRelatorio teste = new testeRelatorio();
+            teste.exibirRelatorioCompletoVenda();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 }

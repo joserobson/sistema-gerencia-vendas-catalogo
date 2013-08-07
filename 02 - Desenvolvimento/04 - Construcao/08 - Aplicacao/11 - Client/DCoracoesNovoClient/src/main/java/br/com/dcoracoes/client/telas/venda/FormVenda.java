@@ -17,6 +17,7 @@ import br.com.dcoracoes.client.enuns.*;
 import br.com.dcoracoes.client.enuns.Enum_Forma_Pagamento;
 import br.com.dcoracoes.client.enuns.Enum_UF;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
+import br.com.dcoracoes.client.relatorios.GerarRelatorio;
 import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoVenda;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.telas.produto.FormConsultaProduto;
@@ -26,6 +27,7 @@ import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.componentes.ComboBoxEstado;
 import br.com.dcoracoes.client.util.message.MessageCompra;
+import br.com.dcoracoes.client.util.message.MessageRelatorio;
 import br.com.dcoracoes.client.util.message.MessageVenda;
 import br.com.dcoracoes.client.util.message.OperadorasTelefonicas;
 import br.com.dcoracoes.servico.service.*;
@@ -33,6 +35,7 @@ import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.Exception;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,6 +54,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.datatype.XMLGregorianCalendar;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -1474,29 +1478,27 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }//GEN-LAST:event_cbFormaPagamentoActionPerformed
 
     private void btnImprimirCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirCompletoActionPerformed
-//ROBSON
-//        try {
-//            GerarRelatorio gerar = new GerarRelatorio();
-//            gerar.gerarRelatorioCompletoVenda(pedido);
-//
-//        } catch (JRException ex) {
-//            Logger.getLogger(FormVenda.class.getName()).log(Level.SEVERE, null, ex);
-//            JOptionPane.showMessageDialog(this, ex.getMessage(), MensagensUtil.ATENCAO, 1);
-//        }catch(Exception ex1)
-//        {
-//            JOptionPane.showMessageDialog(this, ex1.getMessage(), MensagensUtil.ATENCAO, 1);
-//        }
+    //ROBSON
+        try {
+            GerarRelatorio gerar = new GerarRelatorio();
+            gerar.gerarRelatorioCompletoVenda(pedido);
+
+        } catch (JRException ex) {
+            LogUtil.logDescricaoErro(this.getClass(), ex);
+            JOptionPane.showMessageDialog(this, MessageRelatorio.MENSAGEM_ERRO_RELATORIO_COMPLETO_VENDA, MensagensUtil.ATENCAO, 1);
+        }
     }//GEN-LAST:event_btnImprimirCompletoActionPerformed
 
     private void btnImprimirExpedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirExpedicaoActionPerformed
-//ROBSON
-//        try {
-//            GerarRelatorio gerar = new GerarRelatorio();
-//            gerar.gerarRelatorioExpedicaoVenda(pedido);
-//
-//        } catch (JRException ex) {
-//            Logger.getLogger(FormVenda.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+    //ROBSON
+        try {
+            GerarRelatorio gerar = new GerarRelatorio();
+            gerar.gerarRelatorioExpedicaoVenda(pedido);
+
+        } catch (JRException ex) {
+            LogUtil.logDescricaoErro(this.getClass(), ex);
+            JOptionPane.showMessageDialog(this, MessageRelatorio.MENSAGEM_ERRO_RELATORIO_EXPEDICAO_VENDA, MensagensUtil.ATENCAO, 1);
+        }
     }//GEN-LAST:event_btnImprimirExpedicaoActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
