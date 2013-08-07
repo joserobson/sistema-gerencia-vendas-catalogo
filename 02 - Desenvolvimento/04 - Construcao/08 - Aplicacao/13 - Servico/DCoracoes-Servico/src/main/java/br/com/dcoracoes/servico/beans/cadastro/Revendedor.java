@@ -7,7 +7,7 @@ public class Revendedor implements Serializable {
 
     private Long id;
     private int codigo;
-    private int codigoConFiscal;
+    private String codigoConFiscal;
     private Date dataCadastro;
     private Date dataUltimaCompra;
     private float limiteCredito;
@@ -34,11 +34,11 @@ public class Revendedor implements Serializable {
         this.codigo = codigo;
     }
 
-    public int getCodigoConFiscal() {
+    public String getCodigoConFiscal() {
         return codigoConFiscal;
     }
 
-    public void setCodigoConFiscal(int codigoConFiscal) {
+    public void setCodigoConFiscal(String codigoConFiscal) {
         this.codigoConFiscal = codigoConFiscal;
     }
 
