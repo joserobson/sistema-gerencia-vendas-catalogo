@@ -20,6 +20,7 @@ import br.com.dcoracoes.client.telas.compra.FormCompra;
 import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.perfil.FormPerfil;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
+import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
 import br.com.dcoracoes.client.telas.usuario.FormUsuario;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
@@ -48,7 +49,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private FormUsuario formUsuario = null;
     private FormVenda formVenda = null;
     private FormCompra formCompra = null;
-    //  private FormProspeccoes formProspeccoes = null;
+    private FormProspeccoes formProspeccoes = null;
     //  private FormFiltroGerarEtiquetas formEtiqueta = null;
     //  private FormRelatorioVendaPorRevendedor formRelatorioVenda = null;
     //  private FormRelatorioProduto formRelatorioProduto = null;
@@ -57,9 +58,9 @@ public class FormPrincipal extends javax.swing.JFrame {
 //        return formProspeccoes;
 //    }
 //
-//    public void setFormProspeccoes(FormProspeccoes formProspeccoes) {
-//        this.formProspeccoes = formProspeccoes;
-//    }
+    public void setFormProspeccoes(FormProspeccoes formProspeccoes) {
+        this.formProspeccoes = formProspeccoes;
+    }
 //
 //    public void setFormRevendedor(FormRevendedor formRevendedor) {
 //        this.formRevendedor = formRevendedor;
@@ -478,15 +479,14 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVendaActionPerformed
 
     private void btnProspeccoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProspeccoesActionPerformed
-        // TODO add your handling code here:     
-//        try{
-//            if(formProspeccoes == null){
-//                formProspeccoes = new FormProspeccoes(null, false, this);
-//            }
-//            formProspeccoes.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+        try{
+            if(formProspeccoes == null){
+                formProspeccoes = new FormProspeccoes(null, false, this);
+            }
+            formProspeccoes.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_btnProspeccoesActionPerformed
 
     private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
