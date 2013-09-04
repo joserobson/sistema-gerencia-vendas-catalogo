@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -56,7 +57,8 @@ public class AlertaDaoImpl extends ModelGenericoDaoImpl implements AlertaDao {
             hql.append("From Alerta a Where a.pessoa.id = ");
             hql.append(p.getId());
             Query query = sessao.createQuery(hql.toString());
-            retornoLista = query.list();
+            retornoLista = query.list();           
+            initializeList(retornoLista);
             LogUtil.logSucesso(Alerta.class, "recAlertasPorPessoa", p.getId());
         } catch (HibernateException ex) {
             LogUtil.logDescricaoErro(Alerta.class, "ERRO AO RECUPERAR LISTA DE ALERTAS POR PESSOA", ex);
@@ -119,7 +121,8 @@ public class AlertaDaoImpl extends ModelGenericoDaoImpl implements AlertaDao {
         try {
             sessao = HibernateUtil.getSession();
             Query query = sessao.createQuery(montarHql(alerta));
-            listaRetorno = query.list();
+            listaRetorno = query.list();            
+            initializeList(listaRetorno);
             LogUtil.logSucesso(Alerta.class, "recListaAlerta", Long.valueOf(0));
 
         } catch (HibernateException ex) {
@@ -210,5 +213,14 @@ public class AlertaDaoImpl extends ModelGenericoDaoImpl implements AlertaDao {
         hql.append(" ORDER BY a.dataAlerta DESC");
             
         return hql.toString();
+    }
+    
+    private void initializeList(List<Alerta> lista){
+        for (Alerta item : lista) {
+                Hibernate.initialize(item.getPessoa().getEmails());
+                Hibernate.initialize(item.getPessoa().getTelefones());
+                Hibernate.initialize(item.getAtendente().getPessoa().getEmails());
+                Hibernate.initialize(item.getAtendente().getPessoa().getTelefones());
+            }
     }
 }

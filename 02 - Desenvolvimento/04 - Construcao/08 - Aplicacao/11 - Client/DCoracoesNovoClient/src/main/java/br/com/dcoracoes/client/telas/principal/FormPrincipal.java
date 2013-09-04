@@ -156,7 +156,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnrevendedor.setFont(new java.awt.Font("Tahoma", 1, 12));
+        btnrevendedor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnrevendedor.setText("Revendedores");
         btnrevendedor.setAlignmentX(0.5F);
         btnrevendedor.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +165,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnProduto.setFont(new java.awt.Font("Tahoma", 1, 12));
+        btnProduto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnProduto.setText("Produtos");
         btnProduto.setAlignmentX(0.5F);
         btnProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +174,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnVenda.setFont(new java.awt.Font("Tahoma", 1, 12));
+        btnVenda.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnVenda.setText("Vendas");
         btnVenda.setAlignmentX(0.5F);
         btnVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +183,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnCompra.setFont(new java.awt.Font("Tahoma", 1, 12));
+        btnCompra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCompra.setText("Compras");
         btnCompra.setAlignmentX(0.5F);
         btnCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -192,7 +192,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnProspeccoes.setFont(new java.awt.Font("Tahoma", 1, 12));
+        btnProspeccoes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnProspeccoes.setText("Prospecções");
         btnProspeccoes.setAlignmentX(0.5F);
         btnProspeccoes.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +201,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnPerfil.setFont(new java.awt.Font("Tahoma", 1, 12));
+        btnPerfil.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnPerfil.setText("Perfis de Usuário");
         btnPerfil.setAlignmentX(0.5F);
         btnPerfil.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +210,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnUsuario.setFont(new java.awt.Font("Tahoma", 1, 12));
+        btnUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnUsuario.setText("Usuários");
         btnUsuario.setAlignmentX(0.5F);
         btnUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -258,10 +258,10 @@ public class FormPrincipal extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(247, 247, 246));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setFont(new java.awt.Font("Papyrus", 1, 14));
+        jLabel2.setFont(new java.awt.Font("Papyrus", 1, 14)); // NOI18N
         jLabel2.setText("Usuário:");
 
-        lbUser.setFont(new java.awt.Font("Times New Roman", 1, 14));
+        lbUser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -279,7 +279,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(lbUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -289,9 +289,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu_Arquivo.setBackground(new java.awt.Color(43, 116, 185));
         jMenu_Arquivo.setForeground(new java.awt.Color(255, 255, 255));
         jMenu_Arquivo.setText("D'Corações");
-        jMenu_Arquivo.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        jMenu_Arquivo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        jMenuItem_Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/16x16/system-log-out.png"))); // NOI18N
         jMenuItem_Logout.setText("Logout");
         jMenuItem_Logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,7 +300,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu_Arquivo.add(jMenuItem_Logout);
         jMenu_Arquivo.add(jSeparator1);
 
-        jMenuItem_Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/close.png"))); // NOI18N
         jMenuItem_Sair.setText("Sair");
         jMenuItem_Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,7 +313,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu1.setBackground(new java.awt.Color(43, 116, 185));
         jMenu1.setForeground(new java.awt.Color(255, 255, 255));
         jMenu1.setText("Relatórios");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jMenuItem_Etiqueta.setText("Etiquetas de Endereço de Revendedores");
         jMenuItem_Etiqueta.addActionListener(new java.awt.event.ActionListener() {
@@ -350,7 +348,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1077, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

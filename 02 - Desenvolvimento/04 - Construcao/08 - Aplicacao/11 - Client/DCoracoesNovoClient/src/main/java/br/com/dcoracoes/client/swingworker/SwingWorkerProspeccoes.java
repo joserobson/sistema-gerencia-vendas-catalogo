@@ -81,7 +81,7 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
         protected List<T> doInBackground() throws Exception {
             try {
                 habilitaTelaAguarde(formProspeccoes);
-                return new AlertaServerImpl<T>().recTodos(prospeccao, true);
+                return new AlertaServerImpl<T>().recTodos(prospeccao);
             } catch (Exception ex) {
                 throw ex;
             }

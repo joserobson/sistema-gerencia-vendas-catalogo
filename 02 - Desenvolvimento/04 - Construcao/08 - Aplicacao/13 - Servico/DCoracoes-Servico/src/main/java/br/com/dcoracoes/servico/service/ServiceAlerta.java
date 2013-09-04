@@ -12,6 +12,7 @@ import br.com.dcoracoes.transacao.excecao.TransException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.dozer.MappingException;
 
 /**
  *
@@ -23,6 +24,18 @@ public class ServiceAlerta<T extends Alerta> extends ServiceBase implements ISer
 
     public ServiceAlerta() {
         this.tnAlerta = new TnAlerta();
+    }
+    
+    @Override
+    public Object salvarComRetorno(Object param) throws Exception {
+        try {
+            tnAlerta.setProspeccao((br.com.dcoracoes.server.model.prospeccao.Alerta) converteToModel(param));
+            tnAlerta.salvar(ConstanteTnAlerta.NOME_EVENTO_SALVAR_ALERTA);
+            return converteToBean(tnAlerta.getProspeccao());
+
+        } catch (MappingException ex) {
+            throw ex;
+        }
     }
 
     @Override
@@ -86,10 +99,21 @@ public class ServiceAlerta<T extends Alerta> extends ServiceBase implements ISer
             listAlertasBeans = new ArrayList<T>();
             Iterator<br.com.dcoracoes.server.model.prospeccao.Alerta> iterator = listModel.iterator();
             while (iterator.hasNext()) {
-                listAlertasBeans.add((T) mapper.map(iterator.next(), Alerta.class));
+                listAlertasBeans.add((T) converteToBean(iterator.next()));
             }
         }
 
         return listAlertasBeans;
+    }
+    
+    
+    @Override
+    public Object converteToModel(Object param) throws ClassNotFoundException {
+        return this.mapper.map(param, br.com.dcoracoes.server.model.prospeccao.Alerta.class);
+    }
+    
+    @Override
+    public T converteToBean(Object param) throws ClassNotFoundException {
+        return (T) this.mapper.map(param, Alerta.class);
     }
 }
