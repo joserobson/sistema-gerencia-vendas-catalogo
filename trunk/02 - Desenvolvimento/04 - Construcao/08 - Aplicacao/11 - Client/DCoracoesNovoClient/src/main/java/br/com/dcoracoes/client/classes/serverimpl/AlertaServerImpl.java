@@ -23,6 +23,15 @@ public class AlertaServerImpl<T extends Alerta> extends BaseServerImpl<T> implem
             throw new ClientDCoracoesException(ex);
         }
     }
+    
+    @Override
+    public Object salvarComRetorno(Object param) throws ClientDCoracoesException {
+        try {
+            return this.port.salvarAlertaComRetorno((Alerta) param);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+    }
 
     public List<Alerta> recAlertasPorPessoa(Pessoa p) throws ClientDCoracoesException {
 
@@ -49,7 +58,7 @@ public class AlertaServerImpl<T extends Alerta> extends BaseServerImpl<T> implem
     }
 
     @Override
-    public List<Alerta> recTodos(Object param) throws ClientDCoracoesException {
+    public List recTodos(Object param) throws ClientDCoracoesException {
 
         List<Alerta> alertas = null;
 

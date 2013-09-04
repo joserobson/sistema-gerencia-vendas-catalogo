@@ -51,6 +51,12 @@ public class wsServiceDCoracoes {
     public void salvarAlerta(@WebParam(name = "pAlerta") Alerta param) throws Exception {
         new ServiceAlerta().salvar(param);
     }
+    
+    @WebMethod(operationName = "salvarAlertaComRetorno")
+    public Alerta salvarAlertaComRetorno(@WebParam(name = "pAlerta") Alerta pAlerta) throws Exception {       
+        ServiceAlerta service = new ServiceAlerta<Alerta>();
+        return (Alerta)service.salvarComRetorno(pAlerta);
+    }
 
     @WebMethod(operationName = "recAlertasPorPessoa")
     public List<Alerta> recAlertasPorPessoa(@WebParam(name = "pPessoa") Pessoa param) throws Exception {
