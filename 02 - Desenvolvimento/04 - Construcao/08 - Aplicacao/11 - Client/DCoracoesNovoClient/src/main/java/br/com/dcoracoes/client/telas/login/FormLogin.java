@@ -76,7 +76,7 @@ public class FormLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
-        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage("imagens/outras/icon_SGC.gif"));
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage("src/main/resources/imagens/outras/icon_SGC.gif"));
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -153,7 +153,7 @@ public class FormLogin extends javax.swing.JFrame {
         );
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Robson\\Desktop\\fontes\\SGVC_DCoracoes\\02 - Desenvolvimento\\04 - Construcao\\08 - Aplicacao\\11 - Client\\DCoracoesNovoClient\\src\\main\\resources\\imagens\\16x16\\login.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/16x16/login.png"))); // NOI18N
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
