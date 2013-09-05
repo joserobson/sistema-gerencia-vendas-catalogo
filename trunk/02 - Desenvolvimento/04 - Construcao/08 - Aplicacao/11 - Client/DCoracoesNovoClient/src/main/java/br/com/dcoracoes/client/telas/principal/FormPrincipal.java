@@ -291,6 +291,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu_Arquivo.setText("D'Corações");
         jMenu_Arquivo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
+        jMenuItem_Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/16x16/system-log-out.png"))); // NOI18N
         jMenuItem_Logout.setText("Logout");
         jMenuItem_Logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,6 +301,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu_Arquivo.add(jMenuItem_Logout);
         jMenu_Arquivo.add(jSeparator1);
 
+        jMenuItem_Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/close.png"))); // NOI18N
         jMenuItem_Sair.setText("Sair");
         jMenuItem_Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

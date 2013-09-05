@@ -73,19 +73,19 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="btnNovo" min="-2" pref="120" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jPanel1" pref="56" max="32767" attributes="0"/>
+                  <Component id="jPanel1" pref="47" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Component id="btnEditar" min="-2" pref="131" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jPanel7" pref="56" max="32767" attributes="0"/>
+                  <Component id="jPanel7" pref="47" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSalvar" min="-2" pref="132" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="jPanel8" pref="56" max="32767" attributes="0"/>
+                  <Component id="jPanel8" pref="47" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPesquisar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="jPanel9" pref="55" max="32767" attributes="0"/>
+                  <Component id="jPanel9" pref="46" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSair" min="-2" pref="120" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
