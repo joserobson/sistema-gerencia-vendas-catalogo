@@ -11,8 +11,6 @@
 package br.com.dcoracoes.client.telas.venda;
 
 import br.com.dcoracoes.client.ControleAcesso;
-import br.com.dcoracoes.client.Excecao.ClientDCoracoesException;
-import br.com.dcoracoes.client.classes.serverimpl.PedidoServerImpl;
 import br.com.dcoracoes.client.enuns.*;
 import br.com.dcoracoes.client.enuns.Enum_Forma_Pagamento;
 import br.com.dcoracoes.client.enuns.Enum_UF;
@@ -35,7 +33,6 @@ import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.Exception;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -2780,23 +2777,29 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      */
     private void aprovarVenda() {
         if (revendedor != null && !jtxtValorPedidoEscrito.getText().isEmpty()) {
-            try {
-                pedido = new PedidoVenda();
-                pedido.setRevendedor(revendedor);
-                pedido.setValorPedidoEscrito(Float.parseFloat(jtxtValorPedidoEscrito.getText().trim().replace(".", "").replace(",", ".")));
-                pedido.setPagamento(pushToModelFormaPagamento());
+            pedido = new PedidoVenda();
+            pedido.setRevendedor(revendedor);
+            pedido.setValorPedidoEscrito(Float.parseFloat(jtxtValorPedidoEscrito.getText().trim().replace(".", "").replace(",", ".")));
+            pedido.setPagamento(pushToModelFormaPagamento());
 
-                PedidoServerImpl serverImpl = new PedidoServerImpl();
-                if (serverImpl.aprovarPedido(pedido)) {
-                    txtAprovacao.setText("APROVADO");
-                    disableAbaItemsPedido(true);
-                } else {
-                    txtAprovacao.setText("NÃO APROVADO");
-                    disableAbaItemsPedido(false);
-                }
-            } catch (ClientDCoracoesException ex) {
-                Logger.getLogger(FormVenda.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
+            work.setPedido(pedido);
+            work.setFormVenda(this);
+            work.workAprovarPedidoVenda.execute();
+        }
+    }
+    
+    /***
+     * 
+     * @param isAprovada 
+     */
+    public void afterAprovarVenda(Boolean isAprovada) {
+        if (isAprovada) {
+            txtAprovacao.setText("APROVADO");
+            disableAbaItemsPedido(true);
+        } else {
+            txtAprovacao.setText("NÃO APROVADO");
+            disableAbaItemsPedido(false);
         }
     }
 

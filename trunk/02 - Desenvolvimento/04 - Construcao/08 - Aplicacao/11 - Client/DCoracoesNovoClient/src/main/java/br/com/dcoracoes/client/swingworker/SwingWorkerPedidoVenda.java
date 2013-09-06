@@ -333,4 +333,29 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             }
         }
     };
+    
+    
+     public SwingWorker<Boolean, Object> workAprovarPedidoVenda = new SwingWorker<Boolean, Object>() {
+
+        @Override
+        protected Boolean doInBackground() throws Exception {
+            try {
+                habilitaTelaAguarde(formVenda);
+                return new PedidoVendaServerImpl<T>().aprovarPedido(pedido);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formVenda);
+                formVenda.afterAprovarVenda(get());                
+            } catch (Exception ex) {
+                LogUtil.logDescricaoErro(formVenda.getClass(), ex);
+                JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_SALVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
 }
