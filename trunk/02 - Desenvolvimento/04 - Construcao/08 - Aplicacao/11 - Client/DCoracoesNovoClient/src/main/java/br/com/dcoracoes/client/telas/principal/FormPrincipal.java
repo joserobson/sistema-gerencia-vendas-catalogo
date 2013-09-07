@@ -21,6 +21,7 @@ import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.perfil.FormPerfil;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
 import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
+import br.com.dcoracoes.client.telas.revendedor.FormRevendedor;
 import br.com.dcoracoes.client.telas.usuario.FormUsuario;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
@@ -43,7 +44,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private BaseSwingWorker workTelaAguarde;
     //Formularios
-    // private FormRevendedor formRevendedor = null;
+    private FormRevendedor formRevendedor = null;
     private FormProduto formProduto = null;
     private FormPerfil formPerfil = null;
     private FormUsuario formUsuario = null;
@@ -54,21 +55,21 @@ public class FormPrincipal extends javax.swing.JFrame {
     //  private FormRelatorioVendaPorRevendedor formRelatorioVenda = null;
     //  private FormRelatorioProduto formRelatorioProduto = null;
 
-//    public FormProspeccoes getFormProspeccoes() {
-//        return formProspeccoes;
-//    }
-//
+    public FormProspeccoes getFormProspeccoes() {
+        return formProspeccoes;
+    }
+
     public void setFormProspeccoes(FormProspeccoes formProspeccoes) {
         this.formProspeccoes = formProspeccoes;
     }
-//
-//    public void setFormRevendedor(FormRevendedor formRevendedor) {
-//        this.formRevendedor = formRevendedor;
-//    }
-//
-//    public FormRevendedor getFormRevendedor() {
-//        return formRevendedor;
-//    }    
+
+    public void setFormRevendedor(FormRevendedor formRevendedor) {
+        this.formRevendedor = formRevendedor;
+    }
+
+    public FormRevendedor getFormRevendedor() {
+        return formRevendedor;
+    }    
 //    
 //    public FormPerfil getFormPerfil() {
 //        return formPerfil;
@@ -365,14 +366,14 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void btnrevendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrevendedorActionPerformed
         // TODO add your handling code here:
-//        try{
-//            if(formRevendedor == null){
-//                formRevendedor = new FormRevendedor(this);
-//            }
-//            formRevendedor.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+        try{
+            if(formRevendedor == null){
+                formRevendedor = new FormRevendedor(this);
+            }
+            formRevendedor.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_btnrevendedorActionPerformed
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed

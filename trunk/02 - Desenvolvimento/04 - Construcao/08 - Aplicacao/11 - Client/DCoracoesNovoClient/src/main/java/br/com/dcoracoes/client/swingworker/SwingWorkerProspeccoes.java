@@ -6,7 +6,9 @@ package br.com.dcoracoes.client.swingworker;
 
 import br.com.dcoracoes.client.classes.serverimpl.AlertaServerImpl;
 import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
+import br.com.dcoracoes.client.telas.revendedor.FormRevendedor;
 import br.com.dcoracoes.client.util.LogUtil;
+import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.message.MessageProspeccao;
 import br.com.dcoracoes.servico.service.Alerta;
 import java.util.List;
@@ -21,6 +23,7 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
     
     private FormProspeccoes formProspeccoes = null;
     private Alerta prospeccao = null;
+    private FormRevendedor formRevendedor = null;
     
     public SwingWorkerProspeccoes(Alerta prospeccao){
         this.prospeccao = prospeccao;
@@ -44,6 +47,14 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
 
     public void setProspeccao(Alerta prospeccao) {
         this.prospeccao = prospeccao;
+    }
+    
+    public FormRevendedor getFormRevendedor() {
+        return formRevendedor;
+    }
+
+    public void setFormRevendedor(FormRevendedor formRevendedor) {
+        this.formRevendedor = formRevendedor;
     }
     
     public SwingWorker<T, Object> workSalvaProspeccao = new SwingWorker<T, Object>() {
@@ -70,7 +81,7 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formProspeccoes.getClass(), ex);
-                JOptionPane.showMessageDialog(formProspeccoes, MessageProspeccao.ERRO_SALVAR_PROSPECCAO, "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(formProspeccoes, MessageProspeccao.ERRO_SALVAR_PROSPECCAO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
         }
     };
@@ -80,7 +91,11 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
         @Override
         protected List<T> doInBackground() throws Exception {
             try {
-                habilitaTelaAguarde(formProspeccoes);
+                if(formProspeccoes != null)
+                    habilitaTelaAguarde(formProspeccoes);
+                else
+                    if(formRevendedor != null)
+                    habilitaTelaAguarde(formProspeccoes);
                 return new AlertaServerImpl<T>().recTodos(prospeccao);
             } catch (Exception ex) {
                 throw ex;
@@ -90,15 +105,24 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
         @Override
         protected void done() {
             try {
-                desabilitaTelaAguarde(formProspeccoes);
+                if(formProspeccoes != null)
+                    desabilitaTelaAguarde(formProspeccoes);
+                else
+                    if(formRevendedor != null)
+                        desabilitaTelaAguarde(formProspeccoes);
+                
                 if (get() != null) {
                     List<Alerta> listUsuario = (List<Alerta>) get();
                     
-                    formProspeccoes.populaTela(listUsuario);
+                    if(formProspeccoes != null)
+                        formProspeccoes.populaTela(listUsuario);
+                    else
+                        if(formRevendedor != null)
+                            formRevendedor.existAlertaRevendedor(!listUsuario.isEmpty());
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formProspeccoes.getClass(), ex);
-                JOptionPane.showMessageDialog(formProspeccoes, MessageProspeccao.ERRO_CONSULTAR_PROSPECCAO, "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(formProspeccoes, MessageProspeccao.ERRO_CONSULTAR_PROSPECCAO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
         }
     };
