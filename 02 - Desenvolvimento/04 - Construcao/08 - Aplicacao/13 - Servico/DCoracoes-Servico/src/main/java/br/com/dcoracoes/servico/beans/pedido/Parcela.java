@@ -16,8 +16,7 @@ public class Parcela implements Serializable {
     private Long id;
     private Date dataVencimento;
     private int status;
-    private float valor;
-    private Pagamento pagamento;
+    private float valor;    
 
     public Date getDataVencimento() {
         return dataVencimento;
@@ -50,12 +49,5 @@ public class Parcela implements Serializable {
     public void setValor(float valor) {
         this.valor = valor;
     }
-
-    public Pagamento getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(Pagamento pagamento) {
-        this.pagamento = pagamento;
-    }
+    
 }

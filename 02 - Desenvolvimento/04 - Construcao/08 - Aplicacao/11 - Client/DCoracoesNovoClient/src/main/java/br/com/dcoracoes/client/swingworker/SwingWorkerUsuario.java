@@ -104,6 +104,7 @@ public class SwingWorkerUsuario<T extends Usuario> extends BaseSwingWorker {
                     List<Usuario> listUsuario = (List<Usuario>) get();
                     formConsultaUsuario.populaTela(listUsuario);
                 }
+                formConsultaUsuario.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaUsuario.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaUsuario, MessageUsuario.ERRO_CONSULTAR_USUARIO, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -163,6 +164,7 @@ public class SwingWorkerUsuario<T extends Usuario> extends BaseSwingWorker {
                     formConsultaUsuario.setListPerfil(list);
                     formConsultaUsuario.showFrame();
                 }
+                formConsultaUsuario.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaUsuario.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaUsuario, MessagePerfil.ERRO_CONSULTA_PERFIL, "Erro", JOptionPane.ERROR_MESSAGE);

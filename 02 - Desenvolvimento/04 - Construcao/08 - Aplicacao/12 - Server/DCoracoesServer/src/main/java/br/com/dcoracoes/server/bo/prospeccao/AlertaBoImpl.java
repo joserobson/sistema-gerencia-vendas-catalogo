@@ -9,6 +9,7 @@ import br.com.dcoracoes.server.dao.prospeccao.AlertaDao;
 import br.com.dcoracoes.server.dao.cadastro.PessoaDaoImpl;
 import br.com.dcoracoes.server.excecao.ServerException;
 import br.com.dcoracoes.server.model.cadastro.Pessoa;
+import br.com.dcoracoes.server.model.cadastro.PessoaFisica;
 import br.com.dcoracoes.server.model.prospeccao.Alerta;
 import br.com.dcoracoes.server.util.HibernateUtil;
 import br.com.dcoracoes.server.util.LogUtil;
@@ -40,13 +41,12 @@ public class AlertaBoImpl implements AlertaBo<Alerta> {
             HibernateUtil.setTransacao();
 
             //VERIFICAR SE PESSOA VINCULADA AO ALERTA ESTA CADASTRADO
-            if (alerta.getPessoa().getId() == null) {
-                PessoaBoImpl pessoaBo = new PessoaBoImpl();
-                PessoaDaoImpl pessaoDao = new PessoaDaoImpl();
-                pessoaBo.setPessoaDao(pessaoDao);
-                pessoaBo.mantemPessoa(alerta.getPessoa());
+            PessoaBoImpl pessoaBo = new PessoaBoImpl();
+            PessoaDaoImpl pessaoDao = new PessoaDaoImpl();
+            pessoaBo.setPessoaDao(pessaoDao);
+            if (alerta.getPessoa().getId() == null) {                
+                pessoaBo.mantemPessoa(alerta.getPessoa());                                                        
             }
-
             //SALVAR ALERTA
             this.dao.mantemAlerta(alerta);
 
@@ -55,6 +55,7 @@ public class AlertaBoImpl implements AlertaBo<Alerta> {
 
             //LOG SUCESSO
             LogUtil.logSucesso(AlertaBoImpl.class, "mantemAlerta", alerta.getId());
+            
         } catch (ServerException ex) {
             HibernateUtil.getTransacao().rollback();
             LogUtil.logDescricaoErro(AlertaBoImpl.class, "ERRO AO SALVAR ALERTA: " + alerta.getId(), ex);

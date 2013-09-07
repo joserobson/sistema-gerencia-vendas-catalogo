@@ -9,9 +9,6 @@ import br.com.dcoracoes.server.model.canalacesso.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -37,16 +34,20 @@ public class Alerta implements Serializable {
     @Column(name = "situacao")
     private int situacaoAlerta;
     
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="id_pessoa",insertable=true, updatable=true)
-    @Fetch(FetchMode.JOIN)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+//    @ManyToOne(fetch=FetchType.EAGER)
+//    @JoinColumn(name="id_pessoa",insertable=true, updatable=true)
+//    @Fetch(FetchMode.JOIN)
+//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToOne
+    @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;       
     
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="id_usuario",insertable=true, updatable=true)
-    @Fetch(FetchMode.JOIN)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+//    @ManyToOne(fetch=FetchType.EAGER)
+//    @JoinColumn(name="id_usuario",insertable=true, updatable=true)
+//    @Fetch(FetchMode.JOIN)
+//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
     private Usuario atendente;
 
     public Alerta() {        

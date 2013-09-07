@@ -1785,7 +1785,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         clear();
 
         txtNumeroOrcamento.setText(pedido.getCodigo());
-        jtxtData.setValue(pedido.getDataPedido());
+        jtxtData.setValue(DateUtil.asDate(pedido.getDataPedido()));
         cbFormaPagamento.setSelectedIndex(Enum_Forma_Pagamento.getByte(pedido.getPagamento().getFormaPagamento()));
         jtxtValorPedidoEscrito.setValue(pedido.getValorPedidoEscrito());
 
@@ -2030,8 +2030,16 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     private void atualizaCorProduto(String referenciaCatalogo, int row, String cor, int quantidade) {
         Produto produto = new Produto();
         produto.setReferenciaCatalogo(referenciaCatalogo);
-        buscarProduto(produto.getReferenciaCatalogo(), row, cor, quantidade);
-
+        //buscarProduto(produto.getReferenciaCatalogo(), row, cor, quantidade);
+        
+        SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
+        work.setProdutoPedidoVenda(produto);
+        work.setFormVenda(this);
+        work.setRowProduto(row);
+        work.setCorProduto(cor);
+        work.setQuantidadeProduto(quantidade);
+        work.workSearchProdutosAtualizaCor.execute();
+        
     }
 
     /**
