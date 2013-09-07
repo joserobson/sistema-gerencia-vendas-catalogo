@@ -29,4 +29,6 @@ public class MessageRevendedor {
     
     public static String OPCAO_TIPO_ETIQUETA = "Escolha o tipo de etiquetas a ser gerado.";
         
+    public static String MSG_CPF_CADASTRADO = "CPF Já cadastrado em nosso banco de dados.";
+        
 }

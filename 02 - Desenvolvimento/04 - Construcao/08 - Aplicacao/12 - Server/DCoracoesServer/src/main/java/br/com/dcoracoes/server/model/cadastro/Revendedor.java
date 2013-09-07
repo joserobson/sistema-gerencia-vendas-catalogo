@@ -41,7 +41,7 @@ public class Revendedor implements Serializable {
     private int situacao;
     @OneToOne
     @JoinColumn(name = "id_pessoa")
-    private Pessoa pessoa;
+    private PessoaFisica pessoa;
     //@OneToMany(mappedBy = "revendedor", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     //private List<Pedido> listaPedidos;
 
@@ -141,11 +141,11 @@ public class Revendedor implements Serializable {
         this.id = id;
     }
 
-    public Pessoa getPessoa() {
+    public PessoaFisica getPessoa() {
         return pessoa;
     }
 
-    public void setPessoa(Pessoa pessoa) {
+    public void setPessoa(PessoaFisica pessoa) {
         this.pessoa = pessoa;
     }
 

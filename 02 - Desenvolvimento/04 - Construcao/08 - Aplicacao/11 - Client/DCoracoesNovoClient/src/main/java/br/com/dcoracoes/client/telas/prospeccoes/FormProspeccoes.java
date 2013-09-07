@@ -17,6 +17,7 @@ import br.com.dcoracoes.client.enuns.Enum_Situacao_Alerta;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
 import br.com.dcoracoes.client.swingworker.SwingWorkerProspeccoes;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
+import br.com.dcoracoes.client.telas.revendedor.FormConsultaRevendedor;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
@@ -1099,8 +1100,8 @@ public class FormProspeccoes extends javax.swing.JDialog implements InterfaceCad
 
     private void searchRevendedor() {
         //TODO
-//        FormConsultaRevendedor form = new FormConsultaRevendedor(true, this);
-//        form.setVisible(true);
+        FormConsultaRevendedor form = new FormConsultaRevendedor(true, this);
+        form.setVisible(true);
     }
 
     /**

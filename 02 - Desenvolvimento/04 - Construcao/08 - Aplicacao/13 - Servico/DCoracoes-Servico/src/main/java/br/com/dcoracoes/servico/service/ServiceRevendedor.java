@@ -38,6 +38,18 @@ public class ServiceRevendedor<T extends ViewRevendedor> extends ServiceBase<T> 
             throw ex;
         }
     }
+    
+    @Override
+    public Object salvarComRetorno(Object param) throws Exception {
+        try {
+            tnRevendedor.setViewRevendedor((br.com.dcoracoes.transacao.classes.view.ViewRevendedor) converteToModel(param));
+            tnRevendedor.salvar(ConstanteTnRevendedor.NOME_EVENTO_SALVAR_REVENDEDOR);
+            return converteToBean(tnRevendedor.getViewRevendedor());
+
+        } catch (MappingException ex) {
+            throw ex;
+        }
+    }
 
     @Override
     public List<T> recTodos(Object param) throws Exception {
@@ -130,7 +142,8 @@ public class ServiceRevendedor<T extends ViewRevendedor> extends ServiceBase<T> 
             tnRevendedor.setViewRevendedor(viewRevendedor);
 
             br.com.dcoracoes.server.model.pedido.PedidoVenda pedidoVendaModel = tnRevendedor.recUltimoPedidoVenda();
-            pedidoVendaBean = this.mapper.map(pedidoVendaModel, PedidoVenda.class);
+            if(pedidoVendaBean != null)
+                pedidoVendaBean = this.mapper.map(pedidoVendaModel, PedidoVenda.class);
 
         } catch (MappingException ex) {
             throw ex;

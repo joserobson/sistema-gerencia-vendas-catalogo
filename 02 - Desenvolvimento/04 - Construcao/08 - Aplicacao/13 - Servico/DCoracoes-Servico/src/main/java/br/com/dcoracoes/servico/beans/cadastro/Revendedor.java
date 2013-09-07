@@ -16,7 +16,7 @@ public class Revendedor implements Serializable {
     private String numeroNotaFiscal;
     private String observacoes;
     private int situacao;
-    private Pessoa pessoa;
+    private PessoaFisica pessoa;
 
     public Revendedor() {
         super();
@@ -114,11 +114,11 @@ public class Revendedor implements Serializable {
         this.id = id;
     }
 
-    public Pessoa getPessoa() {
+    public PessoaFisica getPessoa() {
         return pessoa;
     }
 
-    public void setPessoa(Pessoa pessoa) {
+    public void setPessoa(PessoaFisica pessoa) {
         this.pessoa = pessoa;
     }
 

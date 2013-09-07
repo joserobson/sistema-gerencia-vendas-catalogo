@@ -178,6 +178,12 @@ public class wsServiceDCoracoes {
     public void salvarRevendedor(@WebParam(name = "pViewRevendedor") ViewRevendedor pViewRevendedor) throws Exception {
         new ServiceRevendedor<ViewRevendedor>().salvar(pViewRevendedor);
     }
+    
+    @WebMethod(operationName = "salvarRevendedorComRetorno")
+    public ViewRevendedor salvarRevendedorComRetorno(@WebParam(name = "pViewRevendedor") ViewRevendedor pViewRevendedor) throws Exception {       
+        ServiceRevendedor service = new ServiceRevendedor<ViewRevendedor>();
+        return (ViewRevendedor)service.salvarComRetorno(pViewRevendedor);
+    }
 
     @WebMethod(operationName = "recUltimoRevendedorCadastro")
     public ViewRevendedor recUltimoRevendedorCadastro() throws Exception {
@@ -190,8 +196,8 @@ public class wsServiceDCoracoes {
     }
 
     @WebMethod(operationName = "recListaViewRevendedor")
-    public List<ViewRevendedor> recListaViewRevendedor(@WebParam(name = "pViewRevendedor") ViewRevendedor pViewRevendedor) throws Exception {
-        return new ServiceRevendedor<ViewRevendedor>().recTodos(pViewRevendedor);
+    public List<ViewRevendedor> recListaViewRevendedor(@WebParam(name = "pRevendedor") Revendedor pRevendedor) throws Exception {
+        return new ServiceRevendedor<ViewRevendedor>().recTodos(pRevendedor);
     }
 
     @WebMethod(operationName = "validaCPF")
@@ -205,7 +211,7 @@ public class wsServiceDCoracoes {
     }
 
     @WebMethod(operationName = "recRevendedorEtiqueta")
-    public List<Pessoa> recRevendedorEtiqueta(@WebParam(name = "parameter") HashMap parameter) throws Exception {
+    public List<Pessoa> recRevendedorEtiqueta(@WebParam(name = "parameter") java.util.HashMap<String, Object> parameter) throws Exception {
         return new ServiceRevendedor<ViewRevendedor>().recRevendedorEtiqueta(parameter);
     }
 
