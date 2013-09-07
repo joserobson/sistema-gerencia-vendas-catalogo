@@ -14,6 +14,7 @@ import br.com.dcoracoes.client.App;
 import br.com.dcoracoes.client.ControleAcesso;
 import br.com.dcoracoes.client.classes.serverimpl.PerfilServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PermissaoServerImpl;
+import br.com.dcoracoes.client.classes.serverimpl.RevendedorServerImpl;
 import br.com.dcoracoes.client.swingworker.BaseSwingWorker;
 import br.com.dcoracoes.client.telas.compra.FormCompra;
 
@@ -26,11 +27,10 @@ import br.com.dcoracoes.client.telas.usuario.FormUsuario;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
-import br.com.dcoracoes.servico.service.Perfil;
-import br.com.dcoracoes.servico.service.Permissao;
-import br.com.dcoracoes.servico.service.Usuario;
+import br.com.dcoracoes.servico.service.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.Exception;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -70,15 +70,15 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormRevendedor getFormRevendedor() {
         return formRevendedor;
     }    
-//    
-//    public FormPerfil getFormPerfil() {
-//        return formPerfil;
-//    }
-//
-//    public void setFormPerfil(FormPerfil formPerfil) {
-//        this.formPerfil = formPerfil;
-//    }
-//
+    
+    public FormPerfil getFormPerfil() {
+        return formPerfil;
+    }
+
+    public void setFormPerfil(FormPerfil formPerfil) {
+        this.formPerfil = formPerfil;
+    }
+
     public FormProduto getFormProduto() {
         return formProduto;
     }
@@ -365,15 +365,44 @@ public class FormPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnrevendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrevendedorActionPerformed
-        // TODO add your handling code here:
-        try{
-            if(formRevendedor == null){
-                formRevendedor = new FormRevendedor(this);
+        
+        SwingWorker<Object, Void> worker = new SwingWorker<Object, Void>() {
+
+            @Override
+            protected Object doInBackground() throws Exception {
+                try {
+                    workTelaAguarde.habilitaTelaAguarde(getFramePrincipal());                    
+                    return new RevendedorServerImpl().recUltimoRevendedorCadastro();
+                } catch (Exception ex) {
+                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
+                    throw ex;
+                }
             }
-            formRevendedor.setVisible(true);
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-        }
+
+            @Override
+            protected void done() {
+                try {
+                    if (formRevendedor == null) {
+                        formRevendedor = new FormRevendedor((FormPrincipal)getFramePrincipal());
+                    }
+
+                    if (get() != null) {
+                        formRevendedor.setRevendedor((ViewRevendedor)get());
+                    } else
+                        formRevendedor.createNew();
+                    
+                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
+                    formRevendedor.showFrame();
+                    
+
+                } catch (Exception ex) {
+                    LogUtil.logDescricaoErro(this.getClass(), ex);
+                    JOptionPane.showMessageDialog(formPerfil, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+                }
+            }
+        };
+
+        worker.execute();
     }//GEN-LAST:event_btnrevendedorActionPerformed
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
@@ -406,14 +435,14 @@ public class FormPrincipal extends javax.swing.JFrame {
 
             @Override
             protected void done() {
-                workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
                 try {
                     List<Permissao> permissoes = (List<Permissao>) get();
                     if (formPerfil == null) {
                         formPerfil = new FormPerfil();
                         formPerfil.setTodasPermissoes(permissoes);
                     }
-
+                    
+                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
                     formPerfil.showFrame();
 
                 } catch (Exception ex) {
@@ -447,7 +476,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
             @Override
             protected void done() {
-                workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
                 try {
                     List<Perfil> perfis = (List<Perfil>) get();
                     if (formUsuario == null) {
@@ -455,6 +483,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                     }
 
                     formUsuario.setListPerfil(perfis);
+                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
                     formUsuario.showFrame();
 
                 } catch (Exception ex) {

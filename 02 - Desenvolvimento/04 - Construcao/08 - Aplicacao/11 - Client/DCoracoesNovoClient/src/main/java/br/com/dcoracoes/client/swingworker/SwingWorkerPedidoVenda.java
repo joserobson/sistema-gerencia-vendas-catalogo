@@ -8,6 +8,7 @@ import br.com.dcoracoes.client.classes.serverimpl.AlertaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoCompraServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoVendaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.ProdutoServerImpl;
+import br.com.dcoracoes.client.classes.serverimpl.RevendedorServerImpl;
 import br.com.dcoracoes.client.telas.venda.FormConsultaVenda;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
@@ -235,8 +236,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
         protected List<ViewRevendedor> doInBackground() throws Exception {
             try {
                 habilitaTelaAguarde(formVenda);
-                //return new RevendedorServerImpl().
-                return null;
+                return new RevendedorServerImpl<Revendedor>().recTodos(revendedor);
             } catch (Exception ex) {
                 throw ex;
             }

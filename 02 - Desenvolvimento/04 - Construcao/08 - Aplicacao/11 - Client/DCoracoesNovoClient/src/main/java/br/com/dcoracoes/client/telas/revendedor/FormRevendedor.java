@@ -1525,8 +1525,6 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         //Inicializa Acesso
         this.inicializaAcessoPorPerfil();
-        
-        buscarUltimoCadastro();
     }
 
     @Override
@@ -2123,6 +2121,6 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
     @Override
     public void showFrame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.setVisible(true);
     }
 }

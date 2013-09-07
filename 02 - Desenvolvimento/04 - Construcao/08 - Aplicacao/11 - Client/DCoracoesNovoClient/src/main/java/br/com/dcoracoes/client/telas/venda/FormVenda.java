@@ -20,6 +20,7 @@ import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoVenda;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.telas.produto.FormConsultaProduto;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
+import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
@@ -85,7 +86,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      */
     public FormVenda(FormPrincipal form) {
         this.form = form;
-        initComponents();
+        initComponents();        
+        setLocationRelativeTo(null);
+        initialize();
     }
 
     /**
@@ -1378,10 +1381,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }//GEN-LAST:event_txtAprovacaoKeyReleased
 
     private void btnProspeccoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProspeccoesActionPerformed
-        // TODO add your handling code here:        
-//ROBSON
-//        FormProspeccoes form = new FormProspeccoes(revendedor, true, this);
-//        form.setVisible(true);
+        FormProspeccoes form = new FormProspeccoes(revendedor, true, this);
+        form.setVisible(true);
 }//GEN-LAST:event_btnProspeccoesActionPerformed
 
     private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
@@ -1658,6 +1659,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         rev.setCodigo(Integer.parseInt(jtxtCodigoRevendedor.getText()));
 
         SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
+        work.setFormVenda(this);
         work.setRevendedor(rev);
         work.workBuscaRevendedor.execute();
     }
@@ -2807,7 +2809,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      * Realiza busca de prospeccao por revendedor
      */
     public void consultarProspeccoes() {
-//ROBSON
         Alerta prospeccao = new Alerta();
         prospeccao.setPessoa(revendedor.getPessoa());
         prospeccao.setSituacaoAlerta(Enum_Situacao_Alerta.EMABERTO.getCodigo());
@@ -2877,8 +2878,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
     @Override
     public void showFrame() {
-        setLocationRelativeTo(null);
-        initialize();
         this.setVisible(true);
     }
 
