@@ -138,6 +138,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     List<ViewRevendedor> list = (List<ViewRevendedor>) get();
                     formConsultaRevendedor.populaTela(list);
                 }
+                formConsultaRevendedor.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -194,6 +195,8 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     formRevendedor.setRevendedor(get());
                 } else
                     formRevendedor.createNew();
+                
+                formRevendedor.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -222,6 +225,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                 if (get() != null) {
                     formRevendedor.salvarComSucesso(get());
                 }
+                formRevendedor.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_SALVAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -249,6 +253,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                 if (get() != null) {
                     formRevendedor.populaNewCodigoConsultor(get());
                 }
+                formRevendedor.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -277,6 +282,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     //Implemetar quando necessario
                     //hoje não está sendo utilizado
                 }
+                formRevendedor.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -293,6 +299,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                 RevendedorServerImpl serverImpl = new RevendedorServerImpl();
                 return serverImpl.recUltimoPedidoVenda(revendedor);
             } catch (Exception ex) {
+                desabilitaTelaAguarde(formRevendedor);
                 throw ex;
             }
         }
@@ -303,6 +310,8 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                 desabilitaTelaAguarde(formRevendedor);
                 if (get() != null) 
                     formRevendedor.atualizaDataUltimaCompra(get());
+                
+                formRevendedor.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);

@@ -79,6 +79,7 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
                     formProspeccoes.salvarComSucesso();
                     formProspeccoes.setProspeccao(get());
                 }
+                formProspeccoes.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formProspeccoes.getClass(), ex);
                 JOptionPane.showMessageDialog(formProspeccoes, MessageProspeccao.ERRO_SALVAR_PROSPECCAO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -114,11 +115,15 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
                 if (get() != null) {
                     List<Alerta> listUsuario = (List<Alerta>) get();
                     
-                    if(formProspeccoes != null)
+                    if(formProspeccoes != null){
                         formProspeccoes.populaTela(listUsuario);
+                        formProspeccoes.setVisible(true);
+                    }
                     else
-                        if(formRevendedor != null)
+                        if(formRevendedor != null){
                             formRevendedor.existAlertaRevendedor(!listUsuario.isEmpty());
+                            formRevendedor.setVisible(true);
+                        }
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formProspeccoes.getClass(), ex);
