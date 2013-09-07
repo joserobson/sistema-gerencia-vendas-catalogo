@@ -21,7 +21,8 @@ public class RevendedorServerImpl<T extends Revendedor> extends BaseServerImpl<T
         List<Pessoa> pessoas = null;
 
         try {
-            pessoas = this.port.recRevendedorEtiqueta(parameter);
+//            TODO: Cleberson
+//            pessoas = this.port.recRevendedorEtiqueta(parameter);
         } catch (Exception ex) {
             throw new ClientDCoracoesException(ex);
         }

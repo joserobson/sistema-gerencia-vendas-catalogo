@@ -7,6 +7,7 @@ package br.com.dcoracoes.client.swingworker;
 import br.com.dcoracoes.client.classes.serverimpl.ProdutoServerImpl;
 import br.com.dcoracoes.client.telas.produto.FormConsultaProduto;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
+import br.com.dcoracoes.client.telas.relatorio.FormRelatorioProduto;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.message.MessageProduto;
 import br.com.dcoracoes.servico.service.ItemProduto;
@@ -26,6 +27,15 @@ public class SwingWorkerProduto<T extends Produto> extends BaseSwingWorker {
     private Produto produto = null;
     private ItemProduto itemProduto = null;
     private boolean useLike;
+    private FormRelatorioProduto formRelatorioProduto = null;
+
+    public FormRelatorioProduto getFormRelatorioProduto() {
+        return formRelatorioProduto;
+    }
+
+    public void setFormRelatorioProduto(FormRelatorioProduto formRelatorioProduto) {
+        this.formRelatorioProduto = formRelatorioProduto;
+    }
 
     public FormProduto getFormProduto() {
         return formProduto;
@@ -164,7 +174,11 @@ public class SwingWorkerProduto<T extends Produto> extends BaseSwingWorker {
         @Override
         protected List<T> doInBackground() throws Exception {
             try {
-                habilitaTelaAguarde(formConsultaProduto);
+                if(formConsultaProduto != null)
+                    habilitaTelaAguarde(formConsultaProduto);
+                else
+                    if(formRelatorioProduto != null)
+                        habilitaTelaAguarde(formRelatorioProduto);
                 return new ProdutoServerImpl<T>().recProdutos(produto, useLike);
             } catch (Exception ex) {
                 throw ex;
@@ -173,11 +187,21 @@ public class SwingWorkerProduto<T extends Produto> extends BaseSwingWorker {
 
         @Override
         protected void done() {
-            try {
-                desabilitaTelaAguarde(formConsultaProduto);
+            try {                
+                if(formConsultaProduto != null)
+                    desabilitaTelaAguarde(formConsultaProduto);
+                else
+                    if(formRelatorioProduto != null)
+                        desabilitaTelaAguarde(formRelatorioProduto);
+                
                 if (get() != null) {
                     List<Produto> listProduto = (List<Produto>) get();
-                    formConsultaProduto.popularTela(listProduto);
+                        
+                    if(formConsultaProduto != null)
+                        formConsultaProduto.popularTela(listProduto);
+                    else
+                        if(formRelatorioProduto != null)
+                            formRelatorioProduto.processaListaProduto(listProduto);
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaProduto.getClass(), ex);

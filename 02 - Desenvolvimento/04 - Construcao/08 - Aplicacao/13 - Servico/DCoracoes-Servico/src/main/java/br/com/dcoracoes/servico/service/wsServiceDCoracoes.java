@@ -20,6 +20,7 @@ import br.com.dcoracoes.servico.beans.produto.Produto;
 import br.com.dcoracoes.servico.beans.prospeccao.Alerta;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -114,8 +115,8 @@ public class wsServiceDCoracoes {
     }
 
     @WebMethod(operationName = "recRelatorioPedidosPorRevendedor")
-    public List recRelatorioPedidosPorRevendedor(@WebParam(name = "param") HashMap param) throws Exception {
-        return new ServicePedido<Pedido>().recRelatorioPedidosPorRevendedor(param);
+    public List<PedidoVenda> recRelatorioPedidosPorRevendedor(@WebParam(name = "param") HashMap param) throws Exception {
+        return new ServicePedido<PedidoVenda>().recRelatorioPedidosPorRevendedor(param);
     }
 
     /**
@@ -211,7 +212,7 @@ public class wsServiceDCoracoes {
     }
 
     @WebMethod(operationName = "recRevendedorEtiqueta")
-    public List<Pessoa> recRevendedorEtiqueta(@WebParam(name = "parameter") java.util.HashMap<String, Object> parameter) throws Exception {
+    public List<Pessoa> recRevendedorEtiqueta(@WebParam(name = "parameter") HashMap parameter) throws Exception {
         return new ServiceRevendedor<ViewRevendedor>().recRevendedorEtiqueta(parameter);
     }
 

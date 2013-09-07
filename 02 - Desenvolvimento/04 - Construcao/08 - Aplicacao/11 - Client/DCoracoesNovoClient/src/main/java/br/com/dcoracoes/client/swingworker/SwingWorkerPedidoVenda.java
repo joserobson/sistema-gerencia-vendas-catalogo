@@ -6,9 +6,11 @@ package br.com.dcoracoes.client.swingworker;
 
 import br.com.dcoracoes.client.classes.serverimpl.AlertaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoCompraServerImpl;
+import br.com.dcoracoes.client.classes.serverimpl.PedidoServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoVendaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.ProdutoServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.RevendedorServerImpl;
+import br.com.dcoracoes.client.telas.relatorio.FormRelatorioVendaPorRevendedor;
 import br.com.dcoracoes.client.telas.venda.FormConsultaVenda;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
@@ -38,6 +40,24 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
     private int quantidadeProduto;
     private Revendedor revendedor;
     private Alerta alerta;
+    private FormRelatorioVendaPorRevendedor formRelatorioVendaPorRevendedor = null;
+    private java.util.HashMap<String, Object> parameter;
+
+    public java.util.HashMap<String, Object> getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(java.util.HashMap<String, Object> parameter) {
+        this.parameter = parameter;
+    }
+
+    public FormRelatorioVendaPorRevendedor getFormRelatorioVendaPorRevendedor() {
+        return formRelatorioVendaPorRevendedor;
+    }
+
+    public void setFormRelatorioVendaPorRevendedor(FormRelatorioVendaPorRevendedor formRelatorioVendaPorRevendedor) {
+        this.formRelatorioVendaPorRevendedor = formRelatorioVendaPorRevendedor;
+    }
 
     public Revendedor getRevendedor() {
         return revendedor;
@@ -355,6 +375,33 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_SALVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
+     
+     public SwingWorker<List<T>, Object> workRecRelatorioPedidosPorRevendedor = new SwingWorker<List<T>, Object>() {
+
+        @Override
+        protected List<T> doInBackground() throws Exception {
+            try {
+                habilitaTelaAguarde(formRelatorioVendaPorRevendedor);
+                PedidoServerImpl serverImpl = new PedidoServerImpl();
+                return serverImpl.recRelatorioPedidosPorRevendedor(parameter);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formRelatorioVendaPorRevendedor);
+                if (get() != null) {
+                    formRelatorioVendaPorRevendedor.processaList((List<PedidoVenda>)get());
+                }
+            } catch (Exception ex) {
+                LogUtil.logDescricaoErro(formRelatorioVendaPorRevendedor.getClass(), ex);
+                JOptionPane.showMessageDialog(formRelatorioVendaPorRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
         }
     };
