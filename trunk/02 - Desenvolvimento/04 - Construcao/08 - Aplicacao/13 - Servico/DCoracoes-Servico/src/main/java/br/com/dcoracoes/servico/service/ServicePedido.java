@@ -4,6 +4,7 @@
  */
 package br.com.dcoracoes.servico.service;
 
+import br.com.dcoracoes.server.model.pedido.PedidoVenda;
 import br.com.dcoracoes.servico.beans.pedido.Pedido;
 import br.com.dcoracoes.transacao.classes.TnPedido;
 import br.com.dcoracoes.transacao.constantes.ConstanteTnPedido;
@@ -86,7 +87,7 @@ public class ServicePedido<T extends Pedido> extends ServiceBase implements ISer
     public List<T> recRelatorioPedidosPorRevendedor(HashMap parameter) throws Exception {
         List<T> listPedidosBeans = null;
         try {
-            List<br.com.dcoracoes.server.model.pedido.Pedido> listPedidosModel =
+            List<br.com.dcoracoes.server.model.pedido.PedidoVenda> listPedidosModel =
                     tnPedido.recRelatorioPedidosPorRevendedor(parameter);
             listPedidosBeans = getListToBeans(listPedidosModel);
         } catch (MappingException ex) {

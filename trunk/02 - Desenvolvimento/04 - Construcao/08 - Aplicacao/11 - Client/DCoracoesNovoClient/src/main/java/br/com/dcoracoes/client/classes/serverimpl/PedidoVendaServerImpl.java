@@ -21,6 +21,5 @@ public class PedidoVendaServerImpl <T extends PedidoVenda> extends PedidoServerI
             throw new ClientDCoracoesException(ex);
         }
     }
-
     
 }

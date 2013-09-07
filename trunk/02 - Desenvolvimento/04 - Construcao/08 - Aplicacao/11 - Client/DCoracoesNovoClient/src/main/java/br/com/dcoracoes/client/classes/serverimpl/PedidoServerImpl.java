@@ -9,6 +9,7 @@ import br.com.dcoracoes.servico.service.HashMap;
 import br.com.dcoracoes.servico.service.Pedido;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -90,10 +91,11 @@ public class PedidoServerImpl<T extends Pedido> extends BaseServerImpl<T> implem
      * @return
      * @throws TransException
      */
-    public List recRelatorioPedidosPorRevendedor(HashMap param) throws ClientDCoracoesException {
+    public List recRelatorioPedidosPorRevendedor(java.util.HashMap<String, Object> param) throws ClientDCoracoesException {
         List listaRetorno = null;
         try {
-            listaRetorno = this.port.recRelatorioPedidosPorRevendedor(param);
+//            TODO: Cleberson
+//            listaRetorno = this.port.recRelatorioPedidosPorRevendedor(param);
         } catch (Exception ex) {
             throw new ClientDCoracoesException(ex);
         }

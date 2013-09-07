@@ -22,7 +22,10 @@ import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.perfil.FormPerfil;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
 import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
+import br.com.dcoracoes.client.telas.relatorio.FormRelatorioProduto;
+import br.com.dcoracoes.client.telas.relatorio.FormRelatorioVendaPorRevendedor;
 import br.com.dcoracoes.client.telas.revendedor.FormRevendedor;
+import br.com.dcoracoes.client.telas.revendedor.FormFiltroGerarEtiquetas;
 import br.com.dcoracoes.client.telas.usuario.FormUsuario;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
@@ -51,9 +54,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     private FormVenda formVenda = null;
     private FormCompra formCompra = null;
     private FormProspeccoes formProspeccoes = null;
-    //  private FormFiltroGerarEtiquetas formEtiqueta = null;
-    //  private FormRelatorioVendaPorRevendedor formRelatorioVenda = null;
-    //  private FormRelatorioProduto formRelatorioProduto = null;
+    private FormFiltroGerarEtiquetas formEtiqueta = null;
+    private FormRelatorioVendaPorRevendedor formRelatorioVenda = null;
+    private FormRelatorioProduto formRelatorioProduto = null;
 
     public FormProspeccoes getFormProspeccoes() {
         return formProspeccoes;
@@ -555,36 +558,36 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem_SairActionPerformed
 
     private void jMenuItem_EtiquetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_EtiquetaActionPerformed
-//        try{
-//            if(formEtiqueta == null){
-//                formEtiqueta = new FormFiltroGerarEtiquetas();
-//            }
-//            formEtiqueta.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+        try{
+            if(formEtiqueta == null){
+                formEtiqueta = new FormFiltroGerarEtiquetas();
+            }
+            formEtiqueta.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_jMenuItem_EtiquetaActionPerformed
 
     private void jMenuItem_VendaRevendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_VendaRevendedorActionPerformed
-//        try{
-//            if(formRelatorioVenda == null){
-//                formRelatorioVenda = new FormRelatorioVendaPorRevendedor();
-//            }
-//            formRelatorioVenda.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+        try{
+            if(formRelatorioVenda == null){
+                formRelatorioVenda = new FormRelatorioVendaPorRevendedor();
+            }
+            formRelatorioVenda.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_jMenuItem_VendaRevendedorActionPerformed
 
     private void jMenuItem_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ProdutoActionPerformed
-//        try{
-//            if(formRelatorioProduto == null){
-//                formRelatorioProduto = new FormRelatorioProduto();
-//            }
-//            formRelatorioProduto.setVisible(true);
-//        }catch(Exception ex){
-//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-//        }
+        try{
+            if(formRelatorioProduto == null){
+                formRelatorioProduto = new FormRelatorioProduto();
+            }
+            formRelatorioProduto.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+        }
     }//GEN-LAST:event_jMenuItem_ProdutoActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompra;
