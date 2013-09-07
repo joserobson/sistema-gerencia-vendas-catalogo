@@ -93,7 +93,7 @@ public class SwingWorkerPedidoCompra<T extends PedidoCompra> extends BaseSwingWo
                 if (get() != null) {
                     formCompra.setPedidoCompra((T)get());
                     formCompra.salvarComSucesso();                    
-                }
+                }                
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formCompra.getClass(), ex);
                 JOptionPane.showMessageDialog(formCompra, MessageCompra.ERRO_SALVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -120,6 +120,7 @@ public class SwingWorkerPedidoCompra<T extends PedidoCompra> extends BaseSwingWo
                     List<PedidoCompra> listPedido = (List<PedidoCompra>) get();
                     formConsultaCompra.popularTela(listPedido);
                 }
+                formConsultaCompra.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaCompra.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaCompra, MessageCompra.ERRO_CONSULTAR_VENDA, "Erro", JOptionPane.ERROR_MESSAGE);

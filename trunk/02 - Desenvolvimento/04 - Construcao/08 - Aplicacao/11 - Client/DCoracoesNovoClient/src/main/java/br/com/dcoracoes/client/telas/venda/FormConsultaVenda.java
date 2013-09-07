@@ -12,11 +12,13 @@ package br.com.dcoracoes.client.telas.venda;
 
 import br.com.dcoracoes.client.interfaces.InterfaceConsultaSimples;
 import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoVenda;
+import br.com.dcoracoes.client.util.DataUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.servico.service.PedidoVenda;
 import br.com.dcoracoes.servico.service.PessoaFisica;
 import br.com.dcoracoes.servico.service.Revendedor;
+import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.text.SimpleDateFormat;
@@ -421,14 +423,12 @@ public class FormConsultaVenda extends javax.swing.JDialog implements InterfaceC
      * @param pedido
      */
     private void popularTela(PedidoVenda pedido) {
-        DefaultTableModel dtm = (DefaultTableModel) tableResult.getModel();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
+        DefaultTableModel dtm = (DefaultTableModel) tableResult.getModel();              
         dtm.addRow(new Object[]{
                     pedido.getCodigo(),
-                    format.format(pedido.getDataPedido()),
+                    DateUtil.asString(pedido.getDataPedido()),
                     MetodosUtil.gerarCodigoFormatoPadrao(pedido.getRevendedor().getCodigo()),
-                    ((PessoaFisica) pedido.getRevendedor().getPessoa()).getNome(),
+                    pedido.getRevendedor().getPessoa().getNome(),
                     pedido.getTotal()
                 });
 

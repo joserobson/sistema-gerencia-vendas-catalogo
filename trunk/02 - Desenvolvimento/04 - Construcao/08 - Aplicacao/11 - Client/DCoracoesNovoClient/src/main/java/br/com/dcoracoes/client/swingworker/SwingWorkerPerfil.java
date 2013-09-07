@@ -100,6 +100,7 @@ public class SwingWorkerPerfil<T extends Perfil> extends BaseSwingWorker {
                         formConsultaPerfil.popularTela(lst);                    
                     }
                 }
+                formConsultaPerfil.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaPerfil.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaPerfil, MessagePerfil.ERRO_CONSULTA_PERFIL, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -122,11 +123,12 @@ public class SwingWorkerPerfil<T extends Perfil> extends BaseSwingWorker {
         @Override
         protected void done() {
             try {
-                desabilitaTelaAguarde(formConsultaUsuario);
+                desabilitaTelaAguarde(formConsultaPerfil);
                 if (get() != null) {
                     List<Perfil> list = (List<Perfil>) get();
                     formConsultaPerfil.popularTela(list);
                 }
+                formConsultaUsuario.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaPerfil.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaPerfil, MessagePerfil.ERRO_CONSULTA_PERFIL, "Erro", JOptionPane.ERROR_MESSAGE);

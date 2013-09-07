@@ -121,7 +121,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
 
         panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
 
-        btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/document-new.png"))); // NOI18N
         btnNovo.setText("NOVO");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +130,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
             }
         });
 
-        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/img_edit_32x32.png"))); // NOI18N
         btnEditar.setText("EDITAR");
         btnEditar.setEnabled(false);
@@ -140,7 +140,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
             }
         });
 
-        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/img_salvar_32x32.png"))); // NOI18N
         btnSalvar.setText("SALVAR");
         btnSalvar.setEnabled(false);
@@ -150,7 +150,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
             }
         });
 
-        btnPesquisar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnPesquisar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/system-search.png"))); // NOI18N
         btnPesquisar.setText("PESQUISAR");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +159,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
             }
         });
 
-        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/sair32x32.png"))); // NOI18N
         btnSair.setText("SAIR");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +168,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
             }
         });
 
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/img_deletar_32x32.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
@@ -188,7 +188,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel6.setPreferredSize(new java.awt.Dimension(40, 60));
@@ -214,7 +214,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel10.setPreferredSize(new java.awt.Dimension(40, 60));
@@ -227,7 +227,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel11.setPreferredSize(new java.awt.Dimension(40, 60));
@@ -240,7 +240,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel12.setPreferredSize(new java.awt.Dimension(40, 60));
@@ -253,7 +253,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelSuperButtonLayout = new javax.swing.GroupLayout(panelSuperButton);
@@ -405,9 +405,9 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtReferenciaCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(txtCodigoFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(txtCodigoBarras, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCodigoFornecedor)
+                            .addComponent(txtCodigoBarras)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -416,12 +416,12 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtCodigoProFiscal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtEstoqueTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(txtEstoqueTotal)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jtxtPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jtxtPrecoCusto, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(jtxtPrecoCusto)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -518,7 +518,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
 
         tableInfCores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, new Integer(0), new Integer(0), null}
+                {null, null,  new Integer(0),  new Integer(0), null}
             },
             new String [] {
                 "COR", "DESCRIÇÃO DA COR", "ESTOQUE MIN", "ESTOQUE ATUAL", "ALERTA"
@@ -1212,6 +1212,7 @@ public class FormProduto extends javax.swing.JFrame implements InterfaceCadastro
                     aux.getEstoqueAtual(),
                     alerta
                 });
+                
     }
 
     private StringBuilder validarCor() {

@@ -140,7 +140,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             try {
                 habilitaTelaAguarde(formVenda);
                 PedidoVendaServerImpl server = new PedidoVendaServerImpl();
-                return (T) server.salvarComRetorno(pedido);
+                return (T) server.salvarComRetorno(pedido);                
             } catch (Exception ex) {
                 desabilitaTelaAguarde(formVenda);
                 throw ex;
@@ -155,6 +155,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                     formVenda.setPedido((T) get());
                     formVenda.salvarComSucesso();
                 }
+                formVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_SALVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -184,6 +185,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                     List<Produto> listProduto = (List<Produto>) get();
                     formVenda.returnListProduto(listProduto, rowProduto);
                 }
+                formVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_CONSULTAR_PRODUTO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -213,6 +215,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                     List<Produto> listProduto = (List<Produto>) get();
                     formVenda.refreshGridCorProduto(listProduto.get(0), rowProduto, corProduto, quantidadeProduto);
                 }
+                formVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_CONSULTAR_PRODUTO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -241,6 +244,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                 if (get() != null) {
                     formVenda.setCodigoOrcamento(get());
                 }
+                formVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_GERAR_CODIGO_ORCAMENTO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -269,6 +273,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                 if (get() != null) {
                     formVenda.setRevendedor(get());
                 }
+                formVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -295,6 +300,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                 if (get() != null) {
                     formVenda.afterDelete();
                 }
+                formVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_REMOVER_PEDIDO_VENDA, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -319,6 +325,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             try {
                 desabilitaTelaAguarde(formVenda);
                 formVenda.afterConsultaProspeccoes(get());
+                formVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageProspeccao.ERRO_CONSULTAR_PROSPECCAO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -347,6 +354,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                     List<PedidoVenda> listPedido = (List<PedidoVenda>) get();
                     formConsultaVenda.popularTela(listPedido);
                 }
+                formConsultaVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaVenda, MessageVenda.ERRO_CONSULTAR_VENDA, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -371,7 +379,8 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
         protected void done() {
             try {
                 desabilitaTelaAguarde(formVenda);
-                formVenda.afterAprovarVenda(get());                
+                formVenda.afterAprovarVenda(get());   
+                formVenda.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_SALVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);

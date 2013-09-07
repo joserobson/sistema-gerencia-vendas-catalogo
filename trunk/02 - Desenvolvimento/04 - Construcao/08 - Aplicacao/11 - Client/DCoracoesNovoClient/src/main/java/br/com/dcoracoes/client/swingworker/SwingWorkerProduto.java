@@ -203,6 +203,7 @@ public class SwingWorkerProduto<T extends Produto> extends BaseSwingWorker {
                         if(formRelatorioProduto != null)
                             formRelatorioProduto.processaListaProduto(listProduto);
                 }
+                formConsultaProduto.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaProduto.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaProduto, MessageProduto.ERRO_CONSULTAR_PRODUTO, "Erro", JOptionPane.ERROR_MESSAGE);

@@ -6,6 +6,7 @@ package br.com.dcoracoes.servico.service;
 
 import br.com.dcoracoes.server.model.pedido.PedidoVenda;
 import br.com.dcoracoes.servico.beans.pedido.Pedido;
+import br.com.dcoracoes.servico.beans.pedido.PedidoVenda;
 import br.com.dcoracoes.transacao.classes.TnPedido;
 import br.com.dcoracoes.transacao.constantes.ConstanteTnPedido;
 import java.util.ArrayList;
@@ -58,8 +59,9 @@ public class ServicePedido<T extends Pedido> extends ServiceBase implements ISer
         } catch (MappingException ex) {
             throw ex;
         }
-
+        
         return listPedidosBeans;
+        
     }
 
     @Override
@@ -142,10 +144,14 @@ public class ServicePedido<T extends Pedido> extends ServiceBase implements ISer
             listPedidosBeans = new ArrayList<T>();
             Iterator<br.com.dcoracoes.server.model.pedido.Pedido> iterator = listPedidosModel.iterator();
             while (iterator.hasNext()) {
-                listPedidosBeans.add(converteToBean(iterator.next()));
+                
+                br.com.dcoracoes.server.model.pedido.PedidoVenda p = (br.com.dcoracoes.server.model.pedido.PedidoVenda) iterator.next();
+                //p.setRevendedor(null);        
+                //p.setPagamento(null);                                
+                listPedidosBeans.add(converteToBean(p));
             }
-        }
-
+        }        
+        
         return listPedidosBeans;
     }
 }
