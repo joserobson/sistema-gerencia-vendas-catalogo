@@ -1,0 +1,1 @@
+C:\glassfishv3\bin>asadmin create-service domain1  
