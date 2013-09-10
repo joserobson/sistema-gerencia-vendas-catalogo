@@ -1,11 +1,14 @@
 package br.com.dcoracoes.client;
 
 import br.com.dcoracoes.client.relatorios.testeRelatorio;
+import br.com.dcoracoes.client.swingworker.SwingWorkerLogin;
 import br.com.dcoracoes.client.telas.login.FormLogin;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.util.LogUtil;
+import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.servico.service.Usuario;
 import java.net.ServerSocket;
+import javax.swing.JOptionPane;
 
 /**
  * Hello world!
@@ -35,11 +38,18 @@ public class App {
             ss = new ServerSocket(RUN_PORT);
             FormLogin form = new FormLogin();
             form.setVisible(true);
+            
+            SwingWorkerLogin work = new SwingWorkerLogin();
+            work.setFormLogin(form);
+            work.workCarregarSistema.execute();
+            
+                        
         } catch (java.io.IOException ex) {
-            System.out.println("Programa está rodando!");
+            System.out.println("Programa está rodando! " + ex.getMessage());  
+            LogUtil.logDescricaoErro(App.class, ex);
+            JOptionPane.showMessageDialog(null, "UMA INSTÂNCIA DO PROGRAMA JÁ ESTÁ EM EXECUÇÃO!!", MensagensUtil.ERRO, 0);
+            System.exit(0);
         }
-
-
     }
 
     public static void testarRelatorio() {

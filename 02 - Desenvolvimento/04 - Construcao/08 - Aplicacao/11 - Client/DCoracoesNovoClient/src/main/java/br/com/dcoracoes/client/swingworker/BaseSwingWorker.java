@@ -18,6 +18,15 @@ public class BaseSwingWorker<T>//<T, V> extends SwingWorker<T, Object> {
 
     protected JDialogProcessando aguarde;
 
+    protected void habilitaTelaAguarde(JFrame frame, String msg) {
+        if (this.aguarde == null) {
+            aguarde = new JDialogProcessando(frame, "Aguarde...", msg);
+        }
+        desabilitaComponentesTela(frame);
+        aguarde.setVisible(true);
+    }
+    
+    
     protected void habilitaTelaAguarde(JFrame frame) {
         if (this.aguarde == null) {
             aguarde = new JDialogProcessando(frame, "Aguarde...", "Aguarde Processando...");

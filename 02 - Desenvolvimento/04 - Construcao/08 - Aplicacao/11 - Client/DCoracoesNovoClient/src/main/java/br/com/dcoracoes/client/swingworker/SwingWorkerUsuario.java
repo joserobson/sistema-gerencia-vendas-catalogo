@@ -61,7 +61,7 @@ public class SwingWorkerUsuario<T extends Usuario> extends BaseSwingWorker {
         @Override
         protected List<T> doInBackground() throws Exception {
             try {
-                habilitaTelaAguarde(formLogin);
+                habilitaTelaAguarde(formLogin,"Carregando Usuários....");
                 return new UsuarioServerImpl<T>().recTodos(new Usuario());
             } catch (Exception ex) {
                 desabilitaTelaAguarde(formLogin);
