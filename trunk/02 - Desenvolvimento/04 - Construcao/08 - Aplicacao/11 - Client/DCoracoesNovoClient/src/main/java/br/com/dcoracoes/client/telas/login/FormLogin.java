@@ -51,9 +51,14 @@ public class FormLogin extends javax.swing.JFrame {
     public FormLogin() {
         initComponents();
         setLocationRelativeTo(null);
+        
+    }
+    
+    public void showFrame()
+    {
+        this.setVisible(true);
         initialize();
     }
-
     /**
      * This method is called from within the constructor t initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -283,8 +288,7 @@ public class FormLogin extends javax.swing.JFrame {
         }
     }
 
-    public void initialize() {
-        this.testaConexaoComBanco();
+    public void initialize() {        
         lblMsgErro.setHorizontalAlignment(JLabel.RIGHT);
         MetodosUtil.enterPularCampos(this);
         //define letras maiusculas
@@ -375,22 +379,7 @@ public class FormLogin extends javax.swing.JFrame {
         work.workRecAssociaPermissao.execute();
     }
 
-    /**
-     * Teste Conexao
-     */
-    private void testaConexaoComBanco() {
-        UtilServerImpl utilServer = new UtilServerImpl();
-        try {
-            LogUtil.logInformacao("TESTANDO CONEXAO COM BANCO DE DADOS");
-            if (!utilServer.testeConexaoBanco()) {
-                JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_CONECTAR_BANCO, MensagensUtil.ERRO, 0);
-                System.exit(0);
-            }
-        } catch (ClientDCoracoesException ex) {
-            LogUtil.logDescricaoErro(this.getClass(), ex);
-        }
-
-    }
+    
 
     public JComboBox getCbUsuario() {
         return cbUsuario;
