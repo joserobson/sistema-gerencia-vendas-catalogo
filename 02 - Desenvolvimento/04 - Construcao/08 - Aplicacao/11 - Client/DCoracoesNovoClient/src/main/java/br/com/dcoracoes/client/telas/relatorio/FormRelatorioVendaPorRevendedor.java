@@ -16,9 +16,10 @@ import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoVenda;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.message.MessageVenda;
+import br.com.dcoracoes.servico.service.ModelRelatorioPedidoRevendedor;
 import br.com.dcoracoes.servico.service.PedidoVenda;
+import br.com.wedesenv.common.date.DateUtil;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,7 @@ import net.sf.jasperreports.engine.JRException;
  */
 public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implements InterfaceConsultaSimples{
 
-    private HashMap<String, Object> parameter;
+    private ModelRelatorioPedidoRevendedor parameter;
     private List<PedidoVenda> result;
     
     /** Creates new form FormRelatorioVendaPorRevendedor */
@@ -76,7 +77,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
 
         panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
 
-        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/accessories-text-editor.png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +86,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
             }
         });
 
-        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/sair32x32.png"))); // NOI18N
         btnSair.setText("SAIR");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +105,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel3.setPreferredSize(new java.awt.Dimension(40, 60));
@@ -130,10 +131,10 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        btnImprimir.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnImprimir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/printer_48.png"))); // NOI18N
         btnImprimir.setText("IMPRIMIR");
         btnImprimir.setEnabled(false);
@@ -153,7 +154,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelSuperButtonLayout = new javax.swing.GroupLayout(panelSuperButton);
@@ -397,7 +398,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
                 limparGrid();
                 pushToModel();
                 
-                buscar(parameter);
+                buscar();
             }   
             
             
@@ -440,31 +441,31 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
     }
     
     private void pushToModel() {
-        parameter = new HashMap<String, Object>();
-                
+        parameter = new ModelRelatorioPedidoRevendedor();
+        
         if (!jtxtPeriodoInicio.getText().replace("/", "").trim().isEmpty()) {
             String[] dateAux = jtxtPeriodoInicio.getText().split("/");
             GregorianCalendar c = new GregorianCalendar();
             c.set(Integer.parseInt(dateAux[2]), Integer.parseInt(dateAux[1]) - 1, Integer.parseInt(dateAux[0]));            
-            parameter.put("dataPedidoInicio", c.getTime());
+            parameter.setDataPedidoInicio(DateUtil.dateAsXMLGregorianCalendar(c.getTime()));
         }
         
         if (!jtxtPeriodoFim.getText().replace("/", "").trim().isEmpty()) {
             String[] dateAux = jtxtPeriodoFim.getText().split("/");
             GregorianCalendar c = new GregorianCalendar();
             c.set(Integer.parseInt(dateAux[2]), Integer.parseInt(dateAux[1]) - 1, Integer.parseInt(dateAux[0]));            
-            parameter.put("dataPedidoFim", c.getTime());
+            parameter.setDataPedidoFim(DateUtil.dateAsXMLGregorianCalendar(c.getTime()));
         }
         
         if(!jtxtCodigoRevendedor.getText().trim().isEmpty())
-            parameter.put("codigoRevendedor", jtxtCodigoRevendedor.getText().trim().toString());
+            parameter.setCodigoRevendedor(jtxtCodigoRevendedor.getText().trim().toString());
     }
     
-    private void buscar(HashMap<String, Object> parameter) {
+    private void buscar() {
         
         SwingWorkerPedidoVenda<PedidoVenda> work = new SwingWorkerPedidoVenda<PedidoVenda>();
         work.setFormRelatorioVendaPorRevendedor(this);
-        work.setParameter(parameter);
+        work.setModelRelatorioPedidoRevendedor(parameter);
         work.workRecRelatorioPedidosPorRevendedor.execute(); 
         
     }

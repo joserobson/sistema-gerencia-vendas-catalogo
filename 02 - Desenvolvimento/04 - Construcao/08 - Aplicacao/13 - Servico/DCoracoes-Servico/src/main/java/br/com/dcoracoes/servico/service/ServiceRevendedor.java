@@ -164,8 +164,8 @@ public class ServiceRevendedor<T extends ViewRevendedor> extends ServiceBase<T> 
                     && !lstPessoasModel.isEmpty()) {
                 lstPessoasBeans = new ArrayList<Pessoa>();
                 Iterator<br.com.dcoracoes.server.model.cadastro.Pessoa> iterator = lstPessoasModel.iterator();
-                while (iterator.hasNext()) {
-                    Pessoa pessoaBean = this.mapper.map(iterator.hasNext(), Pessoa.class);
+                while (iterator.hasNext()) {                    
+                    Pessoa pessoaBean = this.mapper.map(iterator.next(), Pessoa.class);
                     lstPessoasBeans.add(pessoaBean);
                 }
             }

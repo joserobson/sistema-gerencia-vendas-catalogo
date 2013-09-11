@@ -5,11 +5,10 @@
 package br.com.dcoracoes.client.classes.serverimpl;
 
 import br.com.dcoracoes.client.Excecao.ClientDCoracoesException;
-import br.com.dcoracoes.servico.service.HashMap;
+import br.com.dcoracoes.servico.service.ModelRelatorioPedidoRevendedor;
 import br.com.dcoracoes.servico.service.Pedido;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.stream.XMLStreamException;
 
 /**
  *
@@ -92,10 +91,10 @@ public class PedidoServerImpl<T extends Pedido> extends BaseServerImpl<T> implem
      * @return
      * @throws TransException
      */
-    public List recRelatorioPedidosPorRevendedor(HashMap param) throws ClientDCoracoesException {
+    public List recRelatorioPedidosPorRevendedor(ModelRelatorioPedidoRevendedor parameter) throws ClientDCoracoesException {
         List listaRetorno = null;
         try {
-            listaRetorno = this.port.recRelatorioPedidosPorRevendedor(param);
+            listaRetorno = this.port.recRelatorioPedidosPorRevendedor(parameter);
         } catch (Exception ex) {
             throw new ClientDCoracoesException(ex);
         }

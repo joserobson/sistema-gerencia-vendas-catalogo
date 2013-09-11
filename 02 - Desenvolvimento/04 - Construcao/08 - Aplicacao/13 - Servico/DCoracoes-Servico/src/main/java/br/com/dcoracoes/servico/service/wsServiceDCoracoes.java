@@ -18,9 +18,10 @@ import br.com.dcoracoes.servico.beans.pedido.PedidoVenda;
 import br.com.dcoracoes.servico.beans.produto.ItemProduto;
 import br.com.dcoracoes.servico.beans.produto.Produto;
 import br.com.dcoracoes.servico.beans.prospeccao.Alerta;
+import br.com.dcoracoes.servico.beans.relatorio.ModelGerarEtiqueta;
+import br.com.dcoracoes.servico.beans.relatorio.ModelRelatorioPedidoRevendedor;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -115,8 +116,18 @@ public class wsServiceDCoracoes {
     }
 
     @WebMethod(operationName = "recRelatorioPedidosPorRevendedor")
-    public List<PedidoVenda> recRelatorioPedidosPorRevendedor(@WebParam(name = "param") HashMap param) throws Exception {
-        return new ServicePedido<PedidoVenda>().recRelatorioPedidosPorRevendedor(param);
+    public List<PedidoVenda> recRelatorioPedidosPorRevendedor(@WebParam(name = "param") ModelRelatorioPedidoRevendedor parameter) throws Exception {
+        HashMap<String, Object> hash = new HashMap<String, Object>();
+        if (parameter.getDataPedidoInicio() != null)
+            hash.put("dataPedidoInicio", parameter.getDataPedidoInicio());
+        
+        if (parameter.getDataPedidoFim() != null)
+            hash.put("dataPedidoFim", parameter.getDataPedidoFim());
+        
+        if(parameter.getCodigoRevendedor() != null)
+            hash.put("codigoRevendedor", parameter.getCodigoRevendedor());
+        
+        return new ServicePedido<PedidoVenda>().recRelatorioPedidosPorRevendedor(hash);
     }
 
     /**
@@ -212,8 +223,21 @@ public class wsServiceDCoracoes {
     }
 
     @WebMethod(operationName = "recRevendedorEtiqueta")
-    public List<Pessoa> recRevendedorEtiqueta(@WebParam(name = "parameter") HashMap parameter) throws Exception {
-        return new ServiceRevendedor<ViewRevendedor>().recRevendedorEtiqueta(parameter);
+    public List<Pessoa> recRevendedorEtiqueta(@WebParam(name = "parameter") ModelGerarEtiqueta parameter) throws Exception {
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        
+        hashMap.put("situacao", parameter.getSituacao());
+        
+        if(parameter.getUf() != null)
+            hashMap.put("uf", parameter.getUf());
+        
+        if (parameter.getDataNascimentoInicio() != null)            
+            hashMap.put("dataNascimentoInicio", parameter.getDataNascimentoInicio());
+        
+        if (parameter.getDataNascimentoFim() != null)            
+            hashMap.put("dataNascimentoFim", parameter.getDataNascimentoFim());
+        
+        return new ServiceRevendedor<ViewRevendedor>().recRevendedorEtiqueta(hashMap);
     }
 
     @WebMethod(operationName = "recPessoaPorId")
