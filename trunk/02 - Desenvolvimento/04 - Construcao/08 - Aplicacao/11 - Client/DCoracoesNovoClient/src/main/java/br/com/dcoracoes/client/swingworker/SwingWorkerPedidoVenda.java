@@ -5,7 +5,6 @@
 package br.com.dcoracoes.client.swingworker;
 
 import br.com.dcoracoes.client.classes.serverimpl.AlertaServerImpl;
-import br.com.dcoracoes.client.classes.serverimpl.PedidoCompraServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoVendaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.ProdutoServerImpl;
@@ -15,7 +14,6 @@ import br.com.dcoracoes.client.telas.venda.FormConsultaVenda;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
-import br.com.dcoracoes.client.util.message.MessageCompra;
 import br.com.dcoracoes.client.util.message.MessageProspeccao;
 import br.com.dcoracoes.client.util.message.MessageRevendedor;
 import br.com.dcoracoes.client.util.message.MessageVenda;
@@ -41,14 +39,14 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
     private Revendedor revendedor;
     private Alerta alerta;
     private FormRelatorioVendaPorRevendedor formRelatorioVendaPorRevendedor = null;
-    private java.util.HashMap<String, Object> parameter;
+    private ModelRelatorioPedidoRevendedor modelRelatorioPedidoRevendedor;
 
-    public java.util.HashMap<String, Object> getParameter() {
-        return parameter;
+    public ModelRelatorioPedidoRevendedor getModelRelatorioPedidoRevendedor() {
+        return modelRelatorioPedidoRevendedor;
     }
 
-    public void setParameter(java.util.HashMap<String, Object> parameter) {
-        this.parameter = parameter;
+    public void setModelRelatorioPedidoRevendedor(ModelRelatorioPedidoRevendedor modelRelatorioPedidoRevendedor) {
+        this.modelRelatorioPedidoRevendedor = modelRelatorioPedidoRevendedor;
     }
 
     public FormRelatorioVendaPorRevendedor getFormRelatorioVendaPorRevendedor() {
@@ -395,7 +393,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             try {
                 habilitaTelaAguarde(formRelatorioVendaPorRevendedor);
                 PedidoServerImpl serverImpl = new PedidoServerImpl();
-                return serverImpl.recRelatorioPedidosPorRevendedor(parameter);
+                return serverImpl.recRelatorioPedidosPorRevendedor(modelRelatorioPedidoRevendedor);
             } catch (Exception ex) {
                 throw ex;
             }
@@ -405,6 +403,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
         protected void done() {
             try {
                 desabilitaTelaAguarde(formRelatorioVendaPorRevendedor);
+                formRelatorioVendaPorRevendedor.setVisible(true);
                 if (get() != null) {
                     formRelatorioVendaPorRevendedor.processaList((List<PedidoVenda>)get());
                 }

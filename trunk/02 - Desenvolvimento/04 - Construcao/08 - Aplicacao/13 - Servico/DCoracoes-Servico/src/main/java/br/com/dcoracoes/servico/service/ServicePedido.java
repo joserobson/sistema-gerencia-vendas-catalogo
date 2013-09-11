@@ -4,9 +4,7 @@
  */
 package br.com.dcoracoes.servico.service;
 
-import br.com.dcoracoes.server.model.pedido.PedidoVenda;
 import br.com.dcoracoes.servico.beans.pedido.Pedido;
-import br.com.dcoracoes.servico.beans.pedido.PedidoVenda;
 import br.com.dcoracoes.transacao.classes.TnPedido;
 import br.com.dcoracoes.transacao.constantes.ConstanteTnPedido;
 import java.util.ArrayList;

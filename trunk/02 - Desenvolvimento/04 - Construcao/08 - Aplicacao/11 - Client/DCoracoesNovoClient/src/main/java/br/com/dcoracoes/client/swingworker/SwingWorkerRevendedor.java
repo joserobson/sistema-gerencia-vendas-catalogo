@@ -10,12 +10,12 @@ import br.com.dcoracoes.client.telas.revendedor.FormFiltroGerarEtiquetas;
 import br.com.dcoracoes.client.telas.revendedor.FormRevendedor;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.message.MessageRevendedor;
+import br.com.dcoracoes.servico.service.ModelGerarEtiqueta;
 import br.com.dcoracoes.servico.service.PedidoVenda;
 import br.com.dcoracoes.servico.service.PessoaFisica;
 import br.com.dcoracoes.servico.service.Revendedor;
 import br.com.dcoracoes.servico.service.ViewRevendedor;
 import br.com.wedesenv.common.log.LogUtil;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -29,7 +29,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
     private Revendedor revendedor;
     private FormConsultaRevendedor formConsultaRevendedor = null;
     private List<ViewRevendedor> lstViewRevendedor;
-    private HashMap<String, Object> parameter;
+    private ModelGerarEtiqueta modelGerarEtiqueta;
     private FormFiltroGerarEtiquetas formFiltroGerarEtiqueta = null;
     private ViewRevendedor viewRevendedor;
     private PessoaFisica pessoa;
@@ -46,8 +46,8 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
         this.revendedor = revendedor;
     }
     
-    public SwingWorkerRevendedor(HashMap<String, Object> parameter){
-        this.parameter = parameter;
+    public SwingWorkerRevendedor(ModelGerarEtiqueta modelGerarEtiqueta){
+        this.modelGerarEtiqueta = modelGerarEtiqueta;
     }
     
     public SwingWorkerRevendedor(PessoaFisica pPessoa){
@@ -68,14 +68,6 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
 
     public void setFormFiltroGerarEtiqueta(FormFiltroGerarEtiquetas formFiltroGerarEtiqueta) {
         this.formFiltroGerarEtiqueta = formFiltroGerarEtiqueta;
-    }
-    
-    public HashMap<String, Object> getParameter() {
-        return parameter;
-    }
-
-    public void setParameter(HashMap<String, Object> parameter) {
-        this.parameter = parameter;
     }
 
     public FormConsultaRevendedor getFormConsultaRevendedor() {
@@ -153,7 +145,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
             try {
                 habilitaTelaAguarde(formFiltroGerarEtiqueta);
                 RevendedorServerImpl serverImpl = new RevendedorServerImpl();
-                return serverImpl.recRevendedorEtiqueta(parameter);
+                return serverImpl.recRevendedorEtiqueta(modelGerarEtiqueta);
             } catch (Exception ex) {
                 throw ex;
             }
@@ -163,6 +155,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
         protected void done() {
             try {
                 desabilitaTelaAguarde(formFiltroGerarEtiqueta);
+                formFiltroGerarEtiqueta.setVisible(true);
                 if (get() != null) {
                     List list = (List) get();
                     formFiltroGerarEtiqueta.processaEtiquetas(list);

@@ -18,15 +18,16 @@ import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.componentes.ComboBoxEstado;
 import br.com.dcoracoes.client.util.message.MessageRevendedor;
+import br.com.dcoracoes.servico.service.ModelGerarEtiqueta;
 import br.com.dcoracoes.servico.service.Pessoa;
 import br.com.dcoracoes.servico.service.ViewRevendedor;
+import br.com.wedesenv.common.date.DateUtil;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ import net.sf.jasperreports.engine.JRException;
  */
 public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements InterfaceConsultaSimples {
 
-    private HashMap<String, Object> parameter;
+    private ModelGerarEtiqueta parameter;
 
     /** Creates new form FormConsultaPerfil */
     public FormFiltroGerarEtiquetas() {
@@ -337,7 +338,6 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -345,7 +345,7 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
         try {
             if(validarTela()){
                 pushToModel();
-                gerarEtiquetas(parameter);
+                gerarEtiquetas();
             }               
             
         } catch (Exception ex) {
@@ -380,26 +380,26 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
     }
     
     private void pushToModel() {
-        parameter = new HashMap<String, Object>();
+        parameter = new ModelGerarEtiqueta();
         
         if(cbSituacao.getSelectedIndex() != 2)
-            parameter.put("situacao", returnEnumSituacao().getCodigo());
+            parameter.setSituacao(returnEnumSituacao().getCodigo());
         
         if(cbUF.getSelectedIndex() != 0)
-            parameter.put("uf", cbUF.getSelectedItem().toString());
+            parameter.setUf(cbUF.getSelectedItem().toString());
         
         if (!jtxtDataNascimentoInicio.getText().replace("/", "").trim().isEmpty()) {
             String[] dateAux = jtxtDataNascimentoInicio.getText().split("/");
             GregorianCalendar c = new GregorianCalendar();
             c.set(Integer.parseInt(dateAux[2]), Integer.parseInt(dateAux[1]) - 1, Integer.parseInt(dateAux[0]));            
-            parameter.put("dataNascimentoInicio", c.getTime());
+            parameter.setDataNascimentoInicio(DateUtil.dateAsXMLGregorianCalendar(c.getTime()));
         }
         
         if (!jtxtDataNascimentoFim.getText().replace("/", "").trim().isEmpty()) {
             String[] dateAux = jtxtDataNascimentoFim.getText().split("/");
             GregorianCalendar c = new GregorianCalendar();
-            c.set(Integer.parseInt(dateAux[2]), Integer.parseInt(dateAux[1]) - 1, Integer.parseInt(dateAux[0]));            
-            parameter.put("dataNascimentoFim", c.getTime());
+            c.set(Integer.parseInt(dateAux[2]), Integer.parseInt(dateAux[1]) - 1, Integer.parseInt(dateAux[0]));   
+            parameter.setDataNascimentoFim(DateUtil.dateAsXMLGregorianCalendar(c.getTime()));
         }
         
     }
@@ -420,7 +420,7 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
      * Gerar Etiqueta
      * @param parameter 
      */
-    private void gerarEtiquetas(HashMap<String, Object> parameter) {
+    private void gerarEtiquetas() {
         SwingWorkerRevendedor<ViewRevendedor> workRevendedor = new SwingWorkerRevendedor<ViewRevendedor> (parameter);
         workRevendedor.setFormFiltroGerarEtiqueta(this);
         workRevendedor.workRecRevendedorEtiqueta.execute(); 
@@ -548,6 +548,6 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
 
     @Override
     public void showFrame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        setVisible(true);
     }
 }

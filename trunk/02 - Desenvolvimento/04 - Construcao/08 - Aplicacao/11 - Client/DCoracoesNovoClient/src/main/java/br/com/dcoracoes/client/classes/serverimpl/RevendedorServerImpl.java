@@ -7,7 +7,6 @@ package br.com.dcoracoes.client.classes.serverimpl;
 import br.com.dcoracoes.client.Excecao.ClientDCoracoesException;
 import br.com.dcoracoes.servico.service.*;
 import java.lang.Exception;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,12 +16,11 @@ import java.util.List;
 public class RevendedorServerImpl<T extends Revendedor> extends BaseServerImpl<T> implements IRevendedorImpl<T> {
 
     @Override
-    public List recRevendedorEtiqueta(HashMap<String, Object> parameter) throws ClientDCoracoesException {
+    public List recRevendedorEtiqueta(ModelGerarEtiqueta parameter) throws ClientDCoracoesException {
         List<Pessoa> pessoas = null;
 
         try {
-//            TODO: Cleberson
-//            pessoas = this.port.recRevendedorEtiqueta(parameter);
+            pessoas = this.port.recRevendedorEtiqueta(parameter);
         } catch (Exception ex) {
             throw new ClientDCoracoesException(ex);
         }
