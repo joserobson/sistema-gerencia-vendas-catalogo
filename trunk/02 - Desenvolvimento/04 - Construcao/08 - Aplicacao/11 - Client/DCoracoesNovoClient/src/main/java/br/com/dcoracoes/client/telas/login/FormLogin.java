@@ -56,8 +56,8 @@ public class FormLogin extends javax.swing.JFrame {
     
     public void showFrame()
     {
-        this.setVisible(true);
         initialize();
+        this.setVisible(true);
     }
     /**
      * This method is called from within the constructor t initialize the form.
