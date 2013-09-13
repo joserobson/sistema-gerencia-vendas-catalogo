@@ -395,8 +395,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                         formRevendedor.createNew();
                     
                     workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
-                    formRevendedor.showFrame();
-                    
+                    formRevendedor.showFrame();                    
 
                 } catch (Exception ex) {
                     LogUtil.logDescricaoErro(this.getClass(), ex);

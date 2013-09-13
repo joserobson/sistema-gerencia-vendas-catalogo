@@ -12,6 +12,7 @@ import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.message.MessageProduto;
 import br.com.dcoracoes.servico.service.ItemProduto;
 import br.com.dcoracoes.servico.service.Produto;
+import java.awt.Window;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -174,11 +175,8 @@ public class SwingWorkerProduto<T extends Produto> extends BaseSwingWorker {
         @Override
         protected List<T> doInBackground() throws Exception {
             try {
-                if(formConsultaProduto != null)
-                    habilitaTelaAguarde(formConsultaProduto);
-                else
-                    if(formRelatorioProduto != null)
-                        habilitaTelaAguarde(formRelatorioProduto);
+                Window form = (formConsultaProduto != null ? formConsultaProduto : formRelatorioProduto);
+                habilitaTelaAguarde(form);
                 return new ProdutoServerImpl<T>().recProdutos(produto, useLike);
             } catch (Exception ex) {
                 throw ex;
@@ -187,13 +185,8 @@ public class SwingWorkerProduto<T extends Produto> extends BaseSwingWorker {
 
         @Override
         protected void done() {
-            try {                
-                if(formConsultaProduto != null)
-                    desabilitaTelaAguarde(formConsultaProduto);
-                else
-                    if(formRelatorioProduto != null)
-                        desabilitaTelaAguarde(formRelatorioProduto);
-                
+            try {      
+                Window form = (formConsultaProduto != null ? formConsultaProduto : formRelatorioProduto);                
                 if (get() != null) {
                     List<Produto> listProduto = (List<Produto>) get();
                         
@@ -203,7 +196,8 @@ public class SwingWorkerProduto<T extends Produto> extends BaseSwingWorker {
                         if(formRelatorioProduto != null)
                             formRelatorioProduto.processaListaProduto(listProduto);
                 }
-                formConsultaProduto.setVisible(true);
+                desabilitaTelaAguarde(form);
+                form.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaProduto.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaProduto, MessageProduto.ERRO_CONSULTAR_PRODUTO, "Erro", JOptionPane.ERROR_MESSAGE);

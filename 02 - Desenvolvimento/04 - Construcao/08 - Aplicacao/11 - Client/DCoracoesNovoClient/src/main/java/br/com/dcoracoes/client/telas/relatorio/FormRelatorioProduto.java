@@ -334,8 +334,8 @@ public class FormRelatorioProduto extends javax.swing.JFrame implements Interfac
     }
     
     public void processaListaProduto(List<Produto> lst){
-        if(list.size() > 0)
-            gerarRelatorio(list);
+        if(lst.size() > 0)
+            gerarRelatorio(lst);
         else
             JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_NENHUM_REGISTRO, MensagensUtil.ATENCAO, 1);
     }

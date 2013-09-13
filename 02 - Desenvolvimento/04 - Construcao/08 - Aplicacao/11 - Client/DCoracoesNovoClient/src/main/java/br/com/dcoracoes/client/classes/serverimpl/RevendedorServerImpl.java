@@ -41,14 +41,18 @@ public class RevendedorServerImpl<T extends Revendedor> extends BaseServerImpl<T
     
     @Override
     public ViewRevendedor recUltimoRevendedorCadastro() throws ClientDCoracoesException {
-        ViewRevendedor viewRevendedore = null;
+        ViewRevendedor viewRevendedor = null;
 
         try {
-            viewRevendedore = this.port.recUltimoRevendedorCadastro();
+            viewRevendedor = this.port.recUltimoRevendedorCadastro();
+            //busca data ultima venda do revendedor
+            PedidoVenda pedidoVenda = this.port.recUltimoPedidoVenda(viewRevendedor.getRevendedor());
+            if(pedidoVenda != null)
+                viewRevendedor.getRevendedor().setDataUltimaCompra(pedidoVenda.getDataPedido());  
         } catch (Exception ex) {
             throw new ClientDCoracoesException(ex);
         }
-        return viewRevendedore;
+        return viewRevendedor;
     }
     
     @Override
