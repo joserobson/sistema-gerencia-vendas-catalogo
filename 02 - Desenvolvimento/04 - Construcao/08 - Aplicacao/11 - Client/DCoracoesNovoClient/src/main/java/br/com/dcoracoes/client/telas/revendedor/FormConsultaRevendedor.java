@@ -10,7 +10,6 @@
  */
 package br.com.dcoracoes.client.telas.revendedor;
 
-import br.com.dcoracoes.client.classes.serverimpl.RevendedorServerImpl;
 import br.com.dcoracoes.client.interfaces.InterfaceConsultaSimples;
 import br.com.dcoracoes.client.swingworker.SwingWorkerRevendedor;
 import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;

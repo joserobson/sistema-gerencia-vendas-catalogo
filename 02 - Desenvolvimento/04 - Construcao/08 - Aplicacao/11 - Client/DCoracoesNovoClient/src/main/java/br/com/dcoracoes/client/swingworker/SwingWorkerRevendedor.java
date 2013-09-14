@@ -125,13 +125,14 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
         @Override
         protected void done() {
             try {
-                desabilitaTelaAguarde(formConsultaRevendedor);
                 if (get() != null) {
                     List<ViewRevendedor> list = (List<ViewRevendedor>) get();
                     formConsultaRevendedor.populaTela(list);
                 }
+                desabilitaTelaAguarde(formConsultaRevendedor);
                 formConsultaRevendedor.setVisible(true);
             } catch (Exception ex) {
+                desabilitaTelaAguarde(formConsultaRevendedor);
                 LogUtil.logDescricaoErro(formConsultaRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }

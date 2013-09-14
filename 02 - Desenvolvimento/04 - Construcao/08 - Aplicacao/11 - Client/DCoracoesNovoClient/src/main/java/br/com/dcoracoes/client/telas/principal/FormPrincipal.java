@@ -543,6 +543,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         App.setUserLog(null);
         FormLogin form = new FormLogin();
+        form.showFrame();
         form.setVisible(true);
     }//GEN-LAST:event_jMenuItem_LogoutActionPerformed
 

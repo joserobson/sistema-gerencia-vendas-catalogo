@@ -72,13 +72,16 @@ public class SwingWorkerUsuario<T extends Usuario> extends BaseSwingWorker {
         @Override
         protected void done() {
             try {
-                desabilitaTelaAguarde(formLogin);
                 if (get() != null) {
                     List<Usuario> listUsuario = (List<Usuario>) get();
                     formLogin.populaComboUsuario(listUsuario);
                 }
+                desabilitaTelaAguarde(formLogin);
+                formLogin.setVisible(true);
+                formLogin.getCbUsuario().requestFocus();
 
-            } catch (Exception ex) {
+            } catch (Exception ex) {                
+                desabilitaTelaAguarde(formLogin);
                 LogUtil.logDescricaoErro(formLogin.getClass(), ex);
                 JOptionPane.showMessageDialog(formLogin, MessageUsuario.ERRO_CONSULTAR_USUARIO, "Erro", JOptionPane.ERROR_MESSAGE);
             }
