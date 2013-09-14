@@ -44,6 +44,7 @@ public class SwingWorkerLogin extends BaseSwingWorker<Object> {
                 }            
             }catch(Exception ex)
             {
+                desabilitaTelaAguarde(formLogin);
                 LogUtil.logDescricaoErro(formLogin.getClass(), ex);
                 JOptionPane.showMessageDialog(formLogin, MensagensUtil.MENSAGEM_ERRO_CONECTAR_BANCO, MensagensUtil.ERRO, 0);
                 System.exit(0);

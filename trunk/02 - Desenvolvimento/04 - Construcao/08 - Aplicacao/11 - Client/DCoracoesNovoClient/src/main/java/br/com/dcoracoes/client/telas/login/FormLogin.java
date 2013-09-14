@@ -12,13 +12,9 @@ package br.com.dcoracoes.client.telas.login;
 
 import br.com.dcoracoes.client.App;
 import br.com.dcoracoes.client.ControleAcesso;
-import br.com.dcoracoes.client.Excecao.ClientDCoracoesException;
-import br.com.dcoracoes.client.classes.serverimpl.UtilServerImpl;
 import br.com.dcoracoes.client.swingworker.SwingWorkerAssociaPerfilPermissao;
 import br.com.dcoracoes.client.swingworker.SwingWorkerUsuario;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
-import br.com.dcoracoes.client.util.LogUtil;
-import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.servico.service.AssociaPerfilPermissao;
 import br.com.dcoracoes.servico.service.Usuario;
@@ -26,7 +22,6 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,13 +46,11 @@ public class FormLogin extends javax.swing.JFrame {
     public FormLogin() {
         initComponents();
         setLocationRelativeTo(null);
-        
     }
     
     public void showFrame()
     {
         initialize();
-        this.setVisible(true);
     }
     /**
      * This method is called from within the constructor t initialize the form.
