@@ -44,6 +44,7 @@ import br.com.dcoracoes.server.model.produto.ItemProduto;
 import br.com.dcoracoes.server.model.produto.Produto;
 import br.com.dcoracoes.server.model.prospeccao.Alerta;
 import br.com.dcoracoes.server.util.HibernateUtil;
+import br.com.dcoracoes.server.util.LogUtil;
 import br.com.dcoracoes.transacao.excecao.TransException;
 import org.hibernate.HibernateException;
 
@@ -173,7 +174,8 @@ public class TransacaoUtil {
         try {
             HibernateUtil.setSession();
             HibernateUtil.getSession().beginTransaction();
-        } catch(HibernateException ex) {
+        } catch(Exception ex) {
+            LogUtil.logDescricaoErro(TransacaoUtil.class, "ERRRO", ex);
             HibernateUtil.getSession().close();
             return false;
         }
