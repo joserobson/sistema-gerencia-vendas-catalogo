@@ -222,7 +222,10 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                 formRevendedor.setVisible(true);
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
-                JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_SALVAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+                if(ex.getCause().getCause().getMessage().contains("CPF JÁ CADASTRADO EM NOSSO BANCO DE DADOS."))
+                    JOptionPane.showMessageDialog(formRevendedor, ex.getCause().getCause().getMessage(), MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_SALVAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
         }
     };
