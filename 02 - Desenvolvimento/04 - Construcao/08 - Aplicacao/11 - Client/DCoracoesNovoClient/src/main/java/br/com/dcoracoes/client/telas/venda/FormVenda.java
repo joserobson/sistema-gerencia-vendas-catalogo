@@ -32,6 +32,7 @@ import br.com.dcoracoes.client.util.message.OperadorasTelefonicas;
 import br.com.dcoracoes.servico.service.*;
 import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Calendar;
@@ -65,6 +66,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     private HashMap<Integer, Produto> lstProduto;
     private HashMap<Integer, ItemProduto> lstItemProduto;
     private FormConsultaProduto formProduto;
+    
+    
+    public final String VALOR_ZERO = "0,00";
 
     public PedidoVenda getPedido() {
         return pedido;
@@ -84,8 +88,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     /**
      * Creates new form FormVenda
      */
-    public FormVenda(FormPrincipal form) {
-        this.form = form;
+    public FormVenda(JFrame form) {
+        this.form = (FormPrincipal)form;
         initComponents();        
         setLocationRelativeTo(null);
         initialize();
@@ -261,6 +265,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         });
         jtxtValorPedidoEscrito.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtValorPedidoEscritoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtValorPedidoEscritoKeyReleased(evt);
             }
@@ -272,7 +279,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         txtAprovacao.setEditable(false);
         txtAprovacao.setForeground(java.awt.Color.red);
         txtAprovacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtAprovacao.setFont(new java.awt.Font("Tahoma", 1, 11));
+        txtAprovacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtAprovacao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtAprovacaoKeyReleased(evt);
@@ -352,12 +359,12 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         cbFormaPagamento.setSelectedIndex(0);
 
-        lblAlertaProspeccao.setFont(new java.awt.Font("Tahoma", 1, 14));
+        lblAlertaProspeccao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblAlertaProspeccao.setForeground(new java.awt.Color(255, 0, 0));
         lblAlertaProspeccao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAlertaProspeccao.setText("<html> <center> ALERTA  DE <br/> PROSPECÇÃO </center> <html>");
 
-        btnProspeccoes.setFont(new java.awt.Font("Tahoma", 1, 10));
+        btnProspeccoes.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnProspeccoes.setText("PROSPECÇÕES");
         btnProspeccoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,6 +382,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         });
         jtxtCodigoRevendedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtCodigoRevendedorKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtCodigoRevendedorKeyReleased(evt);
             }
@@ -449,7 +459,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtSituacao, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,7 +597,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                     .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
                         .addComponent(lblConsultor)
                         .addGap(4, 4, 4)
-                        .addComponent(txtRevendedor, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
+                        .addComponent(txtRevendedor))
                     .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
                         .addComponent(lblCPF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -609,7 +619,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                             .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
                                 .addComponent(lblEndereco)
                                 .addGap(4, 4, 4)
-                                .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                                .addComponent(txtEndereco)
                                 .addGap(27, 27, 27)
                                 .addComponent(lblNumero)
                                 .addGap(5, 5, 5)
@@ -617,7 +627,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                             .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
                                 .addComponent(lblCidade)
                                 .addGap(4, 4, 4)
-                                .addComponent(txtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                                .addComponent(txtCidade)
                                 .addGap(57, 57, 57)
                                 .addComponent(lbUF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -632,7 +642,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                             .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
                                 .addComponent(lblComplemento)
                                 .addGap(4, 4, 4)
-                                .addComponent(txtComplemento, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))))
+                                .addComponent(txtComplemento)))))
                 .addGap(163, 163, 163))
         );
         panelDadosPrincipaisLayout.setVerticalGroup(
@@ -646,27 +656,22 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                     .addComponent(txtRevendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(panelDadosPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblEndereco))
                     .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblNumero))
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(lblComplemento))
-                    .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelDadosPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEndereco)
+                            .addComponent(lblNumero)
+                            .addComponent(lblComplemento))))
                 .addGap(11, 11, 11)
                 .addGroup(panelDadosPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblCidade))
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(panelDadosPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCidade)
                             .addGroup(panelDadosPrincipaisLayout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addComponent(lblCEP))
@@ -759,14 +764,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                                 .addComponent(jtxtTelefoneComercial, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(36, 36, 36)
                         .addGroup(panelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContatoLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(panelContatoLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jtxtCelular2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(jtxtCelular2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtxtCelular1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44)
                         .addGroup(panelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -833,7 +835,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBaseLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(tablePanelDados, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE))
+                        .addComponent(tablePanelDados))
                     .addGroup(panelBaseLayout.createSequentialGroup()
                         .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelBaseLayout.createSequentialGroup()
@@ -868,11 +870,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         jTabbedPane.addTab("Dados do Revendedor", panelBase);
 
-        btnSalvarPDF.setFont(new java.awt.Font("Tahoma", 1, 11));
+        btnSalvarPDF.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSalvarPDF.setText("<html> <center>SALVAR<br/>PDF</center> <html>");
         btnSalvarPDF.setEnabled(false);
 
-        btnImprimirExpedicao.setFont(new java.awt.Font("Tahoma", 1, 11));
+        btnImprimirExpedicao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnImprimirExpedicao.setText("<html> <center>IMPRIMIR<br/>EXPEDIÇÃO</center> <html>");
         btnImprimirExpedicao.setEnabled(false);
         btnImprimirExpedicao.addActionListener(new java.awt.event.ActionListener() {
@@ -881,7 +883,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         });
 
-        btnImprimirCompleto.setFont(new java.awt.Font("Tahoma", 1, 11));
+        btnImprimirCompleto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnImprimirCompleto.setText("<html> <center>IMPRIMIR<br/>COMPLETO</center> <html>");
         btnImprimirCompleto.setEnabled(false);
         btnImprimirCompleto.addActionListener(new java.awt.event.ActionListener() {
@@ -930,7 +932,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         tableItemVenda.getColumnModel().getColumn(5).setPreferredWidth(100);
         tableItemVenda.getColumnModel().getColumn(5).setMaxWidth(100);
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel30.setText("TOTAL DE ITENS NO PEDIDO");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1069,7 +1071,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 37, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1080,7 +1082,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 37, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -1128,8 +1130,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, 0, 92, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                    .addComponent(jPanel2, 0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1151,7 +1153,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
 
-        btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/document-new.png"))); // NOI18N
         btnNovo.setText("NOVO");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -1160,7 +1162,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         });
 
-        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/sair32x32.png"))); // NOI18N
         btnSair.setText("SAIR");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -1176,11 +1178,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 38, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel7.setPreferredSize(new java.awt.Dimension(40, 60));
@@ -1190,14 +1192,14 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 39, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/img_deletar_32x32.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
@@ -1214,14 +1216,14 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 38, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/img_salvar_32x32.png"))); // NOI18N
         btnSalvar.setText("SALVAR");
         btnSalvar.setEnabled(false);
@@ -1238,14 +1240,14 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        btnPesquisar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        btnPesquisar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/system-search.png"))); // NOI18N
         btnPesquisar.setText("PESQUISAR");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -1285,12 +1287,12 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addContainerGap()
                 .addGroup(panelSuperButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNovo))
                 .addContainerGap())
@@ -1302,7 +1304,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         txtNumeroOrcamento.setEditable(false);
         txtNumeroOrcamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNumeroOrcamento.setFont(new java.awt.Font("Tahoma", 1, 11));
+        txtNumeroOrcamento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtNumeroOrcamento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNumeroOrcamentoKeyReleased(evt);
@@ -1312,7 +1314,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jtxtData.setEditable(false);
         jtxtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         jtxtData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtxtData.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jtxtData.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1321,7 +1323,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel34)
@@ -1395,20 +1397,23 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }//GEN-LAST:event_btnNovoItemActionPerformed
 
     private void jtxtCodigoRevendedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtCodigoRevendedorFocusLost
-        try {
-            searchRevendedor();
-            aprovarVenda();
-        } catch (java.lang.Exception ex) {
-        }
+//        try {
+//            if (carregarRevendedor())
+//            {
+//                searchRevendedor();
+//                aprovarVenda();
+//            }
+//        } catch (java.lang.Exception ex) {
+//        }
     }//GEN-LAST:event_jtxtCodigoRevendedorFocusLost
 
     private void jtxtValorPedidoEscritoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtValorPedidoEscritoFocusLost
-        aprovarVenda();
+        
     }//GEN-LAST:event_jtxtValorPedidoEscritoFocusLost
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
-        createNew();
+        // TODO add your handling code here:        
+        gerarNumeroOrcamento();
 }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -1503,6 +1508,22 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         // TODO add your handling code here:
         delete();
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void jtxtCodigoRevendedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCodigoRevendedorKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {            
+            searchRevendedor();
+            //aprovarVenda();
+        }
+    }//GEN-LAST:event_jtxtCodigoRevendedorKeyPressed
+
+    private void jtxtValorPedidoEscritoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtValorPedidoEscritoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            aprovarVenda();
+        }
+    }//GEN-LAST:event_jtxtValorPedidoEscritoKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnImprimirCompleto;
@@ -1625,10 +1646,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         btnExcluir.setEnabled(false);
         disableTela(true);
         disableAbaItemsPedido(false);
-        clear();
-        gerarNumeroOrcamento();
-        populaDataCadastro();
-
+        clear();        
+        populaDataCadastro();        
 
         btnImprimirCompleto.setEnabled(false);
         btnImprimirExpedicao.setEnabled(false);
@@ -1842,8 +1861,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
     private void fecharForm() {
         clear();
-        this.dispose();
         form.setFormVenda(null);
+        this.dispose();        
+        //
     }
 
     private void delete() {
@@ -1857,7 +1877,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     public void afterDelete() {
         pedido = null;
         JOptionPane.showMessageDialog(this, MessageVenda.SUCESSO_REMOVER_Venda, MensagensUtil.SUCESSO, 1);
-        createNew();
+        //createNew();
+        gerarNumeroOrcamento();
     }
 
     @Override
@@ -1954,6 +1975,12 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         //adicionando atalhos
         createAtalhos();
+        
+        jtxtValorPedidoEscrito.setText(VALOR_ZERO);
+        jtxtValorDesconto.setText(VALOR_ZERO);
+        jtxtSubTotal.setText(VALOR_ZERO);
+        jtxtTotal.setText(VALOR_ZERO);
+       
     }
 
     /**
@@ -1965,16 +1992,31 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     private boolean validExistProdutoCor(String refCatalogo, String cor, int row) {
         //ROBSON
         for (ItemProduto item : lstItemProduto.values()) {
-            if (getProdutoByRow(row).getReferenciaCatalogo().equals(refCatalogo)
-                    && item.getCor().getCodigo().equals(cor)) {
+            
+            Produto p = getProdutoByRow(row);
+            
+            if (p.getReferenciaCatalogo().equals(refCatalogo)
+                    & findItemProdutoInProduto(item,p)
+                    & item.getCor().getCodigo().equals(cor)) {
 
                 JOptionPane.showMessageDialog(this, MessageVenda.PRODUTO_E_COR_EXISTE_GRID, MensagensUtil.ATENCAO, 1);
                 return true;
             }
         }
         return false;
+    }    
+    
+    private boolean findItemProdutoInProduto(ItemProduto itemProduto, Produto prod)
+    {
+        for (ItemProduto item : prod.getListaItensProduto()) {
+            if (item.getId().equals(itemProduto.getId()))
+                return true;
+        }
+        
+        return false;
     }
-
+    
+    
     private void initializeList() {
         for (int i = 0; i < 12; i++) {
             popularGrid(new ItemPedido());
@@ -2090,8 +2132,10 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             if (erro) {
                 msgErro = MessageVenda.ERRO_ESTOQUE_INDISPONIVEL;
             } else {
-                msgErro = MessageVenda.ERRO_COR_NAO_EXISTE;
+                msgErro = MessageVenda.ERRO_COR_NAO_EXISTE;                
                 tableItemVenda.getModel().setValueAt(null, row, 1);
+                if (lstItemProduto.containsKey(row))
+                    lstItemProduto.remove(row);
             }
 
             JOptionPane.showMessageDialog(this, msgErro, MensagensUtil.ATENCAO, 1);
@@ -2170,7 +2214,12 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jtxtData.setText(null);
 
         cbFormaPagamento.setSelectedIndex(0);
-        jtxtValorPedidoEscrito.setText(null);
+        
+        jtxtValorPedidoEscrito.setText(VALOR_ZERO);
+        jtxtValorPedidoEscrito.setText(VALOR_ZERO);
+        jtxtValorDesconto.setText(VALOR_ZERO);
+        jtxtSubTotal.setText(VALOR_ZERO);
+        jtxtTotal.setText(VALOR_ZERO);
 
         clearCamposRevendedor();
         clearItemsPedido();
@@ -2184,7 +2233,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
         work.setFormVenda(this);
         work.workGerarNumeroOrcamento.execute();
-
     }
 
     /**
@@ -2501,7 +2549,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         boolean validCor = false, validQuantidade = false;
         for (int i = 0; i < dtm.getRowCount(); i++) {
-            if (!dtm.getValueAt(i, 0).toString().isEmpty()) {
+            if (dtm.getValueAt(i, 0).toString().isEmpty()) {
                 if (dtm.getValueAt(i, 1) == null || dtm.getValueAt(i, 1).toString().isEmpty()) {
                     validCor = true;
                 }
@@ -2896,6 +2944,24 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      */
     private Produto getProdutoByRow(int row) {
         return this.lstProduto.get(row);
+    }
+
+    /**
+     * verificar se revendedor já foi carregado
+     * @return 
+     */
+    private boolean carregarRevendedor() {
+        
+        if (this.revendedor != null)
+        {
+            if (this.jtxtCodigoRevendedor.getText().equals(MetodosUtil.gerarCodigoFormatoPadrao(
+                this.revendedor.getCodigo())))
+            {
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     /**
