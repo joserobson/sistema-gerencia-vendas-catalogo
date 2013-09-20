@@ -2928,9 +2928,9 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
 
     @Override
     public void salvar() {
+        form.getViewRevendedor().getLstInformacoesComplementares().clear();
         if (pushToModelBoolean()) {
             this.dispose();
-            form.getViewRevendedor().getLstInformacoesComplementares().clear();
             form.getViewRevendedor().getLstInformacoesComplementares().addAll(getInformacoesComplementares());
             form.getViewRevendedor().setConjugue(getConjugue());
             if(form.getViewRevendedor().getRevendedor().getId() != null){
