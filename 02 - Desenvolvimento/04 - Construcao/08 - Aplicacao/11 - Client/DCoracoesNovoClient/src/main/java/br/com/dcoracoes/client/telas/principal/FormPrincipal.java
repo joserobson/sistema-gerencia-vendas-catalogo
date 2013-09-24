@@ -12,6 +12,7 @@ package br.com.dcoracoes.client.telas.principal;
 
 import br.com.dcoracoes.client.App;
 import br.com.dcoracoes.client.ControleAcesso;
+import br.com.dcoracoes.client.classes.serverimpl.PedidoVendaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PerfilServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PermissaoServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.RevendedorServerImpl;
@@ -499,15 +500,41 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
     private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
-         try{
-            if(formVenda == null){
-                formVenda = new FormVenda(this);
+      SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
+
+            @Override
+            protected String doInBackground() throws Exception {
+                try {
+                    workTelaAguarde.habilitaTelaAguarde(getFramePrincipal());
+                    return new PedidoVendaServerImpl<PedidoVenda>().recCodigoOrcamento();
+                } catch (Exception ex) {
+                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
+                    throw ex;
+                }
             }
-            formVenda.showFrame();
-        }catch(Exception ex){
-            LogUtil.logDescricaoErro(this.getClass(), ex);
-            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
-        }
+
+            @Override
+            protected void done() {
+                try {
+                    String codigo =  get();
+                    if (formVenda == null) {
+                        formVenda = new FormVenda();                        
+                    }
+                    
+                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
+                    
+                    formVenda.setCodigoOrcamento(codigo);
+                    formVenda.showFrame();
+                    
+
+                } catch (Exception ex) {
+                    LogUtil.logDescricaoErro(this.getClass(), ex);
+                    JOptionPane.showMessageDialog(formVenda, MensagensUtil.MENSAGEM_ERRO_ABRIR_TELA, MensagensUtil.ERRO, 0);
+                }
+            }
+        };
+
+        worker.execute();
     }//GEN-LAST:event_btnVendaActionPerformed
 
     private void btnProspeccoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProspeccoesActionPerformed
