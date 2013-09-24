@@ -10,6 +10,7 @@
  */
 package br.com.dcoracoes.client.telas.venda;
 
+import br.com.dcoracoes.client.App;
 import br.com.dcoracoes.client.ControleAcesso;
 import br.com.dcoracoes.client.enuns.*;
 import br.com.dcoracoes.client.enuns.Enum_Forma_Pagamento;
@@ -61,13 +62,10 @@ import net.sf.jasperreports.engine.JRException;
  */
 public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCompleto {
 
-    private FormPrincipal form = null;
     private PedidoVenda pedido;
     private HashMap<Integer, Produto> lstProduto;
     private HashMap<Integer, ItemProduto> lstItemProduto;
     private FormConsultaProduto formProduto;
-    
-    
     public final String VALOR_ZERO = "0,00";
 
     public PedidoVenda getPedido() {
@@ -88,9 +86,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     /**
      * Creates new form FormVenda
      */
-    public FormVenda(JFrame form) {
-        this.form = (FormPrincipal)form;
-        initComponents();        
+    public FormVenda() {
+        //this.form = (FormPrincipal)form;
+        initComponents();
         setLocationRelativeTo(null);
         initialize();
     }
@@ -1408,7 +1406,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }//GEN-LAST:event_jtxtCodigoRevendedorFocusLost
 
     private void jtxtValorPedidoEscritoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtValorPedidoEscritoFocusLost
-        
     }//GEN-LAST:event_jtxtValorPedidoEscritoFocusLost
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -1481,7 +1478,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }//GEN-LAST:event_cbFormaPagamentoActionPerformed
 
     private void btnImprimirCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirCompletoActionPerformed
-    //ROBSON
+        //ROBSON
         try {
             GerarRelatorio gerar = new GerarRelatorio();
             gerar.gerarRelatorioCompletoVenda(pedido);
@@ -1493,7 +1490,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }//GEN-LAST:event_btnImprimirCompletoActionPerformed
 
     private void btnImprimirExpedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirExpedicaoActionPerformed
-    //ROBSON
+        //ROBSON
         try {
             GerarRelatorio gerar = new GerarRelatorio();
             gerar.gerarRelatorioExpedicaoVenda(pedido);
@@ -1510,7 +1507,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jtxtCodigoRevendedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCodigoRevendedorKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {            
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             searchRevendedor();
             //aprovarVenda();
         }
@@ -1518,12 +1515,10 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
     private void jtxtValorPedidoEscritoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtValorPedidoEscritoKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-        {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             aprovarVenda();
         }
     }//GEN-LAST:event_jtxtValorPedidoEscritoKeyPressed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnImprimirCompleto;
@@ -1646,8 +1641,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         btnExcluir.setEnabled(false);
         disableTela(true);
         disableAbaItemsPedido(false);
-        clear();        
-        populaDataCadastro();        
+        clear();
+        populaDataCadastro();
 
         btnImprimirCompleto.setEnabled(false);
         btnImprimirExpedicao.setEnabled(false);
@@ -1688,13 +1683,38 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      *
      * @param listViewRevendedor
      */
-    public void setRevendedor(List<ViewRevendedor> listViewRevendedor) {
-        if (listViewRevendedor.size() > 0) {
-            popularRevendedor(listViewRevendedor.get(0).getRevendedor());
+//    public void setRevendedor(List<ViewRevendedor> listViewRevendedor) {
+//        if (listViewRevendedor.size() > 0) {
+//            popularRevendedor(listViewRevendedor.get(0).getRevendedor());
+//            cbFormaPagamento.requestFocus();
+//        } else {
+//            clearCamposRevendedor();
+//            JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_NENHUM_REGISTRO, MensagensUtil.ATENCAO, 1);
+//        }
+//    }
+    public void afterBuscaRevendedor(Revendedor rev, List<Alerta> lstAlertas) {
+        if (rev != null) {
+            popularRevendedor(rev);
+            ativaAlerta(lstAlertas);
             cbFormaPagamento.requestFocus();
         } else {
             clearCamposRevendedor();
             JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_NENHUM_REGISTRO, MensagensUtil.ATENCAO, 1);
+        }
+    }
+
+    /**
+     *
+     * @param lstAlertas
+     */
+    private void ativaAlerta(List<Alerta> lstAlertas) {
+        //recupera as prospecções do revendedor
+        if (ControleAcesso.ATIVA_BTN_CONSULTAR_PROSPECCAO) {
+            if (lstAlertas.isEmpty()) {
+                lblAlertaProspeccao.setVisible(false);
+            } else {
+                lblAlertaProspeccao.setVisible(true);
+            }
         }
     }
 
@@ -1860,9 +1880,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }
 
     private void fecharForm() {
-        clear();
-        form.setFormVenda(null);
-        this.dispose();        
+        //clear();        
+        this.dispose();
+        App.formPrincipal.setFormVenda(null);
         //
     }
 
@@ -1975,12 +1995,12 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         //adicionando atalhos
         createAtalhos();
-        
+
         jtxtValorPedidoEscrito.setText(VALOR_ZERO);
         jtxtValorDesconto.setText(VALOR_ZERO);
         jtxtSubTotal.setText(VALOR_ZERO);
         jtxtTotal.setText(VALOR_ZERO);
-       
+
     }
 
     /**
@@ -1992,11 +2012,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     private boolean validExistProdutoCor(String refCatalogo, String cor, int row) {
         //ROBSON
         for (ItemProduto item : lstItemProduto.values()) {
-            
+
             Produto p = getProdutoByRow(row);
-            
+
             if (p.getReferenciaCatalogo().equals(refCatalogo)
-                    & findItemProdutoInProduto(item,p)
+                    & findItemProdutoInProduto(item, p)
                     & item.getCor().getCodigo().equals(cor)) {
 
                 JOptionPane.showMessageDialog(this, MessageVenda.PRODUTO_E_COR_EXISTE_GRID, MensagensUtil.ATENCAO, 1);
@@ -2004,19 +2024,18 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         }
         return false;
-    }    
-    
-    private boolean findItemProdutoInProduto(ItemProduto itemProduto, Produto prod)
-    {
+    }
+
+    private boolean findItemProdutoInProduto(ItemProduto itemProduto, Produto prod) {
         for (ItemProduto item : prod.getListaItensProduto()) {
-            if (item.getId().equals(itemProduto.getId()))
+            if (item.getId().equals(itemProduto.getId())) {
                 return true;
+            }
         }
-        
+
         return false;
     }
-    
-    
+
     private void initializeList() {
         for (int i = 0; i < 12; i++) {
             popularGrid(new ItemPedido());
@@ -2073,7 +2092,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         Produto produto = new Produto();
         produto.setReferenciaCatalogo(referenciaCatalogo);
         //buscarProduto(produto.getReferenciaCatalogo(), row, cor, quantidade);
-        
+
         SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
         work.setProdutoPedidoVenda(produto);
         work.setFormVenda(this);
@@ -2081,7 +2100,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         work.setCorProduto(cor);
         work.setQuantidadeProduto(quantidade);
         work.workSearchProdutosAtualizaCor.execute();
-        
+
     }
 
     /**
@@ -2132,10 +2151,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             if (erro) {
                 msgErro = MessageVenda.ERRO_ESTOQUE_INDISPONIVEL;
             } else {
-                msgErro = MessageVenda.ERRO_COR_NAO_EXISTE;                
+                msgErro = MessageVenda.ERRO_COR_NAO_EXISTE;
                 tableItemVenda.getModel().setValueAt(null, row, 1);
-                if (lstItemProduto.containsKey(row))
+                if (lstItemProduto.containsKey(row)) {
                     lstItemProduto.remove(row);
+                }
             }
 
             JOptionPane.showMessageDialog(this, msgErro, MensagensUtil.ATENCAO, 1);
@@ -2214,7 +2234,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jtxtData.setText(null);
 
         cbFormaPagamento.setSelectedIndex(0);
-        
+
         jtxtValorPedidoEscrito.setText(VALOR_ZERO);
         jtxtValorPedidoEscrito.setText(VALOR_ZERO);
         jtxtValorDesconto.setText(VALOR_ZERO);
@@ -2293,11 +2313,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         //direciona o foco da tela
         cbFormaPagamento.requestFocus();
-
-        //recupera as prospecções do revendedor
-        if (ControleAcesso.ATIVA_BTN_CONSULTAR_PROSPECCAO) {
-            consultarProspeccoes();
-        }
     }
 
     /**
@@ -2846,10 +2861,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             work.workAprovarPedidoVenda.execute();
         }
     }
-    
-    /***
-     * 
-     * @param isAprovada 
+
+    /**
+     * *
+     *
+     * @param isAprovada
      */
     public void afterAprovarVenda(Boolean isAprovada) {
         if (isAprovada) {
@@ -2883,7 +2899,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             lblAlertaProspeccao.setVisible(true);
         }
     }
-
     /**
      * Logica para quando o usuario clicar no botao fechar do frame exibir a
      * tela de confirmação
@@ -2948,19 +2963,18 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
     /**
      * verificar se revendedor já foi carregado
-     * @return 
+     *
+     * @return
      */
     private boolean carregarRevendedor() {
-        
-        if (this.revendedor != null)
-        {
+
+        if (this.revendedor != null) {
             if (this.jtxtCodigoRevendedor.getText().equals(MetodosUtil.gerarCodigoFormatoPadrao(
-                this.revendedor.getCodigo())))
-            {
+                    this.revendedor.getCodigo()))) {
                 return false;
             }
         }
-        
+
         return true;
     }
 

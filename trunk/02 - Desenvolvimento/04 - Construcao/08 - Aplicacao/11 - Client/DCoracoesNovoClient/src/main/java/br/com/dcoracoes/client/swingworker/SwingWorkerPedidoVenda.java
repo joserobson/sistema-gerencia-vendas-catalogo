@@ -9,6 +9,7 @@ import br.com.dcoracoes.client.classes.serverimpl.PedidoServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.PedidoVendaServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.ProdutoServerImpl;
 import br.com.dcoracoes.client.classes.serverimpl.RevendedorServerImpl;
+import br.com.dcoracoes.client.enuns.Enum_Situacao_Alerta;
 import br.com.dcoracoes.client.telas.relatorio.FormRelatorioVendaPorRevendedor;
 import br.com.dcoracoes.client.telas.venda.FormConsultaVenda;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
@@ -19,6 +20,7 @@ import br.com.dcoracoes.client.util.message.MessageRevendedor;
 import br.com.dcoracoes.client.util.message.MessageVenda;
 import br.com.dcoracoes.servico.service.*;
 import java.lang.Exception;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -252,13 +254,44 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
     /**
      *
      */
-    public SwingWorker<List<ViewRevendedor>, Object> workBuscaRevendedor = new SwingWorker<List<ViewRevendedor>, Object>() {
+    public SwingWorker <HashMap<String,Object>, Object> workBuscaRevendedor = new SwingWorker<HashMap<String,Object>, Object>() {
 
+        public final String CONST_REV = "rev";
+        public final String CONST_ALERTAS = "alertas";
+        
+        
         @Override
-        protected List<ViewRevendedor> doInBackground() throws Exception {
+        protected HashMap<String,Object> doInBackground() throws Exception {
             try {
                 habilitaTelaAguarde(formVenda);
-                return new RevendedorServerImpl<Revendedor>().recTodos(revendedor);
+                
+                Revendedor rev = null;
+                List<Alerta> lstAlertas = null;
+                
+                //map retorno
+                HashMap<String, Object> mapRetorno = new HashMap<String, Object>();
+                
+                //busca o revendedor
+                List<ViewRevendedor> lstRevs  = new RevendedorServerImpl<Revendedor>().recTodos(revendedor);
+                
+                //buscar as prospeccoes do revendedor
+                if (lstRevs != null && lstRevs.size() > 0)
+                {
+                    rev = lstRevs.get(0).getRevendedor();
+                    
+                    Alerta prospeccao = new Alerta();
+                    prospeccao.setPessoa(rev.getPessoa());
+                    prospeccao.setSituacaoAlerta(Enum_Situacao_Alerta.EMABERTO.getCodigo());
+                    
+                    AlertaServerImpl serverImpl = new AlertaServerImpl();
+                    lstAlertas = serverImpl.recTodos(prospeccao);
+                                        
+                }
+                
+                mapRetorno.put(CONST_REV,rev);
+                mapRetorno.put(CONST_ALERTAS, lstAlertas);
+                return mapRetorno;
+                
             } catch (Exception ex) {
                 throw ex;
             }
@@ -269,9 +302,15 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             try {
                 desabilitaTelaAguarde(formVenda);
                 if (get() != null) {
-                    formVenda.setRevendedor(get());
-                }
-                formVenda.setVisible(true);
+                    
+                    HashMap<String,Object> mapRetorno = get();
+                    
+                    Revendedor rev = (Revendedor)mapRetorno.get(CONST_REV);
+                    List<Alerta> lstAlertas = (List<Alerta>)mapRetorno.get(CONST_ALERTAS);
+                    
+                    formVenda.afterBuscaRevendedor(rev,lstAlertas);
+                                                            
+                }                
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -322,8 +361,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
         protected void done() {
             try {
                 desabilitaTelaAguarde(formVenda);
-                formVenda.afterConsultaProspeccoes(get());
-                formVenda.setVisible(true);
+                formVenda.afterConsultaProspeccoes(get());                
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageProspeccao.ERRO_CONSULTAR_PROSPECCAO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
