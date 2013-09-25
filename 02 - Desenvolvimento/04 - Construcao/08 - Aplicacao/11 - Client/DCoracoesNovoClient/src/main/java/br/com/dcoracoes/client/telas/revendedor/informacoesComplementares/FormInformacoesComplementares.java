@@ -2895,27 +2895,28 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
         pushToModelConta1();
         pushToModelConta2();
         pushToModelConta3();
-        if (lstInformacoesComplementares == null) {
+        if (lstInformacoesComplementares == null) 
             lstInformacoesComplementares = new ArrayList<ViewInfComplementaresRevendedor>();
-        } else {
-            lstInformacoesComplementares.clear();
-        }
+
         try {
             if (conta1 != null) {
                 if (validContaPreenchida(conta1)) {
-                    lstInformacoesComplementares.add(conta1);
+                    if(!lstInformacoesComplementares.contains(conta1))
+                        lstInformacoesComplementares.add(conta1);
                 }
             }
 
             if (conta2 != null) {
                 if (validContaPreenchida(conta2)) {
-                    lstInformacoesComplementares.add(conta2);
+                    if(!lstInformacoesComplementares.contains(conta2))
+                        lstInformacoesComplementares.add(conta2);
                 }
             }
 
             if (conta3 != null) {
                 if (validContaPreenchida(conta3)) {
-                    lstInformacoesComplementares.add(conta3);
+                    if(!lstInformacoesComplementares.contains(conta3))
+                        lstInformacoesComplementares.add(conta3);
                 }
             }
 
@@ -2928,11 +2929,10 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
 
     @Override
     public void salvar() {
-        form.getViewRevendedor().getLstInformacoesComplementares().clear();
         if (pushToModelBoolean()) {
             this.dispose();
-            form.getViewRevendedor().getLstInformacoesComplementares().addAll(getInformacoesComplementares());
-            form.getViewRevendedor().setConjugue(getConjugue());
+//            form.getViewRevendedor().getLstInformacoesComplementares().addAll(getInformacoesComplementares());
+//            form.getViewRevendedor().setConjugue(getConjugue());
             if(form.getViewRevendedor().getRevendedor().getId() != null){
                 try {
                     form.mantemRevendedor(form.getViewRevendedor());

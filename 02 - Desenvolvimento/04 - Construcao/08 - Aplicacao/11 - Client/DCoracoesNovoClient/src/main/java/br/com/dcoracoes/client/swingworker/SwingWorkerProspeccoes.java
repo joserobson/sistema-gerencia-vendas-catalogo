@@ -96,7 +96,7 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
                     habilitaTelaAguarde(formProspeccoes);
                 else
                     if(formRevendedor != null)
-                    habilitaTelaAguarde(formProspeccoes);
+                        habilitaTelaAguarde(formRevendedor);
                 return new AlertaServerImpl<T>().recTodos(prospeccao);
             } catch (Exception ex) {
                 throw ex;
@@ -110,7 +110,7 @@ public class SwingWorkerProspeccoes<T extends Alerta> extends BaseSwingWorker {
                     desabilitaTelaAguarde(formProspeccoes);
                 else
                     if(formRevendedor != null)
-                        desabilitaTelaAguarde(formProspeccoes);
+                        desabilitaTelaAguarde(formRevendedor);
                 
                 if (get() != null) {
                     List<Alerta> listUsuario = (List<Alerta>) get();
