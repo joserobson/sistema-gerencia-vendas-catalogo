@@ -18,7 +18,6 @@ import br.com.dcoracoes.client.enuns.Enum_UF;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
 import br.com.dcoracoes.client.relatorios.GerarRelatorio;
 import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoVenda;
-import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.telas.produto.FormConsultaProduto;
 import br.com.dcoracoes.client.telas.produto.FormProduto;
 import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
@@ -1933,6 +1932,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                         atualizaTableDadosProduto(new Produto(), row);
                         tableItemVenda.getModel().setValueAt(null, row, 1);
                         tableItemVenda.getModel().setValueAt(0, row, 2);
+                        
+                        if(lstItemProduto != null)
+                            if (lstItemProduto.containsKey(row))
+                                lstItemProduto.remove(row);
+                        
                     }
                 } else {
                     /**
@@ -2755,6 +2759,10 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         if (list.isEmpty()) {
             JOptionPane.showMessageDialog(this, MessageCompra.CODIGO_INVALIDO, MensagensUtil.ATENCAO, 1);
+            
+            if(lstItemProduto != null)
+                if (lstItemProduto.containsKey(row))
+                    lstItemProduto.remove(row);
         } else {
             produto = list.get(0);
         }
@@ -2773,16 +2781,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      * @param produto
      */
     private void atualizaTableDadosProduto(Produto produto, int row) {
-
-
-//        RowEditorModel rm = new RowEditorModel();
-//        ((JTableX)tableItemVenda).setRowEditorModel(rm);
-//        JComboBox combo  = new JComboBox();
-//        combo.addItem("A");
-//        combo.addItem("B");
-//        combo.addItem("C");
-//        DefaultCellEditor ed = new DefaultCellEditor(combo);
-//        rm.addEditorForRow(row,ed);
 
         tableItemVenda.getModel().setValueAt(produto.getDescricao(), row, 3);
         tableItemVenda.getModel().setValueAt(produto.getValorVenda(), row, 4);
