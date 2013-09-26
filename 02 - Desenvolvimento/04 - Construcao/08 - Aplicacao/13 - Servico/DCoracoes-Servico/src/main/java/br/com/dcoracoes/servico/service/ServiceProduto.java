@@ -53,7 +53,7 @@ public class ServiceProduto<T extends Produto> extends ServiceBase<T> implements
         List<T> lstProdutosBeans = null;
         try {
             List<br.com.dcoracoes.server.model.produto.Produto> lstProdutosModel =
-                    tnProduto.recProdutos((br.com.dcoracoes.server.model.produto.Produto) converteToModel(param), true);
+                    tnProduto.recProdutos((br.com.dcoracoes.server.model.produto.Produto) converteToModel(param), useLike);
             lstProdutosBeans = getListToBeans(lstProdutosModel);
 
         } catch (MappingException ex) {
