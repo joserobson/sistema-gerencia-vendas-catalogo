@@ -39,6 +39,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -2014,17 +2015,19 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      * @param cor
      */
     private boolean validExistProdutoCor(String refCatalogo, String cor, int row) {
-        //ROBSON
-        for (ItemProduto item : lstItemProduto.values()) {
+        for (Map.Entry<Integer, ItemProduto> entry : lstItemProduto.entrySet()) {
+            Integer integer = entry.getKey();
+            if(integer != row){
+                ItemProduto item = entry.getValue();
+                Produto p = getProdutoByRow(row);
 
-            Produto p = getProdutoByRow(row);
+                if (p.getReferenciaCatalogo().equals(refCatalogo)
+                        & findItemProdutoInProduto(item, p)
+                        & item.getCor().getCodigo().equals(cor)) {
 
-            if (p.getReferenciaCatalogo().equals(refCatalogo)
-                    & findItemProdutoInProduto(item, p)
-                    & item.getCor().getCodigo().equals(cor)) {
-
-                JOptionPane.showMessageDialog(this, MessageVenda.PRODUTO_E_COR_EXISTE_GRID, MensagensUtil.ATENCAO, 1);
-                return true;
+                    JOptionPane.showMessageDialog(this, MessageVenda.PRODUTO_E_COR_EXISTE_GRID, MensagensUtil.ATENCAO, 1);
+                    return true;
+                }
             }
         }
         return false;
@@ -2157,9 +2160,10 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             } else {
                 msgErro = MessageVenda.ERRO_COR_NAO_EXISTE;
                 tableItemVenda.getModel().setValueAt(null, row, 1);
-                if (lstItemProduto.containsKey(row)) {
-                    lstItemProduto.remove(row);
-                }
+                if(lstItemProduto != null)
+                    if (lstItemProduto.containsKey(row))
+                        lstItemProduto.remove(row);
+                    
             }
 
             JOptionPane.showMessageDialog(this, msgErro, MensagensUtil.ATENCAO, 1);
@@ -2568,7 +2572,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         boolean validCor = false, validQuantidade = false;
         for (int i = 0; i < dtm.getRowCount(); i++) {
-            if (dtm.getValueAt(i, 0).toString().isEmpty()) {
+            if (!dtm.getValueAt(i, 0).toString().isEmpty()) {
                 if (dtm.getValueAt(i, 1) == null || dtm.getValueAt(i, 1).toString().isEmpty()) {
                     validCor = true;
                 }
