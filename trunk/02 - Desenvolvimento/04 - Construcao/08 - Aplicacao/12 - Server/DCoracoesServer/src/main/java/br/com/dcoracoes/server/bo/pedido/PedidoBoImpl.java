@@ -67,8 +67,8 @@ public class PedidoBoImpl<T extends Pedido> implements PedidoBo<T> {
             for (ItemPedido item : pedido.getListaItensPedido()) {
 
                 //salvar CodigoItem
-                salvarCodigoItem(item.getCodigo());
                 item.setPedido(pedido);
+                salvarCodigoItem(item.getCodigo());
             }
 
             //salvar Pedido

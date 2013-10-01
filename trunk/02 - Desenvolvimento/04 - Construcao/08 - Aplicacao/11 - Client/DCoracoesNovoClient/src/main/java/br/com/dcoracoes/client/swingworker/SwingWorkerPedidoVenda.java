@@ -152,7 +152,6 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             try {
                 desabilitaTelaAguarde(formVenda);
                 if (get() != null) {
-                    formVenda.setPedido((T) get());
                     formVenda.salvarComSucesso();
                 }
                 formVenda.setVisible(true);
@@ -242,7 +241,9 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             try {
                 desabilitaTelaAguarde(formVenda);
                 if (get() != null) {
+                    formVenda.clear();
                     formVenda.setCodigoOrcamento(get());
+                    formVenda.createNew();
                 }
                 formVenda.setVisible(true);
             } catch (Exception ex) {

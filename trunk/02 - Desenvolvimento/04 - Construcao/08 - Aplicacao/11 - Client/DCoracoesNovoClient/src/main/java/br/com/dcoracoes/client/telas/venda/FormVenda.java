@@ -892,7 +892,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         tableItemVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, "0"}
+
             },
             new String [] {
                 "Ref. Catálogo", "Cor", "Quantidade", "Descrição", "Valor Unitário", "Valor Total"
@@ -1641,16 +1641,17 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         btnExcluir.setEnabled(false);
         disableTela(true);
         disableAbaItemsPedido(false);
-        clear();
         populaDataCadastro();
-
+                
         btnImprimirCompleto.setEnabled(false);
         btnImprimirExpedicao.setEnabled(false);
-//        btnSalvarPDF.setEnabled(false);
 
         //exibi aba principal
         jTabbedPane.setSelectedIndex(0);
         jtxtCodigoRevendedor.requestFocus();
+        
+        txtAprovacao.setText(null);
+        disableAbaItemsPedido(false);
     }
 
     @Override
@@ -1855,7 +1856,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }
 
     public void salvarComSucesso() {
-        popularTela();
         JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_SUCESSO_CADASTRO, MensagensUtil.SUCESSO, 1);
         disableAbaItemsPedido(false);
         disableAbaDadosRevendedor(false);
@@ -1979,7 +1979,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                     if (dtm.getValueAt(row, 1) != null) {
                         if (!dtm.getValueAt(row, 1).toString().isEmpty()) {
                             String cor = dtm.getValueAt(row, 1).toString();
-                            int quantidadeItem = ((Integer) tableItemVenda.getModel().getValueAt(row, 2)).intValue();
+                            int quantidadeItem = tableItemVenda.getModel().getValueAt(row, 2) == null ? 0 : 
+                                    ((Integer) tableItemVenda.getModel().getValueAt(row, 2)).intValue();
                             atualizaCor(cor, quantidadeItem, row);
                         }
                     }
@@ -2044,7 +2045,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     }
 
     private void initializeList() {
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 13; i++) {
             popularGrid(new ItemPedido());
         }
     }
