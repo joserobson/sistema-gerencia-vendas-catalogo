@@ -29,6 +29,7 @@ public class MensagensUtil {
     public static String MENSAGEM_SUCESSO_CADASTRO="Cadastro realizado com sucesso.";
     public static String MENSAGEM_NENHUM_REGISTRO="Nenhum registro encontrado.";
     public static String INFORMAR_PARAMETROS_CONSULTA="Forneça pelo menos um filtro para realizar a consulta.";
+    public static String MENSAGEM_VALIDACAO_VALOR_TOTAL="O valor do pedido escrito está diferente do valor total com desconto, deseja cotinuar?";
     
     public static String ATENCAO="Atenção";
     public static String SUCESSO="Sucesso";
