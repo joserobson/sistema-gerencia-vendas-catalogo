@@ -1762,6 +1762,18 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         if (!stringError.toString().isEmpty()) {
             JOptionPane.showMessageDialog(this, stringError, MensagensUtil.ATENCAO, 2);
+        } else {
+            //Validando valor compra e valor escrito
+            float valorPedidoEscrito = Float.parseFloat(jtxtValorPedidoEscrito.getText().trim().replace(".", "").replace(",", "."));
+            float valorTotal = Float.parseFloat(jtxtTotal.getText().trim().replace(".", "").replace(",", "."));
+            if(valorPedidoEscrito != valorTotal){
+                int opcao = JOptionPane.showOptionDialog(rootPane, MensagensUtil.MENSAGEM_VALIDACAO_VALOR_TOTAL, MensagensUtil.ATENCAO,  
+                    JOptionPane.YES_NO_OPTION,  
+                    JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sim", "Não"}, "Não"); 
+                if (opcao == JOptionPane.NO_OPTION) {
+                    stringError.append(MensagensUtil.MENSAGEM_VALIDACAO_VALOR_TOTAL);
+                }
+            }
         }
 
         return stringError.toString().isEmpty();
