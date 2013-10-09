@@ -12,10 +12,8 @@ package br.com.dcoracoes.client.telas.principal;
 
 import br.com.dcoracoes.client.App;
 import br.com.dcoracoes.client.ControleAcesso;
-import br.com.dcoracoes.client.classes.serverimpl.PedidoVendaServerImpl;
-import br.com.dcoracoes.client.classes.serverimpl.PerfilServerImpl;
-import br.com.dcoracoes.client.classes.serverimpl.PermissaoServerImpl;
-import br.com.dcoracoes.client.classes.serverimpl.RevendedorServerImpl;
+import br.com.dcoracoes.client.classes.serverimpl.*;
+import br.com.dcoracoes.client.enuns.Enum_Situacao_Alerta;
 import br.com.dcoracoes.client.swingworker.BaseSwingWorker;
 import br.com.dcoracoes.client.telas.compra.FormCompra;
 
@@ -35,6 +33,7 @@ import br.com.dcoracoes.servico.service.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.Exception;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -369,14 +368,43 @@ public class FormPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnrevendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrevendedorActionPerformed
-        
-        SwingWorker<Object, Void> worker = new SwingWorker<Object, Void>() {
+
+        SwingWorker<HashMap<String, Object>, Void> worker = new SwingWorker<HashMap<String, Object>, Void>() {
+
+            public final String CONST_REV = "rev11";
+            public final String CONST_ALERTAS = "alertas11";
 
             @Override
-            protected Object doInBackground() throws Exception {
+            protected HashMap<String, Object> doInBackground() throws Exception {
                 try {
-                    workTelaAguarde.habilitaTelaAguarde(getFramePrincipal());                    
-                    return new RevendedorServerImpl().recUltimoRevendedorCadastro();
+                    workTelaAguarde.habilitaTelaAguarde(getFramePrincipal());
+                    
+                    Revendedor rev = null;
+                    List<Alerta> lstAlertas = null;
+
+                    //map retorno
+                    HashMap<String, Object> mapRetorno = new HashMap<String, Object>();
+
+                    //busca o revendedor
+                    ViewRevendedor viewRetorno = new RevendedorServerImpl<Revendedor>().recUltimoRevendedorCadastro();
+
+                    //buscar as prospeccoes do revendedor
+                    if (viewRetorno != null) {
+                        rev = viewRetorno.getRevendedor();
+
+                        Alerta prospeccao = new Alerta();
+                        prospeccao.setPessoa(rev.getPessoa());
+                        prospeccao.setSituacaoAlerta(Enum_Situacao_Alerta.EMABERTO.getCodigo());
+
+                        AlertaServerImpl serverImpl = new AlertaServerImpl();
+                        lstAlertas = serverImpl.recTodos(prospeccao);
+
+                    }
+
+                    mapRetorno.put(CONST_REV, viewRetorno);
+                    mapRetorno.put(CONST_ALERTAS, lstAlertas);
+                    return mapRetorno;
+
                 } catch (Exception ex) {
                     workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
                     throw ex;
@@ -385,18 +413,26 @@ public class FormPrincipal extends javax.swing.JFrame {
 
             @Override
             protected void done() {
-                try {
+                try {                                                            
                     if (formRevendedor == null) {
-                        formRevendedor = new FormRevendedor((FormPrincipal)getFramePrincipal());
+                        formRevendedor = new FormRevendedor((FormPrincipal) getFramePrincipal());
                     }
 
                     if (get() != null) {
-                        formRevendedor.setRevendedor((ViewRevendedor)get());
-                    } else
+
+                        HashMap<String, Object> mapRetorno = get();
+
+                        ViewRevendedor rev = (ViewRevendedor) mapRetorno.get(CONST_REV);
+                        List<Alerta> lstAlertas = (List<Alerta>) mapRetorno.get(CONST_ALERTAS);
+
+                        formRevendedor.setRevendedor(rev, lstAlertas);
+
+                    } else {
                         formRevendedor.createNew();
-                    
-                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());
-                    formRevendedor.showFrame();                    
+                    }
+
+                    workTelaAguarde.desabilitaTelaAguarde(getFramePrincipal());    
+                    formRevendedor.showFrame();
 
                 } catch (Exception ex) {
                     LogUtil.logDescricaoErro(this.getClass(), ex);

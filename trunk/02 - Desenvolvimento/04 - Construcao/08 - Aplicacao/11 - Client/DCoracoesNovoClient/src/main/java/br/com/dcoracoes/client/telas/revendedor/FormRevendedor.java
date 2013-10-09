@@ -11,9 +11,11 @@
 package br.com.dcoracoes.client.telas.revendedor;
 
 import br.com.dcoracoes.client.ControleAcesso;
-import br.com.dcoracoes.client.enuns.*;
+import br.com.dcoracoes.client.enuns.Enum_EstadoCivil;
+import br.com.dcoracoes.client.enuns.Enum_Situacao;
+import br.com.dcoracoes.client.enuns.Enum_TipoTelefone;
+import br.com.dcoracoes.client.enuns.Enum_UF;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
-import br.com.dcoracoes.client.swingworker.SwingWorkerProspeccoes;
 import br.com.dcoracoes.client.swingworker.SwingWorkerRevendedor;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
@@ -27,17 +29,12 @@ import br.com.dcoracoes.servico.service.*;
 import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.Exception;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,19 +50,26 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         return viewRevendedor;
     }
 
-    public void setRevendedor(ViewRevendedor revendedor) {
-        this.viewRevendedor = revendedor;
-        popularTela();
+    public void setRevendedor(ViewRevendedor revendedor,List<Alerta> alertas) {
+        
+        setRevendedor(revendedor);
+        
         if (ControleAcesso.ATIVA_BTN_CONSULTAR_PROSPECCAO) {
-            consultarProspeccoes();
-        }
+            existAlertaRevendedor(!alertas.isEmpty());
+        }                
         
-        
+    }
+    
+    public void setRevendedor(ViewRevendedor revendedor)
+    {
+        this.viewRevendedor = revendedor;
+        popularTela();                        
         disableTela(false);
         btnSalvar.setEnabled(false);
         btnEditar.setEnabled(ControleAcesso.ATIVA_BTN_CADASTRAR_REVENDEDOR);
         formInformacoesComplementares.editar(false);
     }
+    
 
     public FormInformacoesComplementares getFormInformacoesComplementares() {
         return formInformacoesComplementares;
@@ -202,7 +206,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
             }
         });
 
-        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
+        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, null, null, new java.awt.Color(43, 115, 186)));
 
         btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/document-new.png"))); // NOI18N
@@ -348,7 +352,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         tablePanelDados.setToolTipText("");
 
-        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(0));
 
         lblConsultor.setText("REVENDEDOR(A):");
 
@@ -736,7 +740,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         tablePanelDados.addTab("Contato", panelContato);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("<html> <center> CÓDIGO<br/>REVENDEDOR(A) </center> </html>");
@@ -1458,7 +1462,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
                 pushToModel();
                 mantemRevendedor(viewRevendedor);                
             }
-        } catch (Exception ex) {
+        } catch (java.lang.Exception ex) {
             Logger.getLogger(FormRevendedor.class.getName()).log(Level.SEVERE, null, ex);
             String msgErro = MessageRevendedor.ERRO_SALVAR_REVENDEDOR;
             if(ex.getMessage().equalsIgnoreCase(MessageRevendedor.MSG_CPF_CADASTRADO))
@@ -1473,7 +1477,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
      * @param revendedor
      * @param informacoesComplementares
      */
-    public void mantemRevendedor(ViewRevendedor viewRevendedor) throws Exception {
+    public void mantemRevendedor(ViewRevendedor viewRevendedor) throws java.lang.Exception {
         SwingWorkerRevendedor<ViewRevendedor> workUsuario = new SwingWorkerRevendedor<ViewRevendedor> (viewRevendedor);
         workUsuario.setFormRevendedor(this);
         workUsuario.workSalvaRevendedor.execute();
@@ -1508,11 +1512,12 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
     public void initialize() {
         lblAlertaProspeccao.setVisible(false);
         disableTela(false);
+       
         //inicializa informações complementares
         formInformacoesComplementares = new FormInformacoesComplementares(this);
 
         //pular de campo com enter
-        MetodosUtil.enterPularCampos(this);
+        //MetodosUtil.enterPularCampos(this);
         //define letras maiusculas
         MetodosUtil.letrasMaiusculas(this.getContentPane()); 
 
@@ -2049,15 +2054,15 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
     /**
      * Realiza busca de prospeccao por revendedor
      */
-    public void consultarProspeccoes() {        
-        Alerta prospeccao = new Alerta();
-        prospeccao.setPessoa(viewRevendedor.getRevendedor().getPessoa());
-        prospeccao.setSituacaoAlerta(Enum_Situacao_Alerta.EMABERTO.getCodigo());
-        
-        SwingWorkerProspeccoes<Alerta> workUsuario = new SwingWorkerProspeccoes<Alerta> (prospeccao);
-        workUsuario.setFormRevendedor(this);
-        workUsuario.workRecListaAlertas.execute();
-    }
+//    public void consultarProspeccoes() {        
+//        Alerta prospeccao = new Alerta();
+//        prospeccao.setPessoa(viewRevendedor.getRevendedor().getPessoa());
+//        prospeccao.setSituacaoAlerta(Enum_Situacao_Alerta.EMABERTO.getCodigo());
+//        
+//        SwingWorkerProspeccoes<Alerta> workUsuario = new SwingWorkerProspeccoes<Alerta> (prospeccao);
+//        workUsuario.setFormRevendedor(this);
+//        workUsuario.workRecListaAlertas.execute();
+//    }
     
     public void existAlertaRevendedor(boolean value){
         lblAlertaProspeccao.setVisible(value);

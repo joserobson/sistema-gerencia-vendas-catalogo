@@ -10,11 +10,7 @@ import br.com.dcoracoes.client.telas.revendedor.FormFiltroGerarEtiquetas;
 import br.com.dcoracoes.client.telas.revendedor.FormRevendedor;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.message.MessageRevendedor;
-import br.com.dcoracoes.servico.service.ModelGerarEtiqueta;
-import br.com.dcoracoes.servico.service.PedidoVenda;
-import br.com.dcoracoes.servico.service.PessoaFisica;
-import br.com.dcoracoes.servico.service.Revendedor;
-import br.com.dcoracoes.servico.service.ViewRevendedor;
+import br.com.dcoracoes.servico.service.*;
 import br.com.wedesenv.common.log.LogUtil;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -113,11 +109,11 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
     public SwingWorker<List<T>, Object> workSearchViewRevendedor = new SwingWorker<List<T>, Object>() {
 
         @Override
-        protected List<T> doInBackground() throws Exception {
+        protected List<T> doInBackground() throws java.lang.Exception {
             try {
                 habilitaTelaAguarde(formConsultaRevendedor);
                 return new RevendedorServerImpl<Revendedor>().recTodos(revendedor);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 throw ex;
             }
         }
@@ -125,13 +121,13 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
         @Override
         protected void done() {
             try {
+                desabilitaTelaAguarde(formConsultaRevendedor);
                 if (get() != null) {
                     List<ViewRevendedor> list = (List<ViewRevendedor>) get();
                     formConsultaRevendedor.populaTela(list);
-                }
-                desabilitaTelaAguarde(formConsultaRevendedor);
+                }                
                 formConsultaRevendedor.setVisible(true);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 desabilitaTelaAguarde(formConsultaRevendedor);
                 LogUtil.logDescricaoErro(formConsultaRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -142,12 +138,12 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
     public SwingWorker<List<T>, Object> workRecRevendedorEtiqueta = new SwingWorker<List<T>, Object>() {
 
         @Override
-        protected List<T> doInBackground() throws Exception {
+        protected List<T> doInBackground() throws java.lang.Exception {
             try {
                 habilitaTelaAguarde(formFiltroGerarEtiqueta);
                 RevendedorServerImpl serverImpl = new RevendedorServerImpl();
                 return serverImpl.recRevendedorEtiqueta(modelGerarEtiqueta);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 throw ex;
             }
         }
@@ -161,7 +157,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     List list = (List) get();
                     formFiltroGerarEtiqueta.processaEtiquetas(list);
                 }
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 LogUtil.logDescricaoErro(formConsultaRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formConsultaRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
@@ -171,12 +167,12 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
     public SwingWorker<T, Object> workRecUltimoRevendedorCadastro = new SwingWorker<T, Object>() {
 
         @Override
-        protected T doInBackground() throws Exception {
+        protected T doInBackground() throws java.lang.Exception {
             try {
                 habilitaTelaAguarde(formRevendedor);
                 RevendedorServerImpl serverImpl = new RevendedorServerImpl();
                 return (T)serverImpl.recUltimoRevendedorCadastro();
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 throw ex;
             }
         }
@@ -191,7 +187,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     formRevendedor.createNew();
                 
                 formRevendedor.setVisible(true);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
@@ -201,12 +197,12 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
     public SwingWorker<T, Object> workSalvaRevendedor = new SwingWorker<T, Object>() {
 
         @Override
-        protected T doInBackground() throws Exception {
+        protected T doInBackground() throws java.lang.Exception {
             try {
                 habilitaTelaAguarde(formRevendedor);
                 RevendedorServerImpl server = new RevendedorServerImpl();
                 return (T)server.salvarComRetorno(viewRevendedor);                
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 desabilitaTelaAguarde(formRevendedor);
                 throw ex;
             }
@@ -220,7 +216,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     formRevendedor.salvarComSucesso(get());
                 }
                 formRevendedor.setVisible(true);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 if(ex.getCause().getCause().getMessage().contains("CPF JÁ CADASTRADO EM NOSSO BANCO DE DADOS."))
                     JOptionPane.showMessageDialog(formRevendedor, ex.getCause().getCause().getMessage(), MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -233,12 +229,12 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
     public SwingWorker<Integer, Object> workRecCodigoSequencia = new SwingWorker<Integer, Object>() {
 
         @Override
-        protected Integer doInBackground() throws Exception {
+        protected Integer doInBackground() throws java.lang.Exception {
             try {
                 habilitaTelaAguarde(formRevendedor);
                 RevendedorServerImpl serverImpl = new RevendedorServerImpl();
                 return serverImpl.recCodigoSequencia();
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 throw ex;
             }
         }
@@ -251,7 +247,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     formRevendedor.populaNewCodigoConsultor(get());
                 }
                 formRevendedor.setVisible(true);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
@@ -261,12 +257,12 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
     public SwingWorker<Boolean, Object> workValidaCPF = new SwingWorker<Boolean, Object>() {
 
         @Override
-        protected Boolean doInBackground() throws Exception {
+        protected Boolean doInBackground() throws java.lang.Exception {
             try {
                 habilitaTelaAguarde(formRevendedor);
                 RevendedorServerImpl serverImpl = new RevendedorServerImpl();
                 return serverImpl.validaCPF(pessoa) != null;
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 throw ex;
             }
         }
@@ -280,7 +276,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     //hoje não está sendo utilizado
                 }
                 formRevendedor.setVisible(true);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
@@ -290,12 +286,12 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
     public SwingWorker<PedidoVenda, Object> workRecUltimoPedidoVenda = new SwingWorker<PedidoVenda, Object>() {
 
         @Override
-        protected PedidoVenda doInBackground() throws Exception {
+        protected PedidoVenda doInBackground() throws java.lang.Exception {
             try {
                 habilitaTelaAguarde(formRevendedor);
                 RevendedorServerImpl serverImpl = new RevendedorServerImpl();
                 return serverImpl.recUltimoPedidoVenda(revendedor);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 desabilitaTelaAguarde(formRevendedor);
                 throw ex;
             }
@@ -309,7 +305,7 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
                     formRevendedor.atualizaDataUltimaCompra(get());
                 
                 formRevendedor.setVisible(true);
-            } catch (Exception ex) {
+            } catch (java.lang.Exception ex) {
                 LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
                 JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
