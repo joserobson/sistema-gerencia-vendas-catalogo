@@ -184,7 +184,7 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
         lblDataNascimento.setText("ANIVERSÁRIO: de");
 
         try {
-            jtxtDataNascimentoInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            jtxtDataNascimentoInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -197,7 +197,7 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
         lblDataNascimento1.setText("até");
 
         try {
-            jtxtDataNascimentoFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            jtxtDataNascimentoFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -287,7 +287,7 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
 
     private void jtxtDataNascimentoInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtDataNascimentoInicioFocusLost
         // TODO add your handling code here:
-        if (!MetodosUtil.validData(jtxtDataNascimentoInicio.getText())) {
+        if (!MetodosUtil.validDataDiaMes(jtxtDataNascimentoInicio.getText())) {
             JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_DATA_INVALIDA, MensagensUtil.ATENCAO, 2);
             
             jtxtDataNascimentoInicio.setValue(null);
@@ -297,7 +297,7 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
 
     private void jtxtDataNascimentoFimFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtDataNascimentoFimFocusLost
         // TODO add your handling code here:
-        if (!MetodosUtil.validData(jtxtDataNascimentoFim.getText())) {
+        if (!MetodosUtil.validDataDiaMes(jtxtDataNascimentoFim.getText())) {
             JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_ERRO_DATA_INVALIDA, MensagensUtil.ATENCAO, 2);
             
             jtxtDataNascimentoFim.setValue(null);
@@ -388,18 +388,12 @@ public class FormFiltroGerarEtiquetas extends javax.swing.JFrame implements Inte
         if(cbUF.getSelectedIndex() != 0)
             parameter.setUf(cbUF.getSelectedItem().toString());
         
-        if (!jtxtDataNascimentoInicio.getText().replace("/", "").trim().isEmpty()) {
-            String[] dateAux = jtxtDataNascimentoInicio.getText().split("/");
-            GregorianCalendar c = new GregorianCalendar();
-            c.set(Integer.parseInt(dateAux[2]), Integer.parseInt(dateAux[1]) - 1, Integer.parseInt(dateAux[0]));            
-            parameter.setDataNascimentoInicio(DateUtil.dateAsXMLGregorianCalendar(c.getTime()));
+        if (!jtxtDataNascimentoInicio.getText().replace("/", "").trim().isEmpty()) {          
+            parameter.setDataNascimentoInicio(jtxtDataNascimentoInicio.getText());
         }
         
-        if (!jtxtDataNascimentoFim.getText().replace("/", "").trim().isEmpty()) {
-            String[] dateAux = jtxtDataNascimentoFim.getText().split("/");
-            GregorianCalendar c = new GregorianCalendar();
-            c.set(Integer.parseInt(dateAux[2]), Integer.parseInt(dateAux[1]) - 1, Integer.parseInt(dateAux[0]));   
-            parameter.setDataNascimentoFim(DateUtil.dateAsXMLGregorianCalendar(c.getTime()));
+        if (!jtxtDataNascimentoFim.getText().replace("/", "").trim().isEmpty()) {  
+            parameter.setDataNascimentoFim(jtxtDataNascimentoFim.getText());
         }
         
     }
