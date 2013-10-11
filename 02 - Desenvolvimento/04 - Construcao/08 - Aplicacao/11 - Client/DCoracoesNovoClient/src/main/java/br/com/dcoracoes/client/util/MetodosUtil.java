@@ -83,7 +83,27 @@ public class MetodosUtil {
             try {
                 DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                 df.setLenient(false);
-                java.util.Date d = df.parse(data);
+                df.parse(data);
+            } catch (ParseException e) {
+                System.out.println("isValidDate" + "ParseException=" + e.getMessage());
+                result = false;
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * valida  data
+     * @param data
+     * @return 
+     */
+    public static boolean validDataDiaMes(String data) {
+        boolean result = true;
+        if (!data.replace("/", "").trim().isEmpty()) {
+            try {
+                DateFormat df = new SimpleDateFormat("dd/MM");
+                df.setLenient(false);
+                df.parse(data);
             } catch (ParseException e) {
                 System.out.println("isValidDate" + "ParseException=" + e.getMessage());
                 result = false;

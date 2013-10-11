@@ -242,16 +242,21 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
         //DATA NASCIMENTO INICIO
         if(parameter.containsKey("dataNascimentoInicio")){
             hql.append(ServerUtil.getClausulaSql(useWhere));            
-            String data = format.format(((Date)parameter.get("dataNascimentoInicio")).getTime());
-            hql.append("rev.pessoa.dataNascimento >= '").append(data).append("' ");
+            String[] dateAux = parameter.get("dataNascimentoInicio").toString().split("/");
+            hql.append("(extract (day from rev.pessoa.dataNascimento) >= ").append(dateAux[0]).append(")");
             useWhere = false;
+            hql.append(ServerUtil.getClausulaSql(useWhere)); 
+            hql.append("(extract (month from rev.pessoa.dataNascimento) >= ").append(dateAux[1]).append(")");
         }
         
         //DATA NASCIMENTO FINAL
         if(parameter.containsKey("dataNascimentoFim")){
-            hql.append(ServerUtil.getClausulaSql(useWhere));
-            String data = format.format(((Date)parameter.get("dataNascimentoFim")).getTime());
-            hql.append("rev.pessoa.dataNascimento <= '").append(data).append("' ");
+            hql.append(ServerUtil.getClausulaSql(useWhere));   
+            String[] dateAux = parameter.get("dataNascimentoFim").toString().split("/");     
+            hql.append("(extract (day from rev.pessoa.dataNascimento) <= ").append(dateAux[0]).append(")");
+            useWhere = false;
+            hql.append(ServerUtil.getClausulaSql(useWhere)); 
+            hql.append("(extract (month from rev.pessoa.dataNascimento) <= ").append(dateAux[1]).append(")");
         }
         
         return hql.toString();

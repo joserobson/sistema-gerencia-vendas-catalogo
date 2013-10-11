@@ -5,7 +5,6 @@
 package br.com.dcoracoes.servico.beans.relatorio;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -15,22 +14,22 @@ public class ModelGerarEtiqueta implements Serializable {
     
     private int situacao;
     private String uf;
-    private Date dataNascimentoInicio;
-    private Date dataNascimentoFim;    
+    private String dataNascimentoInicio;
+    private String dataNascimentoFim;    
 
-    public Date getDataNascimentoFim() {
+    public String getDataNascimentoFim() {
         return dataNascimentoFim;
     }
 
-    public void setDataNascimentoFim(Date dataNascimentoFim) {
+    public void setDataNascimentoFim(String dataNascimentoFim) {
         this.dataNascimentoFim = dataNascimentoFim;
     }
 
-    public Date getDataNascimentoInicio() {
+    public String getDataNascimentoInicio() {
         return dataNascimentoInicio;
     }
 
-    public void setDataNascimentoInicio(Date dataNascimentoInicio) {
+    public void setDataNascimentoInicio(String dataNascimentoInicio) {
         this.dataNascimentoInicio = dataNascimentoInicio;
     }
 
