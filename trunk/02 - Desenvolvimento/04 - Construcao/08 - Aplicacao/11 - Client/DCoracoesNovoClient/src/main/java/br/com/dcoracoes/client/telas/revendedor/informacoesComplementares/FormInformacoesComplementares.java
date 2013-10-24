@@ -3257,7 +3257,9 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             }
             pushToModelDadosPrincipaisConjugue();
             pushToModelContatoConjugue();
-        }
+        } else
+            if(pessoaConjugue != null)
+                pessoaConjugue.setNome(null);
     }
 
     /**
@@ -3317,8 +3319,8 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
      */
     private void pushToModelContatoConjugue() {
 
-        pessoaConjugue.getTelefones().addAll(returnListTelefonesConjugue(pessoaConjugue));
-        pessoaConjugue.getEmails().addAll(returnListEmailsConjugue(pessoaConjugue));
+        returnListTelefonesConjugue(pessoaConjugue);
+        returnListEmailsConjugue(pessoaConjugue);
 
     }
 
@@ -3326,7 +3328,7 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
      * Mosta a lista de telefones fornecidos na tela
      * @return 
      */
-    private List<Telefone> returnListTelefonesConjugue(Pessoa pessoa) {
+    private void returnListTelefonesConjugue(Pessoa pessoa) {
         List<Telefone> list = new ArrayList<Telefone>();
         Telefone tel = null;
 
@@ -3367,14 +3369,15 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             list.add(tel);
         }
 
-        return list;
+        pessoa.getTelefones().clear();
+        pessoa.getTelefones().addAll(list);
     }
 
     /**
      * Monta a lista de email fornecidos na tela
      * @return 
      */
-    private List<Email> returnListEmailsConjugue(Pessoa pessoa) {
+    private void returnListEmailsConjugue(Pessoa pessoa) {
         List<Email> list = new ArrayList<Email>();
         Email email = null;
         if (!jtxtEmail1.getText().isEmpty()) {
@@ -3388,7 +3391,8 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             list.add(email);
         }
 
-        return list;
+        pessoa.getEmails().clear();
+        pessoa.getEmails().addAll(list);
     }
 
     /**********************************************************
@@ -3524,16 +3528,15 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
      * Recupera os dados da aba contato 
      */
     private void pushToModelContatoPrimeiroTitularConta1(PessoaFisica pessoa) {
-        pessoa.getTelefones().addAll(returnListTelefonesPrimeiroTitularConta1(pessoa));
-        pessoa.getEmails().addAll(returnListEmailsPrimeiroTitularConta1(pessoa));
-
+        returnListTelefonesPrimeiroTitularConta1(pessoa);
+        returnListEmailsPrimeiroTitularConta1(pessoa);
     }
 
     /**
      * Mosta a lista de telefones fornecidos na tela
      * @return 
      */
-    private List<Telefone> returnListTelefonesPrimeiroTitularConta1(PessoaFisica pessoa) {
+    private void returnListTelefonesPrimeiroTitularConta1(PessoaFisica pessoa) {
         List<Telefone> list = new ArrayList<Telefone>();
         Telefone tel = null;
 
@@ -3574,14 +3577,15 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             list.add(tel);
         }
 
-        return list;
+        pessoa.getTelefones().clear();
+        pessoa.getTelefones().addAll(list);
     }
 
     /**
      * Monta a lista de email fornecidos na tela
      * @return 
      */
-    private List<Email> returnListEmailsPrimeiroTitularConta1(PessoaFisica pessoa) {
+    private void returnListEmailsPrimeiroTitularConta1(PessoaFisica pessoa) {
         List<Email> list = new ArrayList<Email>();
         Email email = null;
         if (!jtxtEmail1Conta1.getText().isEmpty()) {
@@ -3595,7 +3599,8 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             list.add(email);
         }
 
-        return list;
+        pessoa.getEmails().clear();
+        pessoa.getEmails().addAll(list);
     }
 
     /**************
@@ -3704,8 +3709,8 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
      * Recupera os dados da aba contato 
      */
     private void pushToModelContatoPrimeiroTitularConta2(PessoaFisica pessoa) {
-        pessoa.getTelefones().addAll(returnListTelefonesPrimeiroTitularConta2(pessoa));
-        pessoa.getEmails().addAll(returnListEmailsPrimeiroTitularConta2(pessoa));
+        returnListTelefonesPrimeiroTitularConta2(pessoa);
+        returnListEmailsPrimeiroTitularConta2(pessoa);
 
     }
 
@@ -3713,7 +3718,7 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
      * Mosta a lista de telefones fornecidos na tela
      * @return 
      */
-    private List<Telefone> returnListTelefonesPrimeiroTitularConta2(PessoaFisica pessoa) {
+    private void returnListTelefonesPrimeiroTitularConta2(PessoaFisica pessoa) {
         List<Telefone> list = new ArrayList<Telefone>();
         Telefone tel = null;
 
@@ -3754,14 +3759,15 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             list.add(tel);
         }
 
-        return list;
+        pessoa.getTelefones().clear();
+        pessoa.getTelefones().addAll(list);
     }
 
     /**
      * Monta a lista de email fornecidos na tela
      * @return 
      */
-    private List<Email> returnListEmailsPrimeiroTitularConta2(PessoaFisica pessoa) {
+    private void returnListEmailsPrimeiroTitularConta2(PessoaFisica pessoa) {
         List<Email> list = new ArrayList<Email>();
         Email email = null;
         if (!jtxtEmail1Conta2.getText().isEmpty()) {
@@ -3775,7 +3781,8 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             list.add(email);
         }
 
-        return list;
+        pessoa.getEmails().clear();
+        pessoa.getEmails().addAll(list);
     }
 
     /**************
@@ -3884,16 +3891,15 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
      * Recupera os dados da aba contato 
      */
     private void pushToModelContatoPrimeiroTitularConta3(PessoaFisica pessoa) {
-        pessoa.getTelefones().addAll(returnListTelefonesPrimeiroTitularConta3(pessoa));
-        pessoa.getEmails().addAll(returnListEmailsPrimeiroTitularConta3(pessoa));
-
+        returnListTelefonesPrimeiroTitularConta3(pessoa);
+        returnListEmailsPrimeiroTitularConta3(pessoa);
     }
 
     /**
      * Mosta a lista de telefones fornecidos na tela
      * @return 
      */
-    private List<Telefone> returnListTelefonesPrimeiroTitularConta3(PessoaFisica pessoa) {
+    private void returnListTelefonesPrimeiroTitularConta3(PessoaFisica pessoa) {
         List<Telefone> list = new ArrayList<Telefone>();
         Telefone tel = null;
 
@@ -3934,14 +3940,15 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             list.add(tel);
         }
 
-        return list;
+        pessoa.getTelefones().clear();
+        pessoa.getTelefones().addAll(list);
     }
 
     /**
      * Monta a lista de email fornecidos na tela
      * @return 
      */
-    private List<Email> returnListEmailsPrimeiroTitularConta3(PessoaFisica pessoa) {
+    private void returnListEmailsPrimeiroTitularConta3(PessoaFisica pessoa) {
         List<Email> list = new ArrayList<Email>();
         Email email = null;
         if (!jtxtEmail1Conta3.getText().isEmpty()) {
@@ -3955,7 +3962,8 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
             list.add(email);
         }
 
-        return list;
+        pessoa.getEmails().clear();
+        pessoa.getEmails().addAll(list);
     }
 
     /**************

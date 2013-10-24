@@ -206,7 +206,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
             }
         });
 
-        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, null, null, new java.awt.Color(43, 115, 186)));
+        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
 
         btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/document-new.png"))); // NOI18N
@@ -352,7 +352,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         tablePanelDados.setToolTipText("");
 
-        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         lblConsultor.setText("REVENDEDOR(A):");
 
@@ -740,7 +740,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         tablePanelDados.addTab("Contato", panelContato);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("<html> <center> CÓDIGO<br/>REVENDEDOR(A) </center> </html>");
@@ -1776,8 +1776,8 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
      */
     private void pushToModelContato() {
         PessoaFisica pessoa = (PessoaFisica) this.viewRevendedor.getRevendedor().getPessoa();
-        pessoa.getTelefones().addAll(returnListTelefones(pessoa));
-        pessoa.getEmails().addAll(returnListEmails(pessoa));
+        returnListTelefones(pessoa);
+        returnListEmails(pessoa);
     }
 
     private Telefone buscaTelefonePorTipo(List<Telefone> list, int tipoTelefone, boolean celValid) {
@@ -1801,7 +1801,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
      * Mosta a lista de telefones fornecidos na tela
      * @return 
      */
-    private List<Telefone> returnListTelefones(Pessoa pessoa) {
+    private void returnListTelefones(Pessoa pessoa) {
         List<Telefone> list = new ArrayList<Telefone>();
         Telefone tel = null;
 
@@ -1842,7 +1842,8 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
             list.add(tel);
         }
 
-        return list;
+        pessoa.getTelefones().clear();
+        pessoa.getTelefones().addAll(list);
     }
 
     private Email buscaEmail(List<Email> list, boolean segundoEmail) {
@@ -1865,7 +1866,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
      * Monta a lista de email fornecidos na tela
      * @return 
      */
-    private List<Email> returnListEmails(Pessoa pessoa) {
+    private void returnListEmails(Pessoa pessoa) {
         List<Email> list = new ArrayList<Email>();
         Email email = null;
         if (!jtxtEmail1.getText().isEmpty()) {
@@ -1878,8 +1879,9 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
             email.setEnderecoEmail(jtxtEmail2.getText());
             list.add(email);
         }
-
-        return list;
+        
+        pessoa.getEmails().clear();
+        pessoa.getEmails().addAll(list);
     }
 
     /*************************************************

@@ -105,7 +105,7 @@ public class PedidoDaoImpl<T extends Pedido> extends ModelGenericoDaoImpl implem
         if (codigo != null) {
             if (!codigo.isEmpty()) {
                 hql.append(ServerUtil.getClausulaSql(useWhere));
-                hql.append(" p.codigo = ").append(codigo).append(" ");
+                hql.append(" p.codigo = '").append(codigo).append("' ");
             }
         }
 
