@@ -950,7 +950,7 @@ public class FormCompra extends javax.swing.JFrame implements InterfaceCadastroC
     }
     
     private void initializeList(){
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 30; i++) {
             popularGrid(new ItemPedido());
         }
     }
