@@ -16,11 +16,10 @@ import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.message.MessageRevendedor;
-import br.com.dcoracoes.servico.service.PessoaFisica;
-import br.com.dcoracoes.servico.service.Revendedor;
-import br.com.dcoracoes.servico.service.ViewRevendedor;
+import br.com.dcoracoes.servico.service.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
+import java.lang.Exception;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,6 +85,14 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
         jtxtCPF = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jtxtCodigoRevendedor = new javax.swing.JFormattedTextField();
+        lblCidade = new javax.swing.JLabel();
+        txtCidade = new javax.swing.JTextField();
+        lblCEP = new javax.swing.JLabel();
+        jtxtCEP = new javax.swing.JFormattedTextField();
+        lblBairro = new javax.swing.JLabel();
+        txtBairro = new javax.swing.JTextField();
+        jtxtTelefone = new javax.swing.JFormattedTextField();
+        jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResult = new javax.swing.JTable();
 
@@ -212,6 +219,44 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
             }
         });
 
+        lblCidade.setText("CIDADE:");
+
+        txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCidadeKeyReleased(evt);
+            }
+        });
+
+        lblCEP.setText("CEP:");
+
+        try {
+            jtxtCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jtxtCEP.setPreferredSize(new java.awt.Dimension(50, 20));
+        jtxtCEP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtCEPKeyReleased(evt);
+            }
+        });
+
+        lblBairro.setText("BAIRRO:");
+
+        txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBairroKeyReleased(evt);
+            }
+        });
+
+        try {
+            jtxtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel11.setText("TELEFONE:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -220,19 +265,37 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtCodigoRevendedor)
-                        .addGap(82, 82, 82)
-                        .addComponent(lblCPF)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblConsultor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRevendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jtxtCodigoRevendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblCPF)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtxtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblConsultor)
+                        .addComponent(lblCidade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRevendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCEP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtxtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblBairro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtxtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +311,25 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
                         .addGap(3, 3, 3)
                         .addComponent(lblConsultor))
                     .addComponent(txtRevendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCEP)
+                        .addComponent(jtxtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(lblCidade)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11)
+                        .addComponent(jtxtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(lblBairro)))
+                .addGap(19, 19, 19))
         );
 
         tableResult.setModel(new javax.swing.table.DefaultTableModel(
@@ -303,9 +384,9 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
                 .addContainerGap()
                 .addComponent(panelSuperButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -333,21 +414,42 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
         // TODO add your handling code here:
         MetodosUtil.defineSizeMax(150, txtRevendedor);
     }//GEN-LAST:event_txtRevendedorKeyReleased
+
+    private void txtCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyReleased
+        MetodosUtil.defineSizeMax(150, txtCidade);
+    }//GEN-LAST:event_txtCidadeKeyReleased
+
+    private void jtxtCEPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCEPKeyReleased
+        MetodosUtil.defineSizeMax(20, jtxtCEP);
+    }//GEN-LAST:event_jtxtCEPKeyReleased
+
+    private void txtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyReleased
+        MetodosUtil.defineSizeMax(50, txtBairro);
+    }//GEN-LAST:event_txtBairroKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JFormattedTextField jtxtCEP;
     private javax.swing.JFormattedTextField jtxtCPF;
     private javax.swing.JFormattedTextField jtxtCodigoRevendedor;
+    private javax.swing.JFormattedTextField jtxtTelefone;
+    private javax.swing.JLabel lblBairro;
+    private javax.swing.JLabel lblCEP;
     private javax.swing.JLabel lblCPF;
+    private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblConsultor;
     private javax.swing.JPanel panelSuperButton;
     private javax.swing.JTable tableResult;
+    private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtRevendedor;
     // End of variables declaration//GEN-END:variables
 
@@ -413,7 +515,41 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
         if (!txtRevendedor.getText().isEmpty()) {
             ((PessoaFisica) revendedor.getPessoa()).setNome(txtRevendedor.getText());
         }
-
+    
+        Endereco endereco = null;
+        //Cidade
+        if (!txtCidade.getText().trim().isEmpty()) {
+            if(endereco == null)
+                endereco = new Endereco();
+            
+            endereco.setCidade(txtCidade.getText());
+        }
+        
+        //CEP
+        if (!jtxtCEP.getText().trim().replace("-", "").isEmpty()) {
+            if(endereco == null)
+                endereco = new Endereco();
+            
+            endereco.setCep(jtxtCEP.getText());
+        }
+        
+        //Bairro
+        if (!txtBairro.getText().trim().isEmpty()) {
+            if(endereco == null)
+                endereco = new Endereco();
+            
+            endereco.setBairro(txtBairro.getText());
+        }
+        
+        if(endereco != null)
+            revendedor.getPessoa().setEndereco(endereco);
+        
+        //Telefone
+        if (!jtxtTelefone.getText().replace("-", "").trim().isEmpty()) {
+            Telefone telefone = new Telefone();
+            
+            revendedor.getPessoa().getTelefones().add(telefone);
+        }
     }
 
     /**
@@ -460,7 +596,11 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
         boolean value = true;
         if(jtxtCodigoRevendedor.getText().trim().isEmpty()
                 && jtxtCPF.getText().replace(".", "").replace("-", "").trim().isEmpty()
-                && txtRevendedor.getText().trim().isEmpty()){
+                && txtRevendedor.getText().trim().isEmpty()
+                && txtCidade.getText().trim().isEmpty()
+                && jtxtCEP.getText().replace("-", "").trim().isEmpty()
+                && txtBairro.getText().trim().isEmpty()
+                && jtxtTelefone.getText().replace("-", "").trim().isEmpty()){
             value = false;
             JOptionPane.showMessageDialog(this, MensagensUtil.INFORMAR_PARAMETROS_CONSULTA, MensagensUtil.ATENCAO, 1);
         }

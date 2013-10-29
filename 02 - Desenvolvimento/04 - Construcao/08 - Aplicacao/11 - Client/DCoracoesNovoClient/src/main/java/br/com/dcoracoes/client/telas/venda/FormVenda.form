@@ -1036,11 +1036,12 @@
                     <Component class="javax.swing.JComboBox" name="cbOperadora1">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="VIVO"/>
-                            <StringItem index="1" value="TIM"/>
-                            <StringItem index="2" value="CLARO"/>
-                            <StringItem index="3" value="OI"/>
+                          <StringArray count="5">
+                            <StringItem index="0" value=" "/>
+                            <StringItem index="1" value="VIVO"/>
+                            <StringItem index="2" value="TIM"/>
+                            <StringItem index="3" value="CLARO"/>
+                            <StringItem index="4" value="OI"/>
                           </StringArray>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>
@@ -1049,11 +1050,12 @@
                     <Component class="javax.swing.JComboBox" name="cbOperadora2">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="VIVO"/>
-                            <StringItem index="1" value="TIM"/>
-                            <StringItem index="2" value="CLARO"/>
-                            <StringItem index="3" value="OI"/>
+                          <StringArray count="5">
+                            <StringItem index="0" value=" "/>
+                            <StringItem index="1" value="VIVO"/>
+                            <StringItem index="2" value="TIM"/>
+                            <StringItem index="3" value="CLARO"/>
+                            <StringItem index="4" value="OI"/>
                           </StringArray>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>

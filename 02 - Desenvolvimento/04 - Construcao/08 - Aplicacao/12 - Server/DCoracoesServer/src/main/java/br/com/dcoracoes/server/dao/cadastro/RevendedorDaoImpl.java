@@ -9,12 +9,12 @@ import br.com.dcoracoes.server.excecao.ServerException;
 import br.com.dcoracoes.server.model.cadastro.Pessoa;
 import br.com.dcoracoes.server.model.cadastro.PessoaFisica;
 import br.com.dcoracoes.server.model.cadastro.Revendedor;
+import br.com.dcoracoes.server.model.cadastro.Telefone;
 import br.com.dcoracoes.server.util.HibernateUtil;
 import br.com.dcoracoes.server.util.LogUtil;
 import br.com.dcoracoes.server.util.ServerUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.hibernate.Hibernate;
@@ -159,8 +159,12 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
         boolean useWhere = true;
 
         StringBuilder hql = new StringBuilder();
-        hql.append("From Revendedor rev ");
-
+        hql.append("Select rev From Revendedor rev ");
+        if (revendedor.getPessoa().getTelefones() != null)
+            if(!revendedor.getPessoa().getTelefones().isEmpty()){
+                hql.append("join rev.pessoa = Telefone tel ");
+            }
+            
         //VERIFICA CODIGO
         int codigo = revendedor.getCodigo();
         if (codigo > 0) {
@@ -175,6 +179,7 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
             if (cpf != null) {
                 hql.append(ServerUtil.getClausulaSql(useWhere));
                 hql.append("rev.pessoa.cpf = '").append(cpf).append("'").append(" ");
+                useWhere = false;
             }
 
 
@@ -183,7 +188,42 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
             if (!nome.equals("")) {
                 hql.append(ServerUtil.getClausulaSql(useWhere));
                 hql.append("rev.pessoa.nome like '").append(nome).append("%'").append(" ");
+                useWhere = false;
             }
+            
+            //VERIFICA ENDERECO
+            if (revendedor.getPessoa().getEndereco() != null){
+                
+                //VERIFICA CIDADE
+                String cidade = revendedor.getPessoa().getEndereco().getCidade();
+                if (cidade != null) {
+                    hql.append(ServerUtil.getClausulaSql(useWhere));
+                    hql.append("rev.pessoa.endereco.cidade like '").append(cidade).append("%'").append(" ");
+                }
+                
+                //VERIFICA CEP
+                String cep = revendedor.getPessoa().getEndereco().getCep();
+                if (cep != null) {
+                    hql.append(ServerUtil.getClausulaSql(useWhere));
+                    hql.append("rev.pessoa.endereco.cep = '").append(cep).append("'").append(" ");
+                }
+                
+                //VERIFICA CEP
+                String bairro = revendedor.getPessoa().getEndereco().getBairro();
+                if (bairro != null) {
+                    hql.append(ServerUtil.getClausulaSql(useWhere));
+                    hql.append("rev.pessoa.endereco.bairro like '").append(bairro).append("%'").append(" ");
+                }
+            }
+            
+            //VERIFICA TELEFONE
+            if (revendedor.getPessoa().getTelefones() != null)
+                if(!revendedor.getPessoa().getTelefones().isEmpty()){
+                    hql.append(ServerUtil.getClausulaSql(useWhere));
+                    hql.append("rev.pessoa.id = tel.pessoa.id").append(" ");
+                    Telefone telefone = revendedor.getPessoa().getTelefones().get(0);
+                    hql.append("rev.pessoa.telefones.numero like '").append(telefone.getNumero()).append("%'").append(" ");
+                }
         }
         return hql.toString();
     }
