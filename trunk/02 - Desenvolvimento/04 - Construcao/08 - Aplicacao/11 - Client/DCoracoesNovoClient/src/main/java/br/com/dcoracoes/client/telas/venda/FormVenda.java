@@ -736,10 +736,10 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         });
 
-        cbOperadora1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VIVO", "TIM", "CLARO", "OI" }));
+        cbOperadora1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "VIVO", "TIM", "CLARO", "OI" }));
         cbOperadora1.setEnabled(false);
 
-        cbOperadora2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VIVO", "TIM", "CLARO", "OI" }));
+        cbOperadora2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "VIVO", "TIM", "CLARO", "OI" }));
         cbOperadora2.setEnabled(false);
 
         javax.swing.GroupLayout panelContatoLayout = new javax.swing.GroupLayout(panelContato);
@@ -2437,17 +2437,22 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      * @return
      */
     private int returnEnumOperadoraTelefonica(String operadora) {
-        if (operadora.equals(OperadorasTelefonicas.VIVO)) {
+        if (operadora == null){
             return 0;
         }
-        if (operadora.equals(OperadorasTelefonicas.TIM)) {
+        if (operadora.equals(OperadorasTelefonicas.VIVO)) {
             return 1;
         }
-        if (operadora.equals(OperadorasTelefonicas.CLARO)) {
+        if (operadora.equals(OperadorasTelefonicas.TIM)) {
             return 2;
-        } else {
-            return 3;
         }
+        if (operadora.equals(OperadorasTelefonicas.CLARO)) {
+            return 3;
+        } 
+        if (operadora.equals(OperadorasTelefonicas.OI)) {
+            return 4;
+        }
+        else return 0;
     }
 
     /**
