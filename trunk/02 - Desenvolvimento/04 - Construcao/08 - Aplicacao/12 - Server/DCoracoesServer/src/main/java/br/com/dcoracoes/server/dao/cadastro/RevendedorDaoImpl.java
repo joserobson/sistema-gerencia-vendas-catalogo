@@ -162,7 +162,7 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
         hql.append("Select rev From Revendedor rev ");
         if (revendedor.getPessoa().getTelefones() != null)
             if(!revendedor.getPessoa().getTelefones().isEmpty()){
-                hql.append("join rev.pessoa = Telefone tel ");
+                hql.append("join rev.pessoa.telefones tel ");
             }
             
         //VERIFICA CODIGO
@@ -220,9 +220,9 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
             if (revendedor.getPessoa().getTelefones() != null)
                 if(!revendedor.getPessoa().getTelefones().isEmpty()){
                     hql.append(ServerUtil.getClausulaSql(useWhere));
-                    hql.append("rev.pessoa.id = tel.pessoa.id").append(" ");
+                    //hql.append("rev.pessoa.id = tel.pessoa.id").append(" ");
                     Telefone telefone = revendedor.getPessoa().getTelefones().get(0);
-                    hql.append("rev.pessoa.telefones.numero like '").append(telefone.getNumero()).append("%'").append(" ");
+                    hql.append("tel.numero like '").append(telefone.getNumero()).append("%'").append(" ");
                 }
         }
         return hql.toString();
