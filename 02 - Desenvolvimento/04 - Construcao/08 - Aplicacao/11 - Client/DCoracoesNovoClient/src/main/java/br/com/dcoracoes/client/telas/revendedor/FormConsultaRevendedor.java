@@ -100,7 +100,7 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
         setTitle("Consulta Revendedor");
         setIconImage(null);
 
-        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
+        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, null, null, new java.awt.Color(43, 115, 186)));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/system-search.png"))); // NOI18N
@@ -192,7 +192,7 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(43, 115, 186))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", 0, 0, null, new java.awt.Color(43, 115, 186)));
 
         lblConsultor.setText("NOME REVENDEDOR(A):");
 
@@ -320,7 +320,6 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblCidade)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -547,7 +546,7 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
         //Telefone
         if (!jtxtTelefone.getText().replace("-", "").trim().isEmpty()) {
             Telefone telefone = new Telefone();
-            
+            telefone.setNumero(jtxtTelefone.getText());
             revendedor.getPessoa().getTelefones().add(telefone);
         }
     }
