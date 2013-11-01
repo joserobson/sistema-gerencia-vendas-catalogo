@@ -160,15 +160,16 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
 
         StringBuilder hql = new StringBuilder();
         hql.append("Select rev From Revendedor rev ");
-        if (revendedor.getPessoa().getTelefones() != null)
-            if(!revendedor.getPessoa().getTelefones().isEmpty()){
-                hql.append("join rev.pessoa.telefones tel ");
-            }
+        if(revendedor.getPessoa() != null)
+            if (revendedor.getPessoa().getTelefones() != null)
+                if(!revendedor.getPessoa().getTelefones().isEmpty()){
+                    hql.append("join rev.pessoa.telefones tel ");
+                }
             
         //VERIFICA CODIGO
         int codigo = revendedor.getCodigo();
         if (codigo > 0) {
-            hql.append("Where rev.codigo = ").append(codigo).append(" ");
+            hql.append("Where rev.codigo = '").append(codigo).append("' ");
             useWhere = false;
         }
 
