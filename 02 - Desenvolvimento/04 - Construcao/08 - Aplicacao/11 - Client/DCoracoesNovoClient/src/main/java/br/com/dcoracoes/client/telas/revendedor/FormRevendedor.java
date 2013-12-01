@@ -17,15 +17,18 @@ import br.com.dcoracoes.client.enuns.Enum_TipoTelefone;
 import br.com.dcoracoes.client.enuns.Enum_UF;
 import br.com.dcoracoes.client.interfaces.InterfaceCadastroCompleto;
 import br.com.dcoracoes.client.swingworker.SwingWorkerRevendedor;
+import br.com.dcoracoes.client.telas.perfil.FormConsultaPerfil;
 import br.com.dcoracoes.client.telas.principal.FormPrincipal;
 import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
 import br.com.dcoracoes.client.telas.revendedor.informacoesComplementares.FormInformacoesComplementares;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.componentes.ComboBoxEstado;
+import br.com.dcoracoes.client.util.message.MessagePerfil;
 import br.com.dcoracoes.client.util.message.MessageRevendedor;
 import br.com.dcoracoes.client.util.message.OperadorasTelefonicas;
 import br.com.dcoracoes.servico.service.*;
+import br.com.dcoracoes.servico.service.Exception;
 import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -184,6 +187,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         jtxtLimiteUso = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jtxtLimiteCredito = new javax.swing.JFormattedTextField();
+        btnExibirHistorico = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaObservacao = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
@@ -344,7 +348,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSair, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -903,6 +907,13 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
             }
         });
 
+        btnExibirHistorico.setText("...");
+        btnExibirHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExibirHistoricoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -916,7 +927,9 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8)
                     .addComponent(jtxtLimiteUso, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExibirHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel9)
                     .addComponent(jtxtLimiteUtilizavel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -925,20 +938,22 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jtxtLimiteUtilizavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtLimiteCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtLimiteUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnExibirHistorico)
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jtxtLimiteUtilizavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtxtLimiteCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jtxtLimiteUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         txtAreaObservacao.setColumns(20);
@@ -1076,7 +1091,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
                 .addComponent(tablePanelDados, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -1235,8 +1250,18 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         MetodosUtil.defineSizeMax(30, txtCodigoConfiscal);
     }//GEN-LAST:event_txtCodigoConfiscalKeyReleased
 
+    private void btnExibirHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExibirHistoricoActionPerformed
+        try {
+            buscarHistoricoParcelas(viewRevendedor.getRevendedor());
+        } catch (java.lang.Exception ex) {
+            Logger.getLogger(FormConsultaPerfil.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, MessagePerfil.ERRO_CONSULTA_PERFIL, MensagensUtil.ERRO, 0);
+        }
+    }//GEN-LAST:event_btnExibirHistoricoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExibirHistorico;
     private javax.swing.JButton btnInformacoesComplementares;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
@@ -1489,6 +1514,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         disableTela(false);
         btnSalvar.setEnabled(false);
         btnEditar.setEnabled(true);
+        formInformacoesComplementares = new FormInformacoesComplementares(this);
         formInformacoesComplementares.disableTela(false);
         formInformacoesComplementares.getBtnEditar().setEnabled(true);
         formInformacoesComplementares.getBtnSalvar().setEnabled(false);
@@ -1511,6 +1537,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
     @Override
     public void initialize() {
         lblAlertaProspeccao.setVisible(false);
+        btnExibirHistorico.setEnabled(true);
         disableTela(false);
        
         //inicializa informações complementares
@@ -1620,6 +1647,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         cbSituacao.setSelectedIndex(0);
         jtxtLimiteCredito.setText(null);
         jtxtLimiteUso.setText("0");
+        btnExibirHistorico.setEnabled(false);
         jtxtLimiteUtilizavel.setText("0");
         txtAreaObservacao.setText(null);
     }
@@ -1907,6 +1935,11 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         jtxtLimiteCredito.setText(MetodosUtil.formatarValorDinheiro(revendedor.getLimiteCredito()));
         jtxtLimiteCredito.requestFocus();
         jtxtLimiteUso.setText(MetodosUtil.formatarValorDinheiro(revendedor.getLimiteEmUso()));
+        if(revendedor.getLimiteEmUso() > 0){
+            btnExibirHistorico.setEnabled(true);
+        } else {
+            btnExibirHistorico.setEnabled(false);
+        }
         jtxtLimiteUso.requestFocus();
         jtxtLimiteUtilizavel.setText(MetodosUtil.formatarValorDinheiro(revendedor.getLimiteUtilizavel()));
         jtxtLimiteUtilizavel.requestFocus();
@@ -2125,5 +2158,23 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
     @Override
     public void showFrame() {
         this.setVisible(true);
+    }
+
+    /**
+     * 
+     */
+    private void buscarHistoricoParcelas(Revendedor revendedor) throws java.lang.Exception {
+        try{
+            SwingWorkerRevendedor<ViewRevendedor> work = new SwingWorkerRevendedor<ViewRevendedor>(revendedor);
+            work.setFormRevendedor(this);
+            work.workRecHistoricoParcelas.execute();
+        }catch (java.lang.Exception ex){
+            throw ex;
+        }
+    }
+    
+    public void openFormHistoricoLimiteEmUso(List<Parcela> list) {
+        FormHistoricoLimiteEmUso form = new FormHistoricoLimiteEmUso(list);
+        form.setVisible(true);
     }
 }

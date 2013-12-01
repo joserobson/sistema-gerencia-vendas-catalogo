@@ -5,6 +5,7 @@
 package br.com.dcoracoes.servico.service;
 
 import br.com.dcoracoes.servico.beans.cadastro.Pessoa;
+import br.com.dcoracoes.servico.beans.cadastro.Revendedor;
 import java.util.List;
 
 /**

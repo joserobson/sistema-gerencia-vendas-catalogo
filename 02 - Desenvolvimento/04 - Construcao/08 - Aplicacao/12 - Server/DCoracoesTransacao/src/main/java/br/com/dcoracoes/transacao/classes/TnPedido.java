@@ -5,11 +5,13 @@
 package br.com.dcoracoes.transacao.classes;
 
 import br.com.dcoracoes.server.bo.cadastro.RevendedorBoImpl;
+import br.com.dcoracoes.server.bo.pedido.ParcelaBoImpl;
 import br.com.dcoracoes.server.bo.pedido.PedidoBoImpl;
 import br.com.dcoracoes.server.dao.cadastro.RevendedorDaoImpl;
 import br.com.dcoracoes.server.enuns.Enum_Forma_Pagamento;
 import br.com.dcoracoes.server.excecao.ServerException;
 import br.com.dcoracoes.server.model.cadastro.Revendedor;
+import br.com.dcoracoes.server.model.pedido.Parcela;
 import br.com.dcoracoes.server.model.pedido.Pedido;
 import br.com.dcoracoes.server.model.pedido.PedidoCompra;
 import br.com.dcoracoes.server.model.pedido.PedidoVenda;
@@ -297,6 +299,24 @@ public class TnPedido implements InterfaceTransacao {
         try {
             PedidoBoImpl pedidoBo = (PedidoBoImpl) TransacaoUtil.getInstanceBo(Pedido.class);
             listaRetorno = pedidoBo.recRelatorioPedidosPorRevendedor(parameter);
+
+        } catch (ServerException ex) {
+            throw new TransException(ex);
+        }
+        return listaRetorno;
+    }
+    
+    /**
+     * 
+     * @param revendedor
+     * @return
+     * @throws TransException 
+     */
+    public List<Parcela> recHistoricoParcelas(Revendedor revendedor) throws TransException {
+        List<Parcela> listaRetorno = null;
+        try {
+            ParcelaBoImpl parcelaBo = (ParcelaBoImpl) TransacaoUtil.getInstanceBo(Parcela.class);
+            listaRetorno = parcelaBo.recParcelasAtivas(revendedor.getId());
 
         } catch (ServerException ex) {
             throw new TransException(ex);

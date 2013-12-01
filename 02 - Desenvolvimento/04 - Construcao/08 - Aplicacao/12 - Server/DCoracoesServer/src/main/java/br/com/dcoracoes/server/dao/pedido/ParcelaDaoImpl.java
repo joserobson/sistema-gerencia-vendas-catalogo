@@ -39,7 +39,23 @@ public class ParcelaDaoImpl extends ModelGenericoDaoImpl implements ParcelaDao<P
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSession();
-            Query query = sessao.createQuery(montarHql(idRevendedor));
+            Query query = sessao.createQuery(montarHql(idRevendedor, true));
+            listaRetorno = query.list();
+        } catch (HibernateException ex) {
+            throw new ServerException(ex);
+        } catch (Exception exGenerica) {
+            throw new ServerException(exGenerica);
+        }
+        return listaRetorno;
+    }
+    
+    @Override
+    public List<Parcela> recParcelasAtivas(long idRevendedor) throws ServerException {
+        List<Parcela> listaRetorno = null;
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSession();
+            Query query = sessao.createQuery(montarHql(idRevendedor, false));
             listaRetorno = query.list();
         } catch (HibernateException ex) {
             throw new ServerException(ex);
@@ -50,21 +66,23 @@ public class ParcelaDaoImpl extends ModelGenericoDaoImpl implements ParcelaDao<P
     }
 
     /**
-     * Monta hql para consultar parcelas a liberar
+     * Monta hql para consultar parcelas a liberar e ativas
      * @param idRevendedor
      * @return 
      */
     //sql errado
-    private String montarHql(long idRevendedor) {        
+    private String montarHql(long idRevendedor, boolean aLiberar) {        
         StringBuilder hql = new StringBuilder();
         hql.append("Select parc from Parcela parc,Pagamento pag, Pedido ped ");
         hql.append("Where ped.pagamento.id = pag.id and parc.pagamento.id = pag.id ");
         hql.append("and ped.revendedor.id = ").append(idRevendedor);
         hql.append(" and parc.status = ").append(Enum_Situacao_Parcela.PENDENTE.getCodigo());
-        SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();        
-        Date dataAtual = calendar.getTime();             
-        hql.append(" and parc.dataVencimento <= '").append(formatoData.format(dataAtual)).append("'");        
+        if(aLiberar){
+            SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();        
+            Date dataAtual = calendar.getTime();             
+            hql.append(" and parc.dataVencimento <= '").append(formatoData.format(dataAtual)).append("'");  
+        }
         return hql.toString();
     }
 }

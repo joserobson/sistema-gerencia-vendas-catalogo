@@ -110,5 +110,17 @@ public class RevendedorServerImpl<T extends Revendedor> extends BaseServerImpl<T
         }
         return pedidoVenda;
     }
+
+    @Override
+    public List<Parcela> recHistoricoParcelas(Revendedor param) throws ClientDCoracoesException {
+        List<Parcela> lst = null;
+
+        try {
+            lst = this.port.recHistoricoParcelas((Revendedor)param);
+        } catch (Exception ex) {
+            throw new ClientDCoracoesException(ex);
+        }
+        return lst;
+    }
         
 }
