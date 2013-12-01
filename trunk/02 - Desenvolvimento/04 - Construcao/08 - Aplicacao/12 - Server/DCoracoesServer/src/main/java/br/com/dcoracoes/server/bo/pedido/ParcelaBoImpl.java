@@ -123,4 +123,41 @@ public class ParcelaBoImpl<T extends Parcela> implements ParcelaBo<T> {
             LogUtil.logFimProcessoMetodo(ParcelaBoImpl.class, "quitarParcelas");
         }
     }
+
+    @Override
+    public List<T> recParcelasAtivas(long idRevendedor) throws ServerException {
+        List<T> listaParcelas = null;
+        try {
+            //LOG
+            LogUtil.logInicioProcessoMetodo(Parcela.class, "recParcelasAtivas");
+
+            //Abrir Sessao
+            HibernateUtil.setSession();
+
+            //chamada do metodo dao
+            listaParcelas = this.dao.recParcelasAtivas(idRevendedor);
+
+            //Log
+            LogUtil.logSucesso(Parcela.class, "recParcelasAtivas");
+            
+            
+        } catch (ServerException ex) {
+            //LOG
+            LogUtil.logDescricaoErro(Parcela.class, "ERRO AO CONSULTAR PARCELAS ATIVAS", ex);
+            throw ex;
+        } catch (Exception exGenerica) {
+            //LOG
+            LogUtil.logDescricaoErro(Parcela.class, "ERRO AO CONSULTAR PARCELAS ATIVAS", exGenerica);
+            throw new ServerException(exGenerica);
+        } finally {
+
+            //Fechar Sessao
+            HibernateUtil.getSession().close();
+
+            //Log
+            LogUtil.logFimProcessoMetodo(Parcela.class, "recParcelasAtivas");
+        }
+        
+        return listaParcelas;
+    }
 }

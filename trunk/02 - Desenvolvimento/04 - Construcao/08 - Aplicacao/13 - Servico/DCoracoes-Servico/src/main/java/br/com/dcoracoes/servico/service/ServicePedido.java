@@ -4,9 +4,12 @@
  */
 package br.com.dcoracoes.servico.service;
 
+import br.com.dcoracoes.servico.beans.cadastro.Revendedor;
+import br.com.dcoracoes.servico.beans.pedido.Parcela;
 import br.com.dcoracoes.servico.beans.pedido.Pedido;
 import br.com.dcoracoes.transacao.classes.TnPedido;
 import br.com.dcoracoes.transacao.constantes.ConstanteTnPedido;
+import br.com.dcoracoes.transacao.excecao.TransException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -151,5 +154,49 @@ public class ServicePedido<T extends Pedido> extends ServiceBase implements ISer
         }        
         
         return listPedidosBeans;
+    }
+    
+    @Override
+    public List<Parcela> recHistoricoParcelas(Revendedor param) throws Exception {
+
+        List<Parcela> listParcelasBeans = null;
+        try {
+            List<br.com.dcoracoes.server.model.pedido.Parcela> listParcelaModel =
+                    tnPedido.recHistoricoParcelas(this.mapper.map(param, br.com.dcoracoes.server.model.cadastro.Revendedor.class));
+
+            listParcelasBeans = getListToBeansParcela(listParcelaModel);
+
+        } catch (TransException ex) {
+            throw new Exception(ex);
+        }
+
+        return listParcelasBeans;
+    }
+    
+    public List<Parcela> getListToBeansParcela(List listParcelasModel) throws ClassNotFoundException {
+        List<Parcela> listParcelasBeans = null;
+
+        if (listParcelasModel != null
+                && !listParcelasModel.isEmpty()) {
+            listParcelasBeans = new ArrayList<Parcela>();
+            Iterator<br.com.dcoracoes.server.model.pedido.Parcela> iterator = listParcelasModel.iterator();
+            while (iterator.hasNext()) {
+                
+                br.com.dcoracoes.server.model.pedido.Parcela p = (br.com.dcoracoes.server.model.pedido.Parcela) iterator.next();
+                //p.setRevendedor(null);        
+                //p.setPagamento(null);                                
+                listParcelasBeans.add(converteToBeanParcela(p));
+            }
+        }        
+        
+        return listParcelasBeans;
+    }
+    
+    public Parcela converteToBeanParcela(Object param) throws ClassNotFoundException {
+        return (Parcela) this.mapper.map(param, getClassToBeanParcela(param));
+    }
+    
+    public Class getClassToBeanParcela(Object param) throws ClassNotFoundException {
+        return Class.forName("br.com.dcoracoes.servico.beans.pedido." + param.getClass().getSimpleName());
     }
 }

@@ -23,5 +23,7 @@ public interface ParcelaBo <T extends Parcela>  {
     
     public List<T> recParcelasALiberar(long idRevendedor) throws ServerException;
     
+    public List<T> recParcelasAtivas(long idRevendedor) throws ServerException;
+    
     public void quitarParcelas(List<T> lstParcelas) throws ServerException;
 }

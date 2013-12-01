@@ -6,7 +6,9 @@ package br.com.dcoracoes.client.classes.serverimpl;
 
 import br.com.dcoracoes.client.Excecao.ClientDCoracoesException;
 import br.com.dcoracoes.servico.service.ModelGerarEtiqueta;
+import br.com.dcoracoes.servico.service.Parcela;
 import br.com.dcoracoes.servico.service.Pessoa;
+import br.com.dcoracoes.servico.service.Revendedor;
 import br.com.dcoracoes.servico.service.ViewRevendedor;
 import java.util.List;
 
@@ -21,4 +23,6 @@ interface IRevendedorImpl<T> {
    public ViewRevendedor recUltimoRevendedorCadastro() throws ClientDCoracoesException; 
    
    public int recCodigoSequencia() throws ClientDCoracoesException; 
+   
+   public List<Parcela> recHistoricoParcelas(Revendedor revendedor) throws ClientDCoracoesException;
 }

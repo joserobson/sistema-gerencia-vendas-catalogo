@@ -311,4 +311,33 @@ public class SwingWorkerRevendedor<T extends ViewRevendedor> extends BaseSwingWo
             }
         }
     };
+    
+    public SwingWorker<List<Parcela>, Object> workRecHistoricoParcelas = new SwingWorker<List<Parcela>, Object>() {
+
+        @Override
+        protected List<Parcela> doInBackground() throws java.lang.Exception {
+            try {
+                habilitaTelaAguarde(formRevendedor);
+                return new RevendedorServerImpl<Revendedor>().recHistoricoParcelas(revendedor);
+            } catch (java.lang.Exception ex) {
+                throw ex;
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                desabilitaTelaAguarde(formRevendedor);
+                formRevendedor.setVisible(true);
+                if (get() != null) {
+                    List<Parcela> list = (List<Parcela>) get();
+                    formRevendedor.openFormHistoricoLimiteEmUso(list);
+                }                
+            } catch (java.lang.Exception ex) {
+                desabilitaTelaAguarde(formRevendedor);
+                LogUtil.logDescricaoErro(formRevendedor.getClass(), ex);
+                JOptionPane.showMessageDialog(formRevendedor, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
 }

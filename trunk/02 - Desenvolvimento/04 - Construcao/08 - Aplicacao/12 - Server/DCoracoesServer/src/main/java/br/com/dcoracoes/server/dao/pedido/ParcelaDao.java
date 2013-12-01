@@ -19,4 +19,6 @@ public interface ParcelaDao<T extends Parcela> {
     public void removeParcela(T parcela) throws ServerException;
     
     public List<T> recParcelasALiberar(long idRevendedor) throws ServerException;
+    
+    public List<T> recParcelasAtivas(long idRevendedor) throws ServerException;
 }

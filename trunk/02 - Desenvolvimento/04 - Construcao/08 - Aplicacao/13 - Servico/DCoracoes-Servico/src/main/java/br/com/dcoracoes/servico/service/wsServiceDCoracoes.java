@@ -12,6 +12,7 @@ import br.com.dcoracoes.servico.beans.canalacesso.AssociaPerfilPermissao;
 import br.com.dcoracoes.servico.beans.canalacesso.Perfil;
 import br.com.dcoracoes.servico.beans.canalacesso.Permissao;
 import br.com.dcoracoes.servico.beans.canalacesso.Usuario;
+import br.com.dcoracoes.servico.beans.pedido.Parcela;
 import br.com.dcoracoes.servico.beans.pedido.Pedido;
 import br.com.dcoracoes.servico.beans.pedido.PedidoCompra;
 import br.com.dcoracoes.servico.beans.pedido.PedidoVenda;
@@ -128,6 +129,11 @@ public class wsServiceDCoracoes {
             hash.put("codigoRevendedor", parameter.getCodigoRevendedor());
         
         return new ServicePedido<PedidoVenda>().recRelatorioPedidosPorRevendedor(hash);
+    }
+    
+    @WebMethod(operationName = "recHistoricoParcelas")
+    public List<Parcela> recHistoricoParcelas(@WebParam(name = "pRevendedor") Revendedor pRevendedor) throws Exception {
+        return new ServicePedido<Pedido>().recHistoricoParcelas(pRevendedor);
     }
 
     /**

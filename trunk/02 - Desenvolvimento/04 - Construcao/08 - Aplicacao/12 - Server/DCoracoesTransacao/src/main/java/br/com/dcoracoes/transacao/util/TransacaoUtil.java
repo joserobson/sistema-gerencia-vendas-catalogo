@@ -16,6 +16,7 @@ import br.com.dcoracoes.server.bo.canalacesso.AssociaPerfilPermissaoBoImpl;
 import br.com.dcoracoes.server.bo.canalacesso.PermissaoBoImpl;
 import br.com.dcoracoes.server.bo.canalacesso.UsuarioBoImpl;
 import br.com.dcoracoes.server.bo.pedido.ItemPedidoBoImpl;
+import br.com.dcoracoes.server.bo.pedido.ParcelaBoImpl;
 import br.com.dcoracoes.server.bo.pedido.PedidoBoImpl;
 import br.com.dcoracoes.server.dao.prospeccao.AlertaDaoImpl;
 import br.com.dcoracoes.server.dao.movimento.AssociaPessoaContaDaoImpl;
@@ -29,6 +30,7 @@ import br.com.dcoracoes.server.dao.canalacesso.AssociaPerfilPermissaoDaoImpl;
 import br.com.dcoracoes.server.dao.canalacesso.PermissaoDaoImpl;
 import br.com.dcoracoes.server.dao.canalacesso.UsuarioDaoImpl;
 import br.com.dcoracoes.server.dao.pedido.ItemPedidoDaoImpl;
+import br.com.dcoracoes.server.dao.pedido.ParcelaDaoImpl;
 import br.com.dcoracoes.server.dao.pedido.PedidoDaoImpl;
 import br.com.dcoracoes.server.model.cadastro.AssociaPessoa;
 import br.com.dcoracoes.server.model.cadastro.PessoaFisica;
@@ -39,6 +41,7 @@ import br.com.dcoracoes.server.model.canalacesso.Permissao;
 import br.com.dcoracoes.server.model.canalacesso.Usuario;
 import br.com.dcoracoes.server.model.movimento.AssociaPessoaConta;
 import br.com.dcoracoes.server.model.pedido.ItemPedido;
+import br.com.dcoracoes.server.model.pedido.Parcela;
 import br.com.dcoracoes.server.model.pedido.Pedido;
 import br.com.dcoracoes.server.model.produto.ItemProduto;
 import br.com.dcoracoes.server.model.produto.Produto;
@@ -103,7 +106,14 @@ public class TransacaoUtil {
             return perfilBo;
         }
 
-
+        //PARCELA
+        if (cls.equals(Parcela.class)) {
+            ParcelaBoImpl parcelaBo = new ParcelaBoImpl();
+            ParcelaDaoImpl parcelaDao = new ParcelaDaoImpl();
+            parcelaBo.setParcelaDao(parcelaDao);
+            return parcelaBo;
+        }
+        
         //ALERTA
         if (cls.equals(Alerta.class)) {
             AlertaBoImpl alertaBo = new AlertaBoImpl();

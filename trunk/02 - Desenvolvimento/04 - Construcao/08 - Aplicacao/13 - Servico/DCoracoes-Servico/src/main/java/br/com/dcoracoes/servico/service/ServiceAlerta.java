@@ -5,6 +5,7 @@
 package br.com.dcoracoes.servico.service;
 
 import br.com.dcoracoes.servico.beans.cadastro.Pessoa;
+import br.com.dcoracoes.servico.beans.cadastro.Revendedor;
 import br.com.dcoracoes.servico.beans.prospeccao.Alerta;
 import br.com.dcoracoes.transacao.classes.TnAlerta;
 import br.com.dcoracoes.transacao.constantes.ConstanteTnAlerta;
@@ -105,7 +106,6 @@ public class ServiceAlerta<T extends Alerta> extends ServiceBase implements ISer
 
         return listAlertasBeans;
     }
-    
     
     @Override
     public Object converteToModel(Object param) throws ClassNotFoundException {
