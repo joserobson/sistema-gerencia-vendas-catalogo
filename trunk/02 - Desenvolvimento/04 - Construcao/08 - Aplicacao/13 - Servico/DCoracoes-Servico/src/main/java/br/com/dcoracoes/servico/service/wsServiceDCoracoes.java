@@ -110,7 +110,6 @@ public class wsServiceDCoracoes {
     public Pedido removePedido(@WebParam(name = "pPedido") Pedido pPedido) throws Exception {
         return new ServicePedido<Pedido>().deletar(pPedido);
     }
-
     @WebMethod(operationName = "aprovarPedido")
     public boolean aprovarPedido(@WebParam(name = "pPedido") Pedido pPedido) throws Exception {
         return new ServicePedido<Pedido>().aprovarPedido(pPedido);
