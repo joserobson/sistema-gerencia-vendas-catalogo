@@ -52,14 +52,14 @@ public class App {
 //        testeRevendedor();
 //        testeInserirProduto();
 //        testeAlertas();
-//        testeConsultaRevendedor();
+        testeConsultaRevendedor();
 //        testeConsultaProduto();
 //        testeConsultaPedido();
 //        TestePedidoPrazo();
 //        testePedidoVista();
 //        testeCodigoOrcamento();
         // testePedidoCompra();
-        testeConsultarPedidoVenda();
+        //testeConsultarPedidoVenda();
     }
 
     public static void testeRevendedor() {
