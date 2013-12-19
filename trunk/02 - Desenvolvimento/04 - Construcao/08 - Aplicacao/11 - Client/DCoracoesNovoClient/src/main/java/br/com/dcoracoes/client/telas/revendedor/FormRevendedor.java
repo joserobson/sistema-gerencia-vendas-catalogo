@@ -95,11 +95,11 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
     /**
      * Busca ultimo dados de revendedor salvo em banco para exibição na tela
      */
-    private void buscarUltimoCadastro() {        
-        SwingWorkerRevendedor<ViewRevendedor> workRevendedor = new SwingWorkerRevendedor<ViewRevendedor> ();
-        workRevendedor.setFormRevendedor(this);
-        workRevendedor.workRecUltimoRevendedorCadastro.execute(); 
-    }
+//    private void buscarUltimoCadastro() {        
+//        SwingWorkerRevendedor<ViewRevendedor> workRevendedor = new SwingWorkerRevendedor<ViewRevendedor> ();
+//        workRevendedor.setFormRevendedor(this);
+//        workRevendedor.workRecUltimoRevendedorCadastro.execute(); 
+//    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -210,7 +210,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
             }
         });
 
-        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
+        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, null, null, new java.awt.Color(43, 115, 186)));
 
         btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/document-new.png"))); // NOI18N
@@ -356,7 +356,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         tablePanelDados.setToolTipText("");
 
-        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(0));
 
         lblConsultor.setText("REVENDEDOR(A):");
 
@@ -744,7 +744,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         tablePanelDados.addTab("Contato", panelContato);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("<html> <center> CÓDIGO<br/>REVENDEDOR(A) </center> </html>");

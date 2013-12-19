@@ -465,7 +465,7 @@ public class FormConsultaVenda extends javax.swing.JDialog implements InterfaceC
             if (e.getClickCount() == 2) {
 
                 int row = table.getSelectedRow();
-                formVenda.setPedido(listPedidoVenda.get(row));
+                formVenda.refreshPedido(listPedidoVenda.get(row));
 
                 close();
             }

@@ -37,5 +37,6 @@ public class MessageVenda {
     public static String ERRO_REMOVER_PEDIDO_VENDA = "Erro ao remover pedido venda";
     
     public static String ERRO_APROVAR_PEDIDO = "Erro ao APROVAR Pedido. Entre em contato com o suporte técnico.";
-    
+    public static String MSG_VENDA_APROVADA = "Venda Aprovada.";
+    public static String MSG_VENDA_REPROVADA = "Venda Não Autorizada.";
 }
