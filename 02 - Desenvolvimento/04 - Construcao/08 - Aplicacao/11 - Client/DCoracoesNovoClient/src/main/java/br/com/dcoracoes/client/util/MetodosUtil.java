@@ -73,6 +73,15 @@ public class MetodosUtil {
     }
 
     /**
+     * verifica se data em formato string está vazia
+     * @param data
+     * @return 
+     */
+    public static boolean isDataEmpty(String data){        
+        return data.replace("/", "").trim().isEmpty();
+    }
+    
+    /**
      * valida  data
      * @param data
      * @return 
@@ -166,4 +175,16 @@ public class MetodosUtil {
     private static Double currencyToDouble(String value) {
         return Double.parseDouble(value);
     }
+    
+    /**
+     * convert string to float
+     * @param value
+     * @return 
+     */
+    public static Float convertStringToFloat(String value)
+    {
+        return Float.parseFloat(value.trim().replace(".", "").replace(",", "."));
+    }
+        
 }
+

@@ -35,6 +35,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.Exception;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,14 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -62,17 +56,24 @@ import net.sf.jasperreports.engine.JRException;
  */
 public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCompleto {
 
+    public final String VALOR_ZERO = "0,00";
+    
     private PedidoVenda pedido;
     private HashMap<Integer, Produto> lstProduto;
     private HashMap<Integer, ItemProduto> lstItemProduto;
     private FormConsultaProduto formProduto;
-    public final String VALOR_ZERO = "0,00";
+    
+    private Revendedor revendedor;
 
     public PedidoVenda getPedido() {
         return pedido;
     }
 
-    public void setPedido(PedidoVenda pedido) {
+    public void setPedidoVenda(PedidoVenda pPedido){
+        this.pedido = pPedido;
+    }
+    
+    public void refreshPedido(PedidoVenda pedido) {
         this.pedido = pedido;
         popularTela();
 
@@ -81,7 +82,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         edit();
     }
-    private Revendedor revendedor;
+    
 
     /**
      * Creates new form FormVenda
@@ -111,12 +112,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jtxtLimiteUso = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jtxtLimiteCredito = new javax.swing.JFormattedTextField();
-        jLabel10 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jtxtValorPedidoEscrito = new javax.swing.JFormattedTextField();
         jLabel20 = new javax.swing.JLabel();
         txtAprovacao = new javax.swing.JFormattedTextField();
-        cbFormaPagamento = new javax.swing.JComboBox();
+        jBtnFormaPagamento = new javax.swing.JButton();
         lblAlertaProspeccao = new javax.swing.JLabel();
         btnProspeccoes = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
@@ -132,6 +132,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jtxtUltimaCompra = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         txtSituacao = new javax.swing.JFormattedTextField();
+        cbFormaPagamento = new javax.swing.JComboBox();
         tablePanelDados = new javax.swing.JTabbedPane();
         panelDadosPrincipais = new javax.swing.JPanel();
         lblConsultor = new javax.swing.JLabel();
@@ -249,9 +250,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         });
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("<html> <center> FORMA DE<br/>PAGAMENTO</center> </html>");
-
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("<html> <center> VALOR DO<br/>PEDIDO ESCRITO</center> </html>");
 
@@ -284,9 +282,10 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         });
 
-        cbFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+        jBtnFormaPagamento.setText("Pagamento");
+        jBtnFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbFormaPagamentoActionPerformed(evt);
+                jBtnFormaPagamentoActionPerformed(evt);
             }
         });
 
@@ -296,10 +295,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbFormaPagamento, 0, 109, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addComponent(jBtnFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jtxtValorPedidoEscrito)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -323,39 +320,37 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(jPanel11Layout.createSequentialGroup()
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(txtAprovacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtLimiteUtilizavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel11Layout.createSequentialGroup()
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jtxtLimiteUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel11Layout.createSequentialGroup()
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jtxtLimiteCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(txtAprovacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtxtLimiteUtilizavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel11Layout.createSequentialGroup()
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jtxtLimiteUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel11Layout.createSequentialGroup()
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jtxtLimiteCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtxtValorPedidoEscrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 3, Short.MAX_VALUE))
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxtValorPedidoEscrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jBtnFormaPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        cbFormaPagamento.addItem(Enum_Forma_Pagamento.AVISTA.getFormaPagamento());
-        cbFormaPagamento.addItem(Enum_Forma_Pagamento.APRAZO.getFormaPagamento());
-        cbFormaPagamento.addItem(Enum_Forma_Pagamento.APRAZOCOMCOMPLEMENTO.getFormaPagamento());
-
-        cbFormaPagamento.setSelectedIndex(0);
 
         lblAlertaProspeccao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblAlertaProspeccao.setForeground(new java.awt.Color(255, 0, 0));
@@ -428,6 +423,12 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         txtSituacao.setEditable(false);
         txtSituacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        cbFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFormaPagamentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -457,7 +458,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtSituacao, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cbFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +476,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jtxtUltimaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -494,9 +498,15 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        cbFormaPagamento.addItem(Enum_Forma_Pagamento.AVISTA.getFormaPagamento());
+        cbFormaPagamento.addItem(Enum_Forma_Pagamento.APRAZO.getFormaPagamento());
+        cbFormaPagamento.addItem(Enum_Forma_Pagamento.APRAZOCOMCOMPLEMENTO.getFormaPagamento());
+
+        cbFormaPagamento.setSelectedIndex(0);
+
         tablePanelDados.setToolTipText("");
 
-        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(0));
         panelDadosPrincipais.setEnabled(false);
 
         lblConsultor.setText("REVENDEDOR(A):");
@@ -1149,7 +1159,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         jTabbedPane.addTab("Items do Pedido", jPanel3);
 
-        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
+        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, null, null, new java.awt.Color(43, 115, 186)));
 
         btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/document-new.png"))); // NOI18N
@@ -1474,7 +1484,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
     private void cbFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFormaPagamentoActionPerformed
         // TODO add your handling code here:
-        aprovarVenda();
+        //aprovarVenda();
     }//GEN-LAST:event_cbFormaPagamentoActionPerformed
 
     private void btnImprimirCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirCompletoActionPerformed
@@ -1515,10 +1525,23 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
     private void jtxtValorPedidoEscritoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtValorPedidoEscritoKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            aprovarVenda();
-        }
+//        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+//            aprovarVenda();
+//        }
     }//GEN-LAST:event_jtxtValorPedidoEscritoKeyPressed
+
+    private void jBtnFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnFormaPagamentoActionPerformed
+        // TODO add your handling code here:
+        String valor = jtxtValorPedidoEscrito.getText();
+        if (!valor.isEmpty() && !valor.equals(VALOR_ZERO) )
+        {
+            FormFormaPagamento formPagamento = new FormFormaPagamento(this);
+            formPagamento.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Forneça o valor do pedido ", MensagensUtil.ATENCAO, 1);
+        }
+    }//GEN-LAST:event_jBtnFormaPagamentoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnImprimirCompleto;
@@ -1536,8 +1559,8 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     private javax.swing.JComboBox cbOperadora1;
     private javax.swing.JComboBox cbOperadora2;
     private javax.swing.JComboBox cbUF;
+    private javax.swing.JButton jBtnFormaPagamento;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1670,13 +1693,17 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      * busca revendedor pelo codigo informado
      */
     private void searchRevendedor() {
-        Revendedor rev = new Revendedor();
-        rev.setCodigo(Integer.parseInt(jtxtCodigoRevendedor.getText()));
+        try{
+            Revendedor rev = new Revendedor();
+            rev.setCodigo(Integer.parseInt(jtxtCodigoRevendedor.getText()));
 
-        SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
-        work.setFormVenda(this);
-        work.setRevendedor(rev);
-        work.workBuscaRevendedor.execute();
+            SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
+            work.setFormVenda(this);
+            work.setRevendedor(rev);
+            work.workBuscaRevendedor.execute();
+        }catch(Exception ex){
+            LogUtil.logDescricaoErro(this.getClass(), ex);
+        }
     }
 
     /**
@@ -2855,7 +2882,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jtxtValorPedidoEscrito.setEnabled(b);
     }
 
-    private void disableAbaItemsPedido(boolean b) {
+    public void disableAbaItemsPedido(boolean b) {
         tableItemVenda.setEnabled(b);
         btnNovoItem.setEnabled(b);
         btnRemoverItem.setEnabled(b);
@@ -2864,38 +2891,38 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
     }
 
-    /**
-     * Faz a validação do credito do cliente e do valor dá compra e confirma se
-     * cliente pode efetuar a compra
-     */
-    private void aprovarVenda() {
-        if (revendedor != null && !jtxtValorPedidoEscrito.getText().isEmpty()) {
-            pedido = new PedidoVenda();
-            pedido.setRevendedor(revendedor);
-            pedido.setValorPedidoEscrito(Float.parseFloat(jtxtValorPedidoEscrito.getText().trim().replace(".", "").replace(",", ".")));
-            pedido.setPagamento(pushToModelFormaPagamento());
+//    /**
+//     * Faz a validação do credito do cliente e do valor dá compra e confirma se
+//     * cliente pode efetuar a compra
+//     */
+//    private void aprovarVenda() {
+//        if (revendedor != null && !jtxtValorPedidoEscrito.getText().isEmpty()) {
+//            pedido = new PedidoVenda();
+//            pedido.setRevendedor(revendedor);
+//            pedido.setValorPedidoEscrito(Float.parseFloat(jtxtValorPedidoEscrito.getText().trim().replace(".", "").replace(",", ".")));
+//            pedido.setPagamento(pushToModelFormaPagamento());
+//
+//            SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
+//            work.refreshPedido(pedido);
+//            work.setFormVenda(this);
+//            work.workAprovarPedidoVenda.execute();
+//        }
+//    }
 
-            SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
-            work.setPedido(pedido);
-            work.setFormVenda(this);
-            work.workAprovarPedidoVenda.execute();
-        }
-    }
-
-    /**
-     * *
-     *
-     * @param isAprovada
-     */
-    public void afterAprovarVenda(Boolean isAprovada) {
-        if (isAprovada) {
-            txtAprovacao.setText("APROVADO");
-            disableAbaItemsPedido(true);
-        } else {
-            txtAprovacao.setText("NÃO APROVADO");
-            disableAbaItemsPedido(false);
-        }
-    }
+//    /**
+//     * *
+//     *
+//     * @param isAprovada
+//     */
+//    public void afterAprovarVenda(Boolean isAprovada) {
+//        if (isAprovada) {
+//            txtAprovacao.setText("APROVADO");
+//            disableAbaItemsPedido(true);
+//        } else {
+//            txtAprovacao.setText("NÃO APROVADO");
+//            disableAbaItemsPedido(false);
+//        }
+//    }
 
     /**
      * Realiza busca de prospeccao por revendedor
@@ -3044,4 +3071,16 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             formProduto.setVisible(true);
         }
     }
+
+    public Revendedor getRevendedor() {
+        return revendedor;
+    }
+
+    
+    
+    public JFormattedTextField getJtxtValorPedidoEscrito() {
+        return jtxtValorPedidoEscrito;
+    }
+    
+    
 }

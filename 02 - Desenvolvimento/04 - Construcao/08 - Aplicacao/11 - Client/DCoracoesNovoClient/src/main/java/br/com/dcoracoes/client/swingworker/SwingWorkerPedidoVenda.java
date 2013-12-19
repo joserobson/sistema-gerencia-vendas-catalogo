@@ -12,6 +12,7 @@ import br.com.dcoracoes.client.classes.serverimpl.RevendedorServerImpl;
 import br.com.dcoracoes.client.enuns.Enum_Situacao_Alerta;
 import br.com.dcoracoes.client.telas.relatorio.FormRelatorioVendaPorRevendedor;
 import br.com.dcoracoes.client.telas.venda.FormConsultaVenda;
+import br.com.dcoracoes.client.telas.venda.FormFormaPagamento;
 import br.com.dcoracoes.client.telas.venda.FormVenda;
 import br.com.dcoracoes.client.util.LogUtil;
 import br.com.dcoracoes.client.util.MensagensUtil;
@@ -33,6 +34,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
 
     private FormVenda formVenda = null;
     private FormConsultaVenda formConsultaVenda = null;
+    private FormFormaPagamento formFormaPagamento = null;
     private Pedido pedido;
     private Produto produtoPedidoVenda;
     private int rowProduto;
@@ -130,6 +132,14 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
     public void setAlerta(Alerta alerta) {
         this.alerta = alerta;
     }
+
+    public FormFormaPagamento getFormFormaPagamento() {
+        return formFormaPagamento;
+    }
+
+    public void setFormFormaPagamento(FormFormaPagamento formFormaPagamento) {
+        this.formFormaPagamento = formFormaPagamento;
+    }
     /**
      * Salvar Pedido Compra
      */
@@ -140,7 +150,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             try {
                 habilitaTelaAguarde(formVenda);
                 PedidoVendaServerImpl server = new PedidoVendaServerImpl();
-                return (T) server.salvarComRetorno(pedido);                
+                return (T) server.salvarComRetorno(pedido);
             } catch (Exception ex) {
                 desabilitaTelaAguarde(formVenda);
                 throw ex;
@@ -255,44 +265,42 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
     /**
      *
      */
-    public SwingWorker <HashMap<String,Object>, Object> workBuscaRevendedor = new SwingWorker<HashMap<String,Object>, Object>() {
+    public SwingWorker<HashMap<String, Object>, Object> workBuscaRevendedor = new SwingWorker<HashMap<String, Object>, Object>() {
 
         public final String CONST_REV = "rev";
         public final String CONST_ALERTAS = "alertas";
-        
-        
+
         @Override
-        protected HashMap<String,Object> doInBackground() throws Exception {
+        protected HashMap<String, Object> doInBackground() throws Exception {
             try {
                 habilitaTelaAguarde(formVenda);
-                
+
                 Revendedor rev = null;
                 List<Alerta> lstAlertas = null;
-                
+
                 //map retorno
                 HashMap<String, Object> mapRetorno = new HashMap<String, Object>();
-                
+
                 //busca o revendedor
-                List<ViewRevendedor> lstRevs  = new RevendedorServerImpl<Revendedor>().recTodos(revendedor);
-                
+                List<ViewRevendedor> lstRevs = new RevendedorServerImpl<Revendedor>().recTodos(revendedor);
+
                 //buscar as prospeccoes do revendedor
-                if (lstRevs != null && lstRevs.size() > 0)
-                {
+                if (lstRevs != null && lstRevs.size() > 0) {
                     rev = lstRevs.get(0).getRevendedor();
-                    
+
                     Alerta prospeccao = new Alerta();
                     prospeccao.setPessoa(rev.getPessoa());
                     prospeccao.setSituacaoAlerta(Enum_Situacao_Alerta.EMABERTO.getCodigo());
-                    
+
                     AlertaServerImpl serverImpl = new AlertaServerImpl();
                     lstAlertas = serverImpl.recTodos(prospeccao);
-                                        
+
                 }
-                
-                mapRetorno.put(CONST_REV,rev);
+
+                mapRetorno.put(CONST_REV, rev);
                 mapRetorno.put(CONST_ALERTAS, lstAlertas);
                 return mapRetorno;
-                
+
             } catch (Exception ex) {
                 throw ex;
             }
@@ -303,15 +311,15 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             try {
                 desabilitaTelaAguarde(formVenda);
                 if (get() != null) {
-                    
-                    HashMap<String,Object> mapRetorno = get();
-                    
-                    Revendedor rev = (Revendedor)mapRetorno.get(CONST_REV);
-                    List<Alerta> lstAlertas = (List<Alerta>)mapRetorno.get(CONST_ALERTAS);
-                    
-                    formVenda.afterBuscaRevendedor(rev,lstAlertas);
-                                                            
-                }                
+
+                    HashMap<String, Object> mapRetorno = get();
+
+                    Revendedor rev = (Revendedor) mapRetorno.get(CONST_REV);
+                    List<Alerta> lstAlertas = (List<Alerta>) mapRetorno.get(CONST_ALERTAS);
+
+                    formVenda.afterBuscaRevendedor(rev, lstAlertas);
+
+                }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageRevendedor.ERRO_CONSULTAR_REVENDEDOR, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
@@ -362,15 +370,13 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
         protected void done() {
             try {
                 desabilitaTelaAguarde(formVenda);
-                formVenda.afterConsultaProspeccoes(get());                
+                formVenda.afterConsultaProspeccoes(get());
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formVenda.getClass(), ex);
                 JOptionPane.showMessageDialog(formVenda, MessageProspeccao.ERRO_CONSULTAR_PROSPECCAO, MensagensUtil.ERRO, JOptionPane.ERROR_MESSAGE);
             }
         }
     };
-    
-    
     public SwingWorker<List<T>, Object> workSearchPedidos = new SwingWorker<List<T>, Object>() {
 
         @Override
@@ -398,14 +404,12 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
             }
         }
     };
-    
-    
-     public SwingWorker<Boolean, Object> workAprovarPedidoVenda = new SwingWorker<Boolean, Object>() {
+    public SwingWorker<Boolean, Object> workAprovarPedidoVenda = new SwingWorker<Boolean, Object>() {
 
         @Override
         protected Boolean doInBackground() throws Exception {
             try {
-                habilitaTelaAguarde(formVenda);
+                habilitaTelaAguarde(formFormaPagamento);
                 return new PedidoVendaServerImpl<T>().aprovarPedido(pedido);
             } catch (Exception ex) {
                 throw ex;
@@ -415,17 +419,15 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
         @Override
         protected void done() {
             try {
-                desabilitaTelaAguarde(formVenda);
-                formVenda.afterAprovarVenda(get());   
-                formVenda.setVisible(true);
+                desabilitaTelaAguarde(formFormaPagamento);
+                formFormaPagamento.afterAprovarVenda(get());                
             } catch (Exception ex) {
-                LogUtil.logDescricaoErro(formVenda.getClass(), ex);
-                JOptionPane.showMessageDialog(formVenda, MessageVenda.ERRO_SALVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);
+                LogUtil.logDescricaoErro(formFormaPagamento.getClass(), ex);
+                JOptionPane.showMessageDialog(formFormaPagamento, MessageVenda.ERRO_APROVAR_PEDIDO, "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     };
-     
-     public SwingWorker<List<T>, Object> workRecRelatorioPedidosPorRevendedor = new SwingWorker<List<T>, Object>() {
+    public SwingWorker<List<T>, Object> workRecRelatorioPedidosPorRevendedor = new SwingWorker<List<T>, Object>() {
 
         @Override
         protected List<T> doInBackground() throws Exception {
@@ -444,7 +446,7 @@ public class SwingWorkerPedidoVenda<T extends PedidoVenda> extends BaseSwingWork
                 desabilitaTelaAguarde(formRelatorioVendaPorRevendedor);
                 formRelatorioVendaPorRevendedor.setVisible(true);
                 if (get() != null) {
-                    formRelatorioVendaPorRevendedor.processaList((List<PedidoVenda>)get());
+                    formRelatorioVendaPorRevendedor.processaList((List<PedidoVenda>) get());
                 }
             } catch (Exception ex) {
                 LogUtil.logDescricaoErro(formRelatorioVendaPorRevendedor.getClass(), ex);
