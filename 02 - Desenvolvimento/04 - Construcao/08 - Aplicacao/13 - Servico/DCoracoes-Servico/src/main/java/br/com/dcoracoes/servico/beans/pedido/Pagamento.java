@@ -17,6 +17,7 @@ public class Pagamento implements Serializable {
     private int formaPagamento;
     private float valor;
     private List<Parcela> listaParcelas;
+    private float bonus;
 
     public int getFormaPagamento() {
         return formaPagamento;
@@ -49,4 +50,13 @@ public class Pagamento implements Serializable {
     public void setValor(float valor) {
         this.valor = valor;
     }
+
+    public float getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(float bonus) {
+        this.bonus = bonus;
+    }
+    
 }
