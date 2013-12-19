@@ -87,10 +87,9 @@ public class TnPedido implements InterfaceTransacao {
      */
     @Override
     public boolean validarDados(String evento) throws TransException {
-
         boolean retorno = true;
         try {
-            if (evento == ConstanteTnPedido.NOME_EVENTO_APROVAR_PEDIDO) {
+            if (evento.equals(ConstanteTnPedido.NOME_EVENTO_APROVAR_PEDIDO)) {
                 retorno = false;
                 if (this.pedido.getClass().equals(PedidoVenda.class)) {
                     PedidoVenda pv = (PedidoVenda) this.pedido;
@@ -219,7 +218,7 @@ public class TnPedido implements InterfaceTransacao {
 
                 //verifica tipo de pagamento
                 if (pedidoVenda.getPagamento().getFormaPagamento() == Enum_Forma_Pagamento.APRAZO.getCodigo()) {
-                    //verificar se o Revendedor tem Crédito para cobrir o valor do Pedido
+                    //verificar se o Revendedor tem limite utilizavel para cobrir o valor do Pedido
                     //de acordo com o tipo de pedido
                     if (pedidoVenda.getRevendedor().getLimiteUtilizavel() == 0
                             || pedidoVenda.getRevendedor().getLimiteUtilizavel() < pedidoVenda.getValorPedidoEscrito()) {
