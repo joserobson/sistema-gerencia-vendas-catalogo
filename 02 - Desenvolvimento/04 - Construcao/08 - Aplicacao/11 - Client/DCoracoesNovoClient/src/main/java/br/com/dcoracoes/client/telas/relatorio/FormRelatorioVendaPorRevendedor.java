@@ -69,6 +69,8 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
         lblCodigoRevendedor = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResult = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        lblValorTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Relatório de Venda por Revendedor");
@@ -294,16 +296,28 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
         tableResult.getColumnModel().getColumn(2).setPreferredWidth(120);
         tableResult.getColumnModel().getColumn(2).setMaxWidth(120);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Total:");
+
+        lblValorTotal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblValorTotal.setForeground(java.awt.Color.red);
+        lblValorTotal.setText("R$0,00");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelSuperButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSuperButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -314,7 +328,11 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -362,7 +380,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
                 if(!result.isEmpty()){
 
                     GerarRelatorio func = new GerarRelatorio();
-                    func.gerarRelatorioVendaPorRevendedor(result);
+                    func.gerarRelatorioVendaPorRevendedor(result, lblValorTotal.getText());
 
                 }
         } catch (JRException ex) {
@@ -374,6 +392,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnSair;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -386,6 +405,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
     private javax.swing.JLabel lblCodigoRevendedor;
     private javax.swing.JLabel lblDataNascimento;
     private javax.swing.JLabel lblDataNascimento1;
+    private javax.swing.JLabel lblValorTotal;
     private javax.swing.JPanel panelSuperButton;
     private javax.swing.JTable tableResult;
     // End of variables declaration//GEN-END:variables
@@ -502,6 +522,7 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
 
     //Popular dados na tela
     private void popularTela(List<PedidoVenda> result) {
+        float valorTotal = 0;
         for (PedidoVenda pedidoVenda : result) {
             DefaultTableModel dtm = (DefaultTableModel) tableResult.getModel();
 
@@ -510,7 +531,12 @@ public class FormRelatorioVendaPorRevendedor extends javax.swing.JFrame implemen
                         pedidoVenda.getRevendedor().getPessoa().getNome(),
                         pedidoVenda.getTotal()
                     });
+            
+            //soma valor total
+            valorTotal = valorTotal + pedidoVenda.getTotal();
         }
+        
+        lblValorTotal.setText("R$" + MetodosUtil.formatarValorDinheiro(valorTotal));
     }
     
     /**

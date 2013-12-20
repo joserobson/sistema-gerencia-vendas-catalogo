@@ -79,6 +79,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         btnImprimirCompleto.setEnabled(true);
         btnImprimirExpedicao.setEnabled(true);
+        btnEditar.setEnabled(ControleAcesso.ATIVA_BTN_CADASTRAR_PEDIDO_VENDA);
 
         edit();
     }
@@ -207,11 +208,11 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         btnSair = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        btnExcluir = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         btnPesquisar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         txtNumeroOrcamento = new javax.swing.JFormattedTextField();
@@ -1186,7 +1187,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 38, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1207,16 +1208,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/img_deletar_32x32.png"))); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.setEnabled(false);
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
         jPanel12.setPreferredSize(new java.awt.Dimension(40, 60));
         jPanel12.setVerifyInputWhenFocusTarget(false);
 
@@ -1224,7 +1215,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 53, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1248,7 +1239,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 41, Short.MAX_VALUE)
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1264,6 +1255,16 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             }
         });
 
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/img_edit_32x32.png"))); // NOI18N
+        btnEditar.setText("EDITAR");
+        btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelSuperButtonLayout = new javax.swing.GroupLayout(panelSuperButton);
         panelSuperButton.setLayout(panelSuperButtonLayout);
         panelSuperButtonLayout.setHorizontalGroup(
@@ -1272,17 +1273,17 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addContainerGap()
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1295,14 +1296,17 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addContainerGap()
                 .addGroup(panelSuperButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNovo))
+                    .addGroup(panelSuperButtonLayout.createSequentialGroup()
+                        .addGroup(panelSuperButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEditar)
+                            .addComponent(btnNovo))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1511,11 +1515,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         }
     }//GEN-LAST:event_btnImprimirExpedicaoActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
-        delete();
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
     private void jtxtCodigoRevendedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCodigoRevendedorKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             searchRevendedor();
@@ -1542,8 +1541,15 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         }
     }//GEN-LAST:event_jBtnFormaPagamentoActionPerformed
 
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        disableTela(ControleAcesso.ATIVA_BTN_CADASTRAR_PEDIDO_VENDA);
+        btnEditar.setEnabled(false);
+        btnSalvar.setEnabled(ControleAcesso.ATIVA_BTN_CADASTRAR_PEDIDO_VENDA);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnImprimirCompleto;
     private javax.swing.JButton btnImprimirExpedicao;
     private javax.swing.JButton btnNovo;
@@ -1661,7 +1667,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     @Override
     public void createNew() {
         revendedor = null;
-        btnExcluir.setEnabled(false);
+        btnEditar.setEnabled(false);
         disableTela(true);
         disableAbaItemsPedido(false);
         populaDataCadastro();
@@ -1901,7 +1907,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         btnSalvar.setEnabled(false);
         btnImprimirCompleto.setEnabled(true);
         btnImprimirExpedicao.setEnabled(true);
-        btnExcluir.setEnabled(ControleAcesso.ATIVA_BTN_CADASTRAR_PEDIDO_VENDA);
+        btnEditar.setEnabled(ControleAcesso.ATIVA_BTN_CADASTRAR_PEDIDO_VENDA);
     }
 
     @Override

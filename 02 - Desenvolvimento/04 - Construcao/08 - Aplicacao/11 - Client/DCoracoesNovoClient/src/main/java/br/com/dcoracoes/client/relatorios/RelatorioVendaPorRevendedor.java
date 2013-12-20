@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class RelatorioVendaPorRevendedor {
     
+    private String valorTotal;
     private List<ItemRelatorioVendaPorRevendedor> listaItens;
 
     public RelatorioVendaPorRevendedor() {
@@ -23,7 +24,14 @@ public class RelatorioVendaPorRevendedor {
 
     public void setListaItens(List<ItemRelatorioVendaPorRevendedor> listaItens) {
         this.listaItens = listaItens;
+    }    
+
+    public String getValorTotal() {
+        return valorTotal;
     }
-    
+
+    public void setValorTotal(String valorTotal) {
+        this.valorTotal = valorTotal;
+    }
     
 }

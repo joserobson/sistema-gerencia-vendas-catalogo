@@ -18,6 +18,7 @@ import br.com.dcoracoes.client.telas.revendedor.FormRevendedor;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.componentes.ComboBoxEstado;
+import br.com.dcoracoes.client.util.componentes.JPhoneField;
 import br.com.dcoracoes.client.util.message.MessageInfComplementares;
 import br.com.dcoracoes.client.util.message.OperadorasTelefonicas;
 import br.com.dcoracoes.servico.service.*;
@@ -132,10 +133,10 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jtxtTelefoneResidencial = new javax.swing.JFormattedTextField();
-        jtxtCelular1 = new javax.swing.JFormattedTextField();
-        jtxtTelefoneComercial = new javax.swing.JFormattedTextField();
-        jtxtCelular2 = new javax.swing.JFormattedTextField();
+        jtxtTelefoneResidencial = new JPhoneField();
+        jtxtCelular1 = new JPhoneField();
+        jtxtTelefoneComercial = new JPhoneField();
+        jtxtCelular2 = new JPhoneField();
         jtxtEmail1 = new javax.swing.JFormattedTextField();
         jtxtEmail2 = new javax.swing.JFormattedTextField();
         cbOperadora1 = new javax.swing.JComboBox();
@@ -188,10 +189,10 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jtxtTelefoneResidencialConta1 = new javax.swing.JFormattedTextField();
-        jtxtCelular1Conta1 = new javax.swing.JFormattedTextField();
-        jtxtTelefoneComercialConta1 = new javax.swing.JFormattedTextField();
-        jtxtCelular2Conta1 = new javax.swing.JFormattedTextField();
+        jtxtTelefoneResidencialConta1 = new JPhoneField();
+        jtxtCelular1Conta1 = new JPhoneField();
+        jtxtTelefoneComercialConta1 = new JPhoneField();
+        jtxtCelular2Conta1 = new JPhoneField();
         jtxtEmail1Conta1 = new javax.swing.JFormattedTextField();
         jtxtEmail2Conta1 = new javax.swing.JFormattedTextField();
         cbOperadora2Conta1 = new javax.swing.JComboBox();
@@ -238,10 +239,10 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
-        jtxtTelefoneResidencialConta2 = new javax.swing.JFormattedTextField();
-        jtxtCelular1Conta2 = new javax.swing.JFormattedTextField();
-        jtxtTelefoneComercialConta2 = new javax.swing.JFormattedTextField();
-        jtxtCelular2Conta2 = new javax.swing.JFormattedTextField();
+        jtxtTelefoneResidencialConta2 = new JPhoneField();
+        jtxtCelular1Conta2 = new JPhoneField();
+        jtxtTelefoneComercialConta2 = new JPhoneField();
+        jtxtCelular2Conta2 = new JPhoneField();
         jtxtEmail1Conta2 = new javax.swing.JFormattedTextField();
         jtxtEmail2Conta2 = new javax.swing.JFormattedTextField();
         cbOperadora1Conta2 = new javax.swing.JComboBox();
@@ -293,10 +294,10 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
         jLabel53 = new javax.swing.JLabel();
         jLabel54 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
-        jtxtTelefoneResidencialConta3 = new javax.swing.JFormattedTextField();
-        jtxtCelular1Conta3 = new javax.swing.JFormattedTextField();
-        jtxtTelefoneComercialConta3 = new javax.swing.JFormattedTextField();
-        jtxtCelular2Conta3 = new javax.swing.JFormattedTextField();
+        jtxtTelefoneResidencialConta3 = new JPhoneField();
+        jtxtCelular1Conta3 = new JPhoneField();
+        jtxtTelefoneComercialConta3 = new JPhoneField();
+        jtxtCelular2Conta3 = new JPhoneField();
         jtxtEmail1Conta3 = new javax.swing.JFormattedTextField();
         jtxtEmail2Conta3 = new javax.swing.JFormattedTextField();
         cbOperadora1Conta3 = new javax.swing.JComboBox();
@@ -659,34 +660,12 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
 
         jLabel18.setText("EMAIL 2:");
 
-        try {
-            jtxtTelefoneResidencial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtCelular1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtTelefoneComercial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jtxtTelefoneComercial.setText("");
         jtxtTelefoneComercial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtTelefoneComercialActionPerformed(evt);
             }
         });
-
-        try {
-            jtxtCelular2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         jtxtEmail1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -1075,34 +1054,11 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
 
         jLabel26.setText("EMAIL 2:");
 
-        try {
-            jtxtTelefoneResidencialConta1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtCelular1Conta1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtTelefoneComercialConta1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
         jtxtTelefoneComercialConta1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtTelefoneComercialConta1ActionPerformed(evt);
             }
         });
-
-        try {
-            jtxtCelular2Conta1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         jtxtEmail1Conta1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -1535,34 +1491,11 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
 
         jLabel40.setText("EMAIL 2:");
 
-        try {
-            jtxtTelefoneResidencialConta2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtCelular1Conta2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtTelefoneComercialConta2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
         jtxtTelefoneComercialConta2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtTelefoneComercialConta2ActionPerformed(evt);
             }
         });
-
-        try {
-            jtxtCelular2Conta2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         jtxtEmail1Conta2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -2014,34 +1947,11 @@ public class FormInformacoesComplementares extends javax.swing.JDialog implement
 
         jLabel55.setText("EMAIL 2:");
 
-        try {
-            jtxtTelefoneResidencialConta3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtCelular1Conta3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtTelefoneComercialConta3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
         jtxtTelefoneComercialConta3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtTelefoneComercialConta3ActionPerformed(evt);
             }
         });
-
-        try {
-            jtxtCelular2Conta3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         jtxtEmail1Conta3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

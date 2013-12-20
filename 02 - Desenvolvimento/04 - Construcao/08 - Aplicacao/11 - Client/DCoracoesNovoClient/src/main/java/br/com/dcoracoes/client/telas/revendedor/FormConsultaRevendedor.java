@@ -15,6 +15,7 @@ import br.com.dcoracoes.client.swingworker.SwingWorkerRevendedor;
 import br.com.dcoracoes.client.telas.prospeccoes.FormProspeccoes;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
+import br.com.dcoracoes.client.util.componentes.JPhoneField;
 import br.com.dcoracoes.client.util.message.MessageRevendedor;
 import br.com.dcoracoes.servico.service.*;
 import java.awt.event.ActionEvent;
@@ -91,7 +92,7 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
         jtxtCEP = new javax.swing.JFormattedTextField();
         lblBairro = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
-        jtxtTelefone = new javax.swing.JFormattedTextField();
+        jtxtTelefone = new JPhoneField();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResult = new javax.swing.JTable();
@@ -249,11 +250,7 @@ public class FormConsultaRevendedor extends javax.swing.JDialog implements Inter
             }
         });
 
-        try {
-            jtxtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jtxtTelefone.setText("");
 
         jLabel11.setText("TELEFONE:");
 

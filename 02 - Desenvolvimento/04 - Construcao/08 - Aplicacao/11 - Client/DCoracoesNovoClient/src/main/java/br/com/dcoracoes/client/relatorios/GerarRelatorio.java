@@ -527,13 +527,13 @@ public class GerarRelatorio {
      * Lógica para gerar relatorio de venda por revendedor
      * @param pedido
      */
-    public void gerarRelatorioVendaPorRevendedor(List<PedidoVenda> list) throws JRException {
+    public void gerarRelatorioVendaPorRevendedor(List<PedidoVenda> list, String valorTotal) throws JRException {
         try {
             //pegar o arquivo do jasper
             this.caminhoArquivoJasper = "/jaspers/relVendaPorRevendedor.jasper";
 
             //lista Relatorio
-            List lstRelatorio = getListaRelatorioVendaPorRevendedor(list);
+            List lstRelatorio = getListaRelatorioVendaPorRevendedor(list, valorTotal);
 
             //stream jasper
             InputStream streamRel = getClass().getResourceAsStream(this.caminhoArquivoJasper);
@@ -560,7 +560,7 @@ public class GerarRelatorio {
      * @param pedidoVenda
      * @return 
      */
-    private List getListaRelatorioVendaPorRevendedor(List<PedidoVenda> list) {
+    private List getListaRelatorioVendaPorRevendedor(List<PedidoVenda> list, String valorTotal) {
         RelatorioVendaPorRevendedor relatorio = new RelatorioVendaPorRevendedor();
 
         List<ItemRelatorioVendaPorRevendedor> lstItem = new ArrayList<ItemRelatorioVendaPorRevendedor>();
@@ -570,7 +570,8 @@ public class GerarRelatorio {
             lstItem.add(addItemRelatorioVendaPorRevendedor(item));
         }
 
-        relatorio.setListaItens(lstItem);        
+        relatorio.setListaItens(lstItem); 
+        relatorio.setValorTotal(valorTotal);
         
 
         List<RelatorioVendaPorRevendedor> lstRelatorio = new ArrayList<RelatorioVendaPorRevendedor>();
