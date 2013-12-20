@@ -711,35 +711,30 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneResidencial">
-              <Properties>
-                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="## ####-####" subtype="-1" type="5"/>
-                </Property>
-              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jtxtCelular1">
-              <Properties>
-                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="## ####-####" subtype="-1" type="5"/>
-                </Property>
-              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneComercial">
               <Properties>
-                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="## ####-####" subtype="-1" type="5"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value=""/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtxtTelefoneComercialActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jtxtCelular2">
-              <Properties>
-                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="## ####-####" subtype="-1" type="5"/>
-                </Property>
-              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jtxtEmail1">
               <Events>
@@ -1431,35 +1426,27 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneResidencialConta1">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtCelular1Conta1">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneComercialConta1">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtxtTelefoneComercialConta1ActionPerformed"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtCelular2Conta1">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtEmail1Conta1">
                       <Events>
@@ -2089,35 +2076,27 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneResidencialConta2">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtCelular1Conta2">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneComercialConta2">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtxtTelefoneComercialConta2ActionPerformed"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtCelular2Conta2">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtEmail1Conta2">
                       <Events>
@@ -2775,35 +2754,27 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneResidencialConta3">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtCelular1Conta3">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneComercialConta3">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtxtTelefoneComercialConta3ActionPerformed"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtCelular2Conta3">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="## ####-####" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="jtxtEmail1Conta3">
                       <Events>

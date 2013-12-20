@@ -24,11 +24,11 @@ import br.com.dcoracoes.client.telas.revendedor.informacoesComplementares.FormIn
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
 import br.com.dcoracoes.client.util.componentes.ComboBoxEstado;
+import br.com.dcoracoes.client.util.componentes.JPhoneField;
 import br.com.dcoracoes.client.util.message.MessagePerfil;
 import br.com.dcoracoes.client.util.message.MessageRevendedor;
 import br.com.dcoracoes.client.util.message.OperadorasTelefonicas;
 import br.com.dcoracoes.servico.service.*;
-import br.com.dcoracoes.servico.service.Exception;
 import br.com.wedesenv.common.date.DateUtil;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -157,10 +157,10 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jtxtTelefoneResidencial = new javax.swing.JFormattedTextField();
-        jtxtCelular1 = new javax.swing.JFormattedTextField();
-        jtxtTelefoneComercial = new javax.swing.JFormattedTextField();
-        jtxtCelular2 = new javax.swing.JFormattedTextField();
+        jtxtTelefoneResidencial = new JPhoneField();
+        jtxtCelular1 = new br.com.dcoracoes.client.util.componentes.JPhoneField();
+        jtxtTelefoneComercial = new JPhoneField();
+        jtxtCelular2 = new JPhoneField();
         jtxtEmail1 = new javax.swing.JFormattedTextField();
         jtxtEmail2 = new javax.swing.JFormattedTextField();
         cbOperadora1 = new javax.swing.JComboBox();
@@ -621,29 +621,9 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         jLabel18.setText("EMAIL 2:");
 
-        try {
-            jtxtTelefoneResidencial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jtxtTelefoneResidencial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
 
-        try {
-            jtxtCelular1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtTelefoneComercial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jtxtCelular2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jtxtTelefoneComercial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
 
         jtxtEmail1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

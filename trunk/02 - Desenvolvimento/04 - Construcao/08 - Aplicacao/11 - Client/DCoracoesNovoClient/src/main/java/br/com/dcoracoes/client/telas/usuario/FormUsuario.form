@@ -781,15 +781,27 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneResidencial">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jtxtCelular1">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jtxtTelefoneComercial">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtxtTelefoneComercialActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jtxtCelular2">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new br.com.dcoracoes.client.util.componentes.JPhoneField()"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jtxtEmail1">
                   <Events>
