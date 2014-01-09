@@ -133,7 +133,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jtxtUltimaCompra = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         txtSituacao = new javax.swing.JFormattedTextField();
-        cbFormaPagamento = new javax.swing.JComboBox();
         tablePanelDados = new javax.swing.JTabbedPane();
         panelDadosPrincipais = new javax.swing.JPanel();
         lblConsultor = new javax.swing.JLabel();
@@ -424,12 +423,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         txtSituacao.setEditable(false);
         txtSituacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        cbFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbFormaPagamentoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -459,9 +452,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtSituacao, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,8 +468,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jtxtUltimaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -498,12 +488,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
                             .addGap(1, 1, 1))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        cbFormaPagamento.addItem(Enum_Forma_Pagamento.AVISTA.getFormaPagamento());
-        cbFormaPagamento.addItem(Enum_Forma_Pagamento.APRAZO.getFormaPagamento());
-        cbFormaPagamento.addItem(Enum_Forma_Pagamento.APRAZOCOMCOMPLEMENTO.getFormaPagamento());
-
-        cbFormaPagamento.setSelectedIndex(0);
 
         tablePanelDados.setToolTipText("");
 
@@ -1486,11 +1470,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         search();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void cbFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFormaPagamentoActionPerformed
-        // TODO add your handling code here:
-        //aprovarVenda();
-    }//GEN-LAST:event_cbFormaPagamentoActionPerformed
-
     private void btnImprimirCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirCompletoActionPerformed
         //ROBSON
         try {
@@ -1532,13 +1511,19 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     private void jBtnFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnFormaPagamentoActionPerformed
         // TODO add your handling code here:
         String valor = jtxtValorPedidoEscrito.getText();
-        if (!valor.isEmpty() && !valor.equals(VALOR_ZERO) )
-        {
-            FormFormaPagamento formPagamento = new FormFormaPagamento(this);
-            formPagamento.setVisible(true);
-        }else{
+        if (valor.isEmpty() || valor.equals(VALOR_ZERO) ){
             JOptionPane.showMessageDialog(this, "Forneça o valor do pedido ", MensagensUtil.ATENCAO, 1);
+            return;
         }
+        
+        if (this.revendedor == null){
+            JOptionPane.showMessageDialog(this, "Forneça o revendedor ", MensagensUtil.ATENCAO, 1);
+            return;
+        }
+        
+        FormFormaPagamento formPagamento = new FormFormaPagamento(this);
+        formPagamento.setVisible(true);
+        
     }//GEN-LAST:event_jBtnFormaPagamentoActionPerformed
 
 
@@ -1561,7 +1546,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarPDF;
     private javax.swing.JComboBox cbEstadoCivil;
-    private javax.swing.JComboBox cbFormaPagamento;
     private javax.swing.JComboBox cbOperadora1;
     private javax.swing.JComboBox cbOperadora2;
     private javax.swing.JComboBox cbUF;
@@ -1729,8 +1713,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     public void afterBuscaRevendedor(Revendedor rev, List<Alerta> lstAlertas) {
         if (rev != null) {
             popularRevendedor(rev);
-            ativaAlerta(lstAlertas);
-            cbFormaPagamento.requestFocus();
+            ativaAlerta(lstAlertas);            
         } else {
             clearCamposRevendedor();
             JOptionPane.showMessageDialog(this, MensagensUtil.MENSAGEM_NENHUM_REGISTRO, MensagensUtil.ATENCAO, 1);
@@ -1776,6 +1759,13 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
             stringError.append(MessageVenda.CAMPO_REVENDEDOR_OBRIGATORIO);
         }
 
+        if (this.pedido == null || this.pedido.getPagamento()==null){
+            if (!stringError.toString().isEmpty()) {
+                stringError.append("\n");
+            }
+            stringError.append(MessageVenda.MSG_PAGAMENTO_OBRIGATORIO);
+        }
+        
         //Validando item venda
         if (((DefaultTableModel) tableItemVenda.getModel()).getRowCount() > 0) {
 
@@ -1842,7 +1832,9 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         pedido.setTotal(Float.parseFloat(jtxtTotal.getText().replace(".", "").replace(",", ".")));
         pedido.setDescontoPorcentagem(Float.parseFloat(jtxtValorDesconto.getText().replace(".", "").replace(",", ".")));
 
-        pedido.setPagamento(pushToModelFormaPagamento());
+        //não precisa mais pq o pedido já vem com
+        //o pagamento setado
+       // pedido.setPagamento(pushToModelFormaPagamento());
 
         pushToModelItemPedido();
 
@@ -1853,17 +1845,17 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
      *
      * @return
      */
-    private Pagamento pushToModelFormaPagamento() {
-        Pagamento pagamento = pedido.getPagamento();
-        if (pagamento == null) {
-            pagamento = new Pagamento();
-        }
-
-        pagamento.setFormaPagamento((Enum_Forma_Pagamento.getType(cbFormaPagamento.getSelectedItem().toString())).getTipo());
-        pagamento.setValor(pedido.getTotal());
-
-        return pagamento;
-    }
+//    private Pagamento pushToModelFormaPagamento() {
+//        Pagamento pagamento = pedido.getPagamento();
+//        if (pagamento == null) {
+//            pagamento = new Pagamento();
+//        }
+//
+//        pagamento.setFormaPagamento((Enum_Forma_Pagamento.getType(cbFormaPagamento.getSelectedItem().toString())).getTipo());
+//        pagamento.setValor(pedido.getTotal());
+//
+//        return pagamento;
+//    }
 
     @Override
     public void popularTela() {
@@ -1871,7 +1863,10 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
         txtNumeroOrcamento.setText(pedido.getCodigo());
         jtxtData.setValue(DateUtil.asDate(pedido.getDataPedido()));
-        cbFormaPagamento.setSelectedIndex(Enum_Forma_Pagamento.getByte(pedido.getPagamento().getFormaPagamento()));
+        
+        //não precisa mais pagamento vai para popup
+        //cbFormaPagamento.setSelectedIndex(Enum_Forma_Pagamento.getByte(pedido.getPagamento().getFormaPagamento()));
+        
         jtxtValorPedidoEscrito.setValue(pedido.getValorPedidoEscrito());
 
         atualizaTotais();
@@ -2285,9 +2280,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         lstProduto = null;
         lstItemProduto = null;
         txtNumeroOrcamento.setText(null);
-        jtxtData.setText(null);
-
-        cbFormaPagamento.setSelectedIndex(0);
+        jtxtData.setText(null);        
 
         jtxtValorPedidoEscrito.setText(VALOR_ZERO);
         jtxtValorPedidoEscrito.setText(VALOR_ZERO);
@@ -2364,9 +2357,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         jtxtLimiteUso.requestFocus();
         jtxtLimiteUtilizavel.setText(MetodosUtil.formatarValorDinheiro(revendedor.getLimiteUtilizavel()));
         jtxtLimiteUtilizavel.requestFocus();
-
-        //direciona o foco da tela
-        cbFormaPagamento.requestFocus();
+        
     }
 
     /**
@@ -2884,7 +2875,7 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
 
     private void disableAbaDadosRevendedor(boolean b) {
         jtxtCodigoRevendedor.setEnabled(b);
-        cbFormaPagamento.setEnabled(b);
+        jBtnFormaPagamento.setEnabled(b);
         jtxtValorPedidoEscrito.setEnabled(b);
     }
 
@@ -2892,7 +2883,6 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
         tableItemVenda.setEnabled(b);
         btnNovoItem.setEnabled(b);
         btnRemoverItem.setEnabled(b);
-
         btnSalvar.setEnabled(b);
 
     }
@@ -3086,6 +3076,10 @@ public class FormVenda extends javax.swing.JFrame implements InterfaceCadastroCo
     
     public JFormattedTextField getJtxtValorPedidoEscrito() {
         return jtxtValorPedidoEscrito;
+    }
+
+    public JFormattedTextField getTxtAprovacao() {
+        return txtAprovacao;
     }
     
     
