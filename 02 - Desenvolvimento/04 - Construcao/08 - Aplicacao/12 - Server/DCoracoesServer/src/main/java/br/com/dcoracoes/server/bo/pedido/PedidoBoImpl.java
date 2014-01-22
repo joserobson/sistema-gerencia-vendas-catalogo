@@ -221,10 +221,6 @@ public class PedidoBoImpl<T extends Pedido> implements PedidoBo<T> {
             PagamentoDaoImpl pagamentoDao = new PagamentoDaoImpl();
             pagamentoBo.setPagamentoDao(pagamentoDao);
 
-            if (pedido.getPagamento().getFormaPagamento() == Enum_Forma_Pagamento.APRAZOCOMCOMPLEMENTO.getCodigo()) {
-                pedido.getPagamento().setValor(pedido.getRevendedor().getLimiteUtilizavel());
-            }
-
             pagamentoBo.mantemPagamento(pedido.getPagamento());
 
         } catch (ServerException ex) {

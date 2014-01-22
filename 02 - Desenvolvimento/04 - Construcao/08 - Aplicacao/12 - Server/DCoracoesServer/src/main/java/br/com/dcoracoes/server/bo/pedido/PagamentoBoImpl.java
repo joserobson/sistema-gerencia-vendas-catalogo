@@ -15,6 +15,8 @@ import br.com.dcoracoes.server.util.LogUtil;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,13 +37,16 @@ public class PagamentoBoImpl<T extends Pagamento> implements PagamentoBo<T> {
         LogUtil.logInicioProcessoMetodo(Pagamento.class, "mantemPagamento");
         try {
 
+            //associa parcelas ao pagamento
+            if (pagamento.getListaParcelas() != null && pagamento.getListaParcelas().size() > 0)
+            {
+                for (Parcela p : pagamento.getListaParcelas()) {
+                    p.setPagamento(pagamento);
+                }
+            }
+            
             //salvar Pagamento
             this.dao.mantemPagamento(pagamento);
-
-            //Gerar parcelas do pagamento Somente para pagamento a Prazo
-            if (pagamento.getFormaPagamento() == Enum_Forma_Pagamento.APRAZO.getCodigo()) {
-                this.gerarParcelasPagamento(pagamento);
-            }
 
             //Log
             LogUtil.logSucesso(Pagamento.class, "mantemPagamento");
@@ -65,6 +70,7 @@ public class PagamentoBoImpl<T extends Pagamento> implements PagamentoBo<T> {
      * @param pagamentoPedido
      * @throws ServerException 
      */
+    @Deprecated
     private void gerarParcelasPagamento(Pagamento pagamentoPedido) throws ServerException {
         try {
 
@@ -118,5 +124,29 @@ public class PagamentoBoImpl<T extends Pagamento> implements PagamentoBo<T> {
             throw ex;
         }
 
+    }
+
+    /**
+     * metodo para salvar as parcelas do pagamento
+     *
+     * @param pagamento
+     */
+    private void salvarParcelas(Pagamento pagamento) throws ServerException{
+        try {
+
+            if (pagamento.getListaParcelas() != null
+                    && pagamento.getListaParcelas().size() > 0) {
+                for (Parcela p : pagamento.getListaParcelas()) {
+                    //Salva a parcela
+                    ParcelaBoImpl parcelaBo = new ParcelaBoImpl();
+                    ParcelaDaoImpl parcelaDao = new ParcelaDaoImpl();
+                    parcelaBo.setParcelaDao(parcelaDao);
+                    p.setPagamento(pagamento);
+                    parcelaBo.mantemParcela(p);
+                }
+            }
+        } catch (ServerException ex) {
+            throw ex;
+        }
     }
 }

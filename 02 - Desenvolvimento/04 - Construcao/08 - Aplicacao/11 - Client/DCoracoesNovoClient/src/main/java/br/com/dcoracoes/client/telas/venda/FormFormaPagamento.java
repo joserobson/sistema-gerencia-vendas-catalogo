@@ -5,6 +5,7 @@
 package br.com.dcoracoes.client.telas.venda;
 
 import br.com.dcoracoes.client.enuns.Enum_Forma_Pagamento;
+import br.com.dcoracoes.client.enuns.Enum_Situacao_Parcela;
 import br.com.dcoracoes.client.swingworker.SwingWorkerPedidoVenda;
 import br.com.dcoracoes.client.util.MensagensUtil;
 import br.com.dcoracoes.client.util.MetodosUtil;
@@ -412,6 +413,7 @@ public class FormFormaPagamento extends javax.swing.JDialog {
             pagamentoVenda.setValor(MetodosUtil.convertStringToFloat(jtxtValorEmDinheiro.getText()));
         } else {
             //pagamento a prazo
+            pagamentoVenda.setFormaPagamento(Enum_Forma_Pagamento.APRAZO.getTipo());
             pagamentoVenda.getListaParcelas().addAll(addParcelas());
             pagamentoVenda.setValor(somarValorParcelasPagamento(pagamentoVenda.getListaParcelas()));
         }
@@ -453,7 +455,7 @@ public class FormFormaPagamento extends javax.swing.JDialog {
             if (!jtxtDataLiberacaoCheque1.getText().isEmpty()) {
                 parcelaCheque1.setDataVencimento(DateUtil.formatFromString(jtxtDataLiberacaoCheque1.getText()));
             }
-
+            parcelaCheque1.setStatus(Enum_Situacao_Parcela.PENDENTE.getCodigo());
             parcelas.add(parcelaCheque1);
         }
 
@@ -465,7 +467,8 @@ public class FormFormaPagamento extends javax.swing.JDialog {
             if (!jtxtDataLiberacaoCheque2.getText().isEmpty()) {
                 parcelaCheque2.setDataVencimento(DateUtil.formatFromString(jtxtDataLiberacaoCheque2.getText()));
             }
-
+            
+            parcelaCheque2.setStatus(Enum_Situacao_Parcela.PENDENTE.getCodigo());
             parcelas.add(parcelaCheque2);
         }
 
