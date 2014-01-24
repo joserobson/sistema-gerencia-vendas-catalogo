@@ -1,0 +1,1 @@
+ALTER TABLE tb_pagamento add column valor_dinheiro float default  null

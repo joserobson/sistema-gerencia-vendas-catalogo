@@ -1,0 +1,1 @@
+﻿ALTER TABLE tb_pagamento add column bonus float default  null
