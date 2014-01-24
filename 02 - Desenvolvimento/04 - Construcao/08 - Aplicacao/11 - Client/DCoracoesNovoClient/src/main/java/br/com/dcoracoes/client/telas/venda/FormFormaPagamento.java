@@ -18,7 +18,6 @@ import br.com.dcoracoes.servico.service.PedidoVenda;
 import br.com.dcoracoes.servico.service.Revendedor;
 import br.com.wedesenv.common.date.DateUtil;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -307,7 +306,6 @@ public class FormFormaPagamento extends javax.swing.JDialog {
 
         if (this.jComboBoxFormaPagamento.getSelectedIndex() == 0) {
             //habilitar campos a vista
-
             habilitaCamposPagVista();
 
         } else {
@@ -325,12 +323,15 @@ public class FormFormaPagamento extends javax.swing.JDialog {
             Pagamento pagamentoVenda = pushToModelFormaPagamento();
             pedidoVenda.setPagamento(pagamentoVenda);
             if (validaValorPedidoPagamento(pedidoVenda)) {
-                SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
-                work.setPedido(pedidoVenda);
-                work.setFormFormaPagamento(this);
-                work.workAprovarPedidoVenda.execute();
+                if (pagamentoVenda.getFormaPagamento() == Enum_Forma_Pagamento.APRAZO.getTipo()) //só vou no server aprovar se o pagamento for a prazo
+                {
+                    SwingWorkerPedidoVenda work = new SwingWorkerPedidoVenda();
+                    work.setPedido(pedidoVenda);
+                    work.setFormFormaPagamento(this);
+                    work.workAprovarPedidoVenda.execute();
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "O Valor do Pedido Escrito não bate com o Valor do Pagamento", MensagensUtil.ATENCAO, 1);
+                JOptionPane.showMessageDialog(this, "O valor do pagamento configurado não bate com o valor do pedido escrito.", MensagensUtil.ATENCAO, 1);
             }
         }
     }
@@ -400,17 +401,20 @@ public class FormFormaPagamento extends javax.swing.JDialog {
 
         // passos para criar o pagamento
         Pagamento pagamentoVenda = new Pagamento();
-
+        
         //1. pego o bonus
         if (!jtxtValorBonus.getText().isEmpty()) {
             pagamentoVenda.setBonus(MetodosUtil.convertStringToFloat(jtxtValorBonus.getText()));
         }
+        //2.pego o valor em dinheiro
+        if (!jtxtValorEmDinheiro.getText().isEmpty())
+            pagamentoVenda.setValorDinheiro(MetodosUtil.convertStringToFloat(jtxtValorEmDinheiro.getText()));
 
         //2. verifico se avista ou prazo
         if (jComboBoxFormaPagamento.getSelectedIndex() == 0) {
             //pagamento a vista
-            pagamentoVenda.setFormaPagamento(Enum_Forma_Pagamento.AVISTA.getTipo());
-            pagamentoVenda.setValor(MetodosUtil.convertStringToFloat(jtxtValorEmDinheiro.getText()));
+            pagamentoVenda.setFormaPagamento(Enum_Forma_Pagamento.AVISTA.getTipo());   
+            pagamentoVenda.setValor(pagamentoVenda.getValorDinheiro());
         } else {
             //pagamento a prazo
             pagamentoVenda.setFormaPagamento(Enum_Forma_Pagamento.APRAZO.getTipo());
@@ -434,7 +438,8 @@ public class FormFormaPagamento extends javax.swing.JDialog {
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, MessageVenda.MSG_VENDA_REPROVADA, MensagensUtil.ATENCAO, 1);
-            //this.formVenda.disableAbaItemsPedido(false);
+            this.formVenda.getTxtAprovacao().setText("REPROVADO");
+            this.formVenda.disableAbaItemsPedido(false);
         }
     }
 
@@ -552,12 +557,11 @@ public class FormFormaPagamento extends javax.swing.JDialog {
     private void populaDadosPagamento(Pagamento pagamento) {
 
         this.jtxtValorBonus.setText(MetodosUtil.formatarValorDinheiro(pagamento.getBonus()));
-
+        this.jtxtValorEmDinheiro.setText(MetodosUtil.formatarValorDinheiro(pagamento.getValorDinheiro()));
+        
         if (pagamento.getFormaPagamento() == Enum_Forma_Pagamento.AVISTA.getTipo()) {
             this.jComboBoxFormaPagamento.setSelectedIndex(0);
-            habilitaCamposPagVista();
-
-            this.jtxtValorEmDinheiro.setText(MetodosUtil.formatarValorDinheiro(pagamento.getValor()));
+            habilitaCamposPagVista();            
             this.jtxtDataLiberacaoCheque1.setEnabled(false);
             this.jtxtDataLiberacaoCheque2.setEnabled(false);
             this.jtxtValorCheque1.setEnabled(false);
@@ -576,10 +580,7 @@ public class FormFormaPagamento extends javax.swing.JDialog {
                     Parcela parcela2 = pagamento.getListaParcelas().get(1);
                     jtxtDataLiberacaoCheque2.setText(DateUtil.asString(parcela2.getDataVencimento()));
                     jtxtValorCheque2.setText(MetodosUtil.formatarValorDinheiro(parcela2.getValor()));
-                }
-
-
-                this.jtxtValorEmDinheiro.setEnabled(false);
+                }                
             }
         }
     }
@@ -594,13 +595,18 @@ public class FormFormaPagamento extends javax.swing.JDialog {
     private boolean validaValorPedidoPagamento(PedidoVenda pedidoVenda) {
 
         float valorPedidoEscrito = pedidoVenda.getValorPedidoEscrito();
-
         Pagamento pagamentoPedido = pedidoVenda.getPagamento();
-
-        float valorPedidoPagamento = pagamentoPedido.getBonus() + pagamentoPedido.getValor();
-
+    
+        float valorPedidoPagamento = 0;
+        if (pagamentoPedido.getFormaPagamento() == Enum_Forma_Pagamento.APRAZO.getTipo())
+            valorPedidoPagamento = pagamentoPedido.getBonus() + pagamentoPedido.getValor() + pagamentoPedido.getValorDinheiro();
+        else
+            if (pagamentoPedido.getFormaPagamento() == Enum_Forma_Pagamento.AVISTA.getTipo())
+                valorPedidoPagamento = pagamentoPedido.getBonus() + pagamentoPedido.getValor();
+                        
         return valorPedidoEscrito == valorPedidoPagamento;
     }
+    
 
     /**
      * somar o valor das paracelas
@@ -627,8 +633,7 @@ public class FormFormaPagamento extends javax.swing.JDialog {
      *
      */
     private void habilitaCamposPagVista() {
-        jtxtValorEmDinheiro.setEnabled(true);
-
+        jtxtValorEmDinheiro.setEnabled(true);        
         jtxtDataLiberacaoCheque1.setEnabled(false);
         jtxtDataLiberacaoCheque1.setText("");
 
@@ -647,9 +652,7 @@ public class FormFormaPagamento extends javax.swing.JDialog {
      */
     private void habilitaCamposPagPrazo() {
         //habilita os campos para prazo
-        jtxtValorEmDinheiro.setEnabled(false);
-        jtxtValorEmDinheiro.setText(VALOR_ZERO);
-
+        jtxtValorEmDinheiro.setEnabled(true);        
         jtxtDataLiberacaoCheque1.setEnabled(true);
         jtxtDataLiberacaoCheque2.setEnabled(true);
         jtxtValorCheque1.setEnabled(true);

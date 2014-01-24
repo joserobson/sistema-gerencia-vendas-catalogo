@@ -11,10 +11,7 @@ import br.com.dcoracoes.server.dao.cadastro.RevendedorDaoImpl;
 import br.com.dcoracoes.server.enuns.Enum_Forma_Pagamento;
 import br.com.dcoracoes.server.excecao.ServerException;
 import br.com.dcoracoes.server.model.cadastro.Revendedor;
-import br.com.dcoracoes.server.model.pedido.Parcela;
-import br.com.dcoracoes.server.model.pedido.Pedido;
-import br.com.dcoracoes.server.model.pedido.PedidoCompra;
-import br.com.dcoracoes.server.model.pedido.PedidoVenda;
+import br.com.dcoracoes.server.model.pedido.*;
 import br.com.dcoracoes.transacao.constantes.ConstanteTnPedido;
 import br.com.dcoracoes.transacao.excecao.TransException;
 import br.com.dcoracoes.transacao.interfaces.InterfaceTransacao;
@@ -220,8 +217,14 @@ public class TnPedido implements InterfaceTransacao {
                 if (pedidoVenda.getPagamento().getFormaPagamento() == Enum_Forma_Pagamento.APRAZO.getCodigo()) {
                     //verificar se o Revendedor tem limite utilizavel para cobrir o valor do Pedido
                     //de acordo com o tipo de pedido
+                    
+                    //pegar o pagamento do pedido
+                    Pagamento pagamentoPedido = pedidoVenda.getPagamento();
+                    
+//                    if (pedidoVenda.getRevendedor().getLimiteUtilizavel() == 0
+//                            || pedidoVenda.getRevendedor().getLimiteUtilizavel() < pedidoVenda.getValorPedidoEscrito()) {
                     if (pedidoVenda.getRevendedor().getLimiteUtilizavel() == 0
-                            || pedidoVenda.getRevendedor().getLimiteUtilizavel() < pedidoVenda.getValorPedidoEscrito()) {
+                            || pedidoVenda.getRevendedor().getLimiteUtilizavel() <= (pagamentoPedido.getValor() - (pagamentoPedido.getBonus() - pagamentoPedido.getValorDinheiro()) )) {                        
                         sePedidoAprovado = false;
                     }
                 }

@@ -33,9 +33,11 @@ public class Pagamento implements Serializable {
     @Column(name = "valor")
     private float valor;
     @OneToMany(mappedBy = "pagamento", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<Parcela> listaParcelas;    
+    private List<Parcela> listaParcelas;
     @Column(name = "bonus")
     private float bonus;
+    @Column(name = "valor_dinheiro")
+    private float valorDinheiro;
 
     public int getFormaPagamento() {
         return formaPagamento;
@@ -76,6 +78,12 @@ public class Pagamento implements Serializable {
     public void setBonus(float bonus) {
         this.bonus = bonus;
     }
-    
-    
+
+    public float getValorDinheiro() {
+        return valorDinheiro;
+    }
+
+    public void setValorDinheiro(float valorDinheiro) {
+        this.valorDinheiro = valorDinheiro;
+    }
 }
