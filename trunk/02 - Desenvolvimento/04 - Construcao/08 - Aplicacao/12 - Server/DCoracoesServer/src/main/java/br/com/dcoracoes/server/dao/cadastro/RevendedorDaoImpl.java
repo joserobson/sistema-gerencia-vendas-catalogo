@@ -200,6 +200,7 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
                 if (cidade != null) {
                     hql.append(ServerUtil.getClausulaSql(useWhere));
                     hql.append("rev.pessoa.endereco.cidade like '").append(cidade).append("%'").append(" ");
+                    useWhere = false;
                 }
                 
                 //VERIFICA CEP
@@ -207,6 +208,7 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
                 if (cep != null) {
                     hql.append(ServerUtil.getClausulaSql(useWhere));
                     hql.append("rev.pessoa.endereco.cep = '").append(cep).append("'").append(" ");
+                    useWhere = false;
                 }
                 
                 //VERIFICA CEP
@@ -214,6 +216,7 @@ public class RevendedorDaoImpl extends ModelGenericoDaoImpl implements Revendedo
                 if (bairro != null) {
                     hql.append(ServerUtil.getClausulaSql(useWhere));
                     hql.append("rev.pessoa.endereco.bairro like '").append(bairro).append("%'").append(" ");
+                    useWhere = false;
                 }
             }
             
