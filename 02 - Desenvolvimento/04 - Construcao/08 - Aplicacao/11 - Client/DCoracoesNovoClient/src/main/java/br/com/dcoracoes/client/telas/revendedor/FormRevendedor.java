@@ -157,10 +157,10 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jtxtTelefoneResidencial = new JPhoneField();
+        jtxtTelefoneResidencial = new br.com.dcoracoes.client.util.componentes.JPhoneField();
         jtxtCelular1 = new br.com.dcoracoes.client.util.componentes.JPhoneField();
-        jtxtTelefoneComercial = new JPhoneField();
-        jtxtCelular2 = new JPhoneField();
+        jtxtTelefoneComercial = new br.com.dcoracoes.client.util.componentes.JPhoneField();
+        jtxtCelular2 = new br.com.dcoracoes.client.util.componentes.JPhoneField();
         jtxtEmail1 = new javax.swing.JFormattedTextField();
         jtxtEmail2 = new javax.swing.JFormattedTextField();
         cbOperadora1 = new javax.swing.JComboBox();
@@ -210,7 +210,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
             }
         });
 
-        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, null, null, new java.awt.Color(43, 115, 186)));
+        panelSuperButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(43, 115, 186)));
 
         btnNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/32x32/document-new.png"))); // NOI18N
@@ -356,7 +356,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         tablePanelDados.setToolTipText("");
 
-        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        panelDadosPrincipais.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         lblConsultor.setText("REVENDEDOR(A):");
 
@@ -621,10 +621,6 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         jLabel18.setText("EMAIL 2:");
 
-        jtxtTelefoneResidencial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
-
-        jtxtTelefoneComercial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
-
         jtxtEmail1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtEmail1KeyReleased(evt);
@@ -724,7 +720,7 @@ public class FormRevendedor extends javax.swing.JFrame implements InterfaceCadas
 
         tablePanelDados.addTab("Contato", panelContato);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("<html> <center> CÓDIGO<br/>REVENDEDOR(A) </center> </html>");
